@@ -10,6 +10,7 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
+        MusicManager.PlayBackgroundMusic(true);
         SceneManager.LoadScene("Main");
     }
 
