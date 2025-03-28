@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 38542079}
   - component: {fileID: 38542080}
   m_Layer: 5
-  m_Name: VolumeSlider (1)
+  m_Name: VolumeVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,6 +405,7 @@ RectTransform:
   - {fileID: 213313086}
   - {fileID: 1013719247}
   - {fileID: 2042554717}
+  - {fileID: 225571807}
   m_Father: {fileID: 1903867832}
   m_LocalEulerAnglesHint: {x: 1, y: 1, z: 1}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1847,17 +1848,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225571806}
-  m_LocalRotation: {x: 0.0005840529, y: -0.12628871, z: -0.0028142314, w: 0.9919894}
-  m_LocalPosition: {x: 0, y: 0, z: -15.452409}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalRotation: {x: -0.009215572, y: -0.13488467, z: -0.010277714, w: 0.99076515}
+  m_LocalPosition: {x: 0, y: 0, z: -11.559042}
+  m_LocalScale: {x: 1.3333331, y: 1.3333333, z: 1.3333334}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1903867832}
+  m_Father: {fileID: 38542079}
   m_LocalEulerAnglesHint: {x: 0.026, y: -14.511, z: -0.328}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.910797, y: 136.77835}
-  m_SizeDelta: {x: -698.84, y: -573.15674}
+  m_AnchoredPosition: {x: 4.1122417, y: 37.056732}
+  m_SizeDelta: {x: 0, y: 93.37872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &225571808
 MonoBehaviour:
@@ -8444,7 +8445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 118, y: -13.94}
+  m_AnchoredPosition: {x: 118, y: -142.3}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959178571
@@ -10429,17 +10430,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1153092372}
-  m_LocalRotation: {x: 0.000000011175871, y: -0, z: -0.0000000037252903, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalRotation: {x: -0.008802018, y: -0.0086499145, z: -0.00864978, w: 0.99988645}
+  m_LocalPosition: {x: 0, y: 0, z: -2.646296}
+  m_LocalScale: {x: 1.3333333, y: 1.3333328, z: 1.3333334}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1903867832}
+  m_Father: {fileID: 1419032704}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4, y: 251}
-  m_SizeDelta: {x: -790.69995, y: -625.46783}
+  m_AnchoredPosition: {x: 0.0030136108, y: 36.364822}
+  m_SizeDelta: {x: -91.3999, y: 41.067627}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1153092374
 MonoBehaviour:
@@ -12244,7 +12245,7 @@ GameObject:
   - component: {fileID: 1419032704}
   - component: {fileID: 1419032705}
   m_Layer: 5
-  m_Name: VolumeSlider
+  m_Name: VolumeMusica
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12257,11 +12258,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419032703}
-  m_LocalRotation: {x: 0.008802043, y: 0.008649743, z: 0.008649744, w: 0.99988645}
-  m_LocalPosition: {x: 0, y: 0, z: 3}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalRotation: {x: 0.008802037, y: 0.0086499145, z: 0.008649769, w: 0.99988645}
+  m_LocalPosition: {x: 0, y: 0, z: 3.0002658}
+  m_LocalScale: {x: 1.5, y: 1.5000006, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1153092373}
   - {fileID: 1829364329}
   - {fileID: 191810132}
   - {fileID: 1811569606}
@@ -12269,7 +12271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 1, y: 1, z: 1}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3, y: 196.4}
+  m_AnchoredPosition: {x: -2.9996567, y: 196.40001}
   m_SizeDelta: {x: 159.54, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1419032705
@@ -15739,9 +15741,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1153092373}
   - {fileID: 1419032704}
-  - {fileID: 225571807}
   - {fileID: 38542079}
   - {fileID: 959178570}
   m_Father: {fileID: 255519724}
