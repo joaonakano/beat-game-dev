@@ -8,47 +8,47 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.001
-    second: {fileID: 2100000, guid: cafdac9cbf70ceb4d898f7e69c4aa3ad, type: 2}
+    second: {fileID: 2100000, guid: 789c3964834ee9f4496ad501b3e4cd38, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: graffiti1
-    second: {fileID: 2100000, guid: 9c5b7ad5a7fa3d94487766cef996726b, type: 2}
+    second: {fileID: 2100000, guid: 5e30e3efa782238458af8e7b1b3a0cbd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: graffiti2
-    second: {fileID: 2100000, guid: 3481b8d016503b14d9b3114d7125af23, type: 2}
+    second: {fileID: 2100000, guid: 2ec9475181fb5c24f92279667b89e13c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: sign-textures
-    second: {fileID: 2100000, guid: e94683f52c591744aaa14c1dc18eecc7, type: 2}
+    second: {fileID: 2100000, guid: 839bf820a5505024780c4b67a671de38, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: soda-machines-textures
-    second: {fileID: 2100000, guid: c8d50c48aad258948baa24ebc75d472c, type: 2}
+    second: {fileID: 2100000, guid: b6e9707c694d6fb4a80378308e8263fc, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: texturas3
-    second: {fileID: 2100000, guid: a05c4f077d31c5845bb781346447dccb, type: 2}
+    second: {fileID: 2100000, guid: 3551505038b45c94ea5359a909c842a0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: textures2
-    second: {fileID: 2100000, guid: 2b62091c44763994099869c8d009b3f5, type: 2}
+    second: {fileID: 2100000, guid: 28788d21bd0d3344a89693e3b4301466, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: textures4
-    second: {fileID: 2100000, guid: 66c99cf436a838447bf36a22a229c8d7, type: 2}
+    second: {fileID: 2100000, guid: 9ddef65f8b46df947bdef6e914229dc0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: trash
-    second: {fileID: 2100000, guid: b9231c41e962f394ba3df9ffee04b12a, type: 2}
+    second: {fileID: 2100000, guid: 0a7ad3470e829224f9ffc3ff4ec7e56e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
