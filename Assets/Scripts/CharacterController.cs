@@ -6,7 +6,7 @@ public class CharacterController : MonoBehaviour
     private UnityEngine.CharacterController controller;
     private Vector3 playerVelocity;
     private bool groundedPlayer;
-    private float jumpHeight = 2.0f;
+    private float jumpHeight = 3.0f;
     private float gravityValue = -9.81f;
     private Animator animator;
 
