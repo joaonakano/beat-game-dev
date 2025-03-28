@@ -694,15 +694,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 52b5ea4bc6f12384f9965fffcfaf79a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45.96216
+      value: 40.22
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 52b5ea4bc6f12384f9965fffcfaf79a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 5.67
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 52b5ea4bc6f12384f9965fffcfaf79a6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.3812885
+      value: -19.43
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 52b5ea4bc6f12384f9965fffcfaf79a6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -739,7 +739,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 52b5ea4bc6f12384f9965fffcfaf79a6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1300745329}
   m_SourcePrefab: {fileID: 100100000, guid: 52b5ea4bc6f12384f9965fffcfaf79a6, type: 3}
 --- !u!1 &1296308005
 GameObject:
@@ -872,6 +875,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1300745328 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 52b5ea4bc6f12384f9965fffcfaf79a6, type: 3}
+  m_PrefabInstance: {fileID: 1227406696}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1300745329
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300745328}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc7f26b5475dc4c4fa3100f6412cba16, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1468873335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1055,7 +1085,7 @@ Transform:
   m_GameObject: {fileID: 2045644453}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.688, y: 6.6, z: -20.84}
+  m_LocalPosition: {x: 39.688, y: 2.38, z: -20.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
