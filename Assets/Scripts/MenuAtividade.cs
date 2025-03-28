@@ -10,6 +10,7 @@ public class MenuAtividade : MonoBehaviour
 
     public void Play()
     {
+        MusicManager.PlayBackgroundMusic(true);
         SceneManager.LoadScene(SceneName);
     }
 
