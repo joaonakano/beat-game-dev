@@ -1,22 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Note : MonoBehaviour
 {
     double timeInstantiated;
     public float assignedTime;
-    void Start()
+
+    void Start ()
     {
         timeInstantiated = SongManager.GetAudioSourceTime();
     }
 
-    // Update is called once per frame
-    void Update()
+    void Update ()
     {
         double timeSinceInstantiated = SongManager.GetAudioSourceTime() - timeInstantiated;
-        float t = (float)(timeSinceInstantiated / (SongManager.Instance.noteTime * 2));
-        
+        float t = (float)(timeSinceInstantiated / (SongManager.Instance.noteTime * 2));                // Note Time Ratio - Usado para calcular taxa do Tempo de Existência de uma Nota em relação ao Tempo Permitido na Lane. A divisão gera a taxa da posição da nota, que é utilizada para calcular a interpolação
 
         if (t > 1)
         {
@@ -24,7 +21,7 @@ public class Note : MonoBehaviour
         }
         else
         {
-            transform.localPosition = Vector3.Lerp(new Vector3(0, 0, 1) * SongManager.Instance.noteSpawnX, new Vector3 (0, 0, 1) * SongManager.Instance.noteDespawnX, t);
+            transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnZ, Vector3.forward * SongManager.Instance.noteDespawnZ, t);
             GetComponent<MeshRenderer>().enabled = true;
         }
     }

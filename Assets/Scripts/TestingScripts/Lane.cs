@@ -1,6 +1,5 @@
 using Melanchall.DryWetMidi.Interaction;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,17 +8,18 @@ public class Lane : MonoBehaviour
     public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
     public KeyCode input;
     public GameObject notePrefab;
+
     List<Note> notes = new List<Note>();
     public List<double> timeStamps = new List<double>();
 
     int spawnIndex = 0;
     int inputIndex = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
 
     }
+
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
         foreach (var note in array)
@@ -31,7 +31,7 @@ public class Lane : MonoBehaviour
             }
         }
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (spawnIndex < timeStamps.Count)
@@ -43,6 +43,7 @@ public class Lane : MonoBehaviour
                 note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
                 spawnIndex++;
             }
+
         }
 
         if (inputIndex < timeStamps.Count)
@@ -56,28 +57,30 @@ public class Lane : MonoBehaviour
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
                     Hit();
-                    print($"Hit on {inputIndex} note");
+                    print($"Hit na nota {inputIndex}");
                     Destroy(notes[inputIndex].gameObject);
                     inputIndex++;
                 }
                 else
                 {
-                    print($"Hit inaccurate on {inputIndex} note with {Math.Abs(audioTime - timeStamp)} delay");
+                    print($"Hit impreciso na nota ${inputIndex} com delay de {Math.Abs(audioTime - timeStamp)} segundos");
                 }
             }
+
             if (timeStamp + marginOfError <= audioTime)
             {
                 Miss();
-                print($"Missed {inputIndex} note");
+                print($"Nota {inputIndex} perdida");
                 inputIndex++;
             }
         }
-
     }
+
     private void Hit()
     {
         ScoreManager.Hit();
     }
+
     private void Miss()
     {
         ScoreManager.Miss();

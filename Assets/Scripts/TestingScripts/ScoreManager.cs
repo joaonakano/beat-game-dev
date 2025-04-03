@@ -4,8 +4,10 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
+
     public AudioSource hitSFX;
     public AudioSource missSFX;
+
     public TMP_Text scoreText;
     static int comboScore;
 
@@ -13,6 +15,11 @@ public class ScoreManager : MonoBehaviour
     {
         Instance = this;
         comboScore = 0;
+    }
+
+    void Update()
+    {
+        scoreText.text = comboScore.ToString();
     }
 
     public static void Hit()
@@ -25,10 +32,5 @@ public class ScoreManager : MonoBehaviour
     {
         comboScore = 0;
         Instance.missSFX.Play();
-    }
-
-    void Update()
-    {
-        scoreText.text = comboScore.ToString();
     }
 }
