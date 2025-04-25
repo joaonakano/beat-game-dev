@@ -414,6 +414,7 @@ MonoBehaviour:
   input: 99
   notePrefab: {fileID: 1667779569073564895, guid: 56749abd168cd9b499ab0e974f35b098, type: 3}
   timeStamps: []
+  durationTimeStamps: []
 --- !u!4 &312165724
 Transform:
   m_ObjectHideFlags: 0
@@ -456,10 +457,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c753fa585e236654b9ed39d7907a88dd, type: 3}
-  m_Resource: {fileID: 8300000, guid: c753fa585e236654b9ed39d7907a88dd, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f3fb46761c2c0d047a0a5b6b9c271c51, type: 3}
+  m_Resource: {fileID: 8300000, guid: f3fb46761c2c0d047a0a5b6b9c271c51, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.415
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -646,7 +647,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.70710474, z: -0, w: -0.70710886}
-  m_LocalPosition: {x: 6.311, y: 0.335, z: 3.26}
+  m_LocalPosition: {x: 6.311, y: 0.335, z: 2.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1141,6 +1142,7 @@ MonoBehaviour:
   input: 101
   notePrefab: {fileID: 5803333920430276887, guid: 19821e1d9d571dc4bbc39f2dd5c88257, type: 3}
   timeStamps: []
+  durationTimeStamps: []
 --- !u!4 &605393494
 Transform:
   m_ObjectHideFlags: 0
@@ -1223,6 +1225,7 @@ MonoBehaviour:
   input: 100
   notePrefab: {fileID: 4677598961220586687, guid: 49fbd1d54f1bfda4b9fb69d8e6d66757, type: 3}
   timeStamps: []
+  durationTimeStamps: []
 --- !u!4 &649047148
 Transform:
   m_ObjectHideFlags: 0
@@ -1643,9 +1646,9 @@ MonoBehaviour:
   - {fileID: 649047147}
   - {fileID: 312165723}
   songDelayInSeconds: 0
-  marginOfError: 0.08
+  marginOfError: 0.05
   inputDelayInMilliseconds: 0
-  fileName: notes-feijao
+  fileName: notes-got
   noteTime: 1
   noteSpawnZ: 10
   noteTapZ: -3
@@ -2236,6 +2239,7 @@ MonoBehaviour:
   input: 51
   notePrefab: {fileID: 8532567887311323208, guid: 0d0c786999047f6439ea7337c7f7b8f8, type: 3}
   timeStamps: []
+  durationTimeStamps: []
 --- !u!4 &1510237871
 Transform:
   m_ObjectHideFlags: 0
