@@ -11,15 +11,20 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text scoreText;
     static int comboScore;
 
+    public TMP_Text missedText;
+    static int missedNotesScore;
+
     void Start()
     {
         Instance = this;
         comboScore = 0;
+        missedNotesScore = 0;
     }
 
     void Update()
     {
         scoreText.text = comboScore.ToString();
+        missedText.text = missedNotesScore.ToString();
     }
 
     public static void Hit()
@@ -31,6 +36,7 @@ public class ScoreManager : MonoBehaviour
     public static void Miss()
     {
         comboScore = 0;
+        missedNotesScore += 1;
         Instance.missSFX.Play();
     }
 }

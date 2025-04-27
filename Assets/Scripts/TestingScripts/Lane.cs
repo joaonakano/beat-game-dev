@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Lane : MonoBehaviour
 {
-    public Melanchall.DryWetMidi.MusicTheory.NoteName noteRestriction;
+    public NoteName noteRestriction;
     public KeyCode input;
     public GameObject notePrefab;
 
@@ -45,47 +45,48 @@ public class Lane : MonoBehaviour
                 durationTimeStamps.Add(noteDuration);
                 timeStamps.Add(noteTime);
 
-                if (noteDuration >= 1)
+                /* if (noteDuration >= 1)
                 {
                     var numberOfNotes = Mathf.RoundToInt((float) noteDuration / 0.02f);
                     for (int i = 1; i <= numberOfNotes; i++)
                     {
                         timeStamps.Add(noteTime + i * 0.02f);
                     }
-                }
+                }*/
 
-                Debug.Log($"Note start time: {noteTime} - Note end time: {noteEndTime} - Duration: {noteDuration}");
+                // Debug.Log($"Note start time: {noteTime} - Note end time: {noteEndTime} - Duration: {noteDuration}");
             }
         }
     }
 
     void Update()
     {
-        if (spawnIndex < timeStamps.Count)
+        if (spawnIndex < timeStamps.Count)                              // Lógica de Spawn das Notas
         {
             if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
             {
                 var note = Instantiate(notePrefab, transform);
                 notes.Add(note.GetComponent<Note>());
                 note.GetComponent<Note>().assignedTime = (float)timeStamps[spawnIndex];
+                note.SetActive(true);
                 spawnIndex++;
             }
 
         }
 
-        if (inputIndex < timeStamps.Count)
+        if (inputIndex < timeStamps.Count)                              // Lógica de Interação com as Notas
         {
             double timeStamp = timeStamps[inputIndex];
             double marginOfError = SongManager.Instance.marginOfError;
             double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
-            if (Input.GetKey(input))
+            if (Input.GetKeyDown(input))
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
                     Hit();
                     //print($"Hit na nota {inputIndex}");
-                    Destroy(notes[inputIndex].gameObject);
+                    notes[inputIndex].gameObject.SetActive(false);
                     inputIndex++;
                 }
                 else
@@ -94,11 +95,19 @@ public class Lane : MonoBehaviour
                 }
             }
 
-            if (timeStamp + marginOfError <= audioTime)
+            if (timeStamp + marginOfError <= audioTime)                 // Se o tempo da música for superior, exemplo 2 segundos, ao timeStamp da nota, exemplo 1.5 segundos, quer dizer que a nota passou do limite aceitável de TAPPING (2s > 1.5s)
             {
-                Miss();
-                //print($"Nota {inputIndex} perdida");
-                inputIndex++;
+                if (!notes[inputIndex].gameObject.activeSelf)           // Se a nota a ser verificada tiver seu Estado de Ativação como FALSO, isso quer dizer que o AIMBOT reconheceu a nota e registrou um acerto, portanto, ela deve ser destruída
+                {
+                    Destroy(notes[inputIndex].gameObject);
+                    inputIndex++;
+                    
+                } else
+                {
+                    Miss();
+                    //print($"Nota {inputIndex} perdida");
+                    inputIndex++;
+                }
             }
         }
     }
