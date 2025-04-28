@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Note : MonoBehaviour
@@ -7,14 +9,17 @@ public class Note : MonoBehaviour
 
     public float assignedTime;
 
+    [SerializeField]
+    private List<MeshRenderer> renderers = new List<MeshRenderer>();
 
-    void Start ()
+    void Start()
     {
         timeInstantiated = SongManager.GetAudioSourceTime();
         hideNotePosition = SongManager.Instance.noteTapZ * 2;
+        GetAllChildMeshRenderers();
     }
 
-    void Update ()
+    void Update()
     {
         double timeSinceInstantiated = SongManager.GetAudioSourceTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (SongManager.Instance.noteTime * 2));                 // Note Time Ratio - Usado para calcular taxa do Tempo de Existência de uma Nota em relação ao Tempo Permitido na Lane. A divisão gera a taxa da posição da nota, que é utilizada para calcular a interpolação
@@ -35,4 +40,26 @@ public class Note : MonoBehaviour
             transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnZ, Vector3.forward * SongManager.Instance.noteDespawnZ, t);
         }
     }
+
+    private void GetAllChildMeshRenderers()
+    {
+        foreach (var child in gameObject.GetComponentsInChildren<Renderer>())
+        {
+            MeshRenderer renderer = child.GetComponent<MeshRenderer>();
+
+            if (renderer != null)
+            {
+                renderers.Add(renderer);
+            }
+        }
+    }
+
+    public void DeactivateMeshRenderers()
+    {
+        foreach (MeshRenderer renderer in renderers)
+        {
+            renderer.enabled = false;
+        }
+    }
+
 }

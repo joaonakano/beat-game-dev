@@ -688,6 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assignedTime: 0
+  renderers: []
 --- !u!65 &631451063348207361
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -707,8 +708,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.7793639, y: 2.7793639, z: 2.7793639}
-  m_Center: {x: 0, y: 0, z: -0.88968253}
+  m_Size: {x: 2.7793639, y: 1.0600867, z: 1.0465547}
+  m_Center: {x: 0, y: 0.016296577, z: -0.023278438}
 --- !u!54 &7796511855005250238
 Rigidbody:
   m_ObjectHideFlags: 0

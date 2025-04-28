@@ -10,6 +10,8 @@ public class Lane : MonoBehaviour
     public KeyCode input;
     public GameObject notePrefab;
 
+    private bool hasEnded = false;
+
     // Lista que armazena objetos Note
     List<Note> notes = new List<Note>();
 
@@ -45,22 +47,27 @@ public class Lane : MonoBehaviour
                 durationTimeStamps.Add(noteDuration);
                 timeStamps.Add(noteTime);
 
-                /* if (noteDuration >= 1)
+                /* CÓDIGO QUE ADICIONA NOTAS LONGAS (EXTRAMAMENTE INSTÁVEL)
+                
+                if (noteDuration >= 1)
                 {
                     var numberOfNotes = Mathf.RoundToInt((float) noteDuration / 0.02f);
                     for (int i = 1; i <= numberOfNotes; i++)
                     {
                         timeStamps.Add(noteTime + i * 0.02f);
                     }
-                }*/
+                }
+                Debug.Log($"Note start time: {noteTime} - Note end time: {noteEndTime} - Duration: {noteDuration}");
 
-                // Debug.Log($"Note start time: {noteTime} - Note end time: {noteEndTime} - Duration: {noteDuration}");
+                */
+
             }
         }
     }
 
     void Update()
     {
+
         if (spawnIndex < timeStamps.Count)                              // Lógica de Spawn das Notas
         {
             if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
@@ -80,7 +87,7 @@ public class Lane : MonoBehaviour
             double marginOfError = SongManager.Instance.marginOfError;
             double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
 
-            if (Input.GetKeyDown(input))
+            if (Input.GetKeyDown(input) && ScoreManager.HealthScore > 0)
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
@@ -101,12 +108,31 @@ public class Lane : MonoBehaviour
                 {
                     Destroy(notes[inputIndex].gameObject);
                     inputIndex++;
-                    
-                } else
+                }
+                else
                 {
-                    Miss();
-                    //print($"Nota {inputIndex} perdida");
+                    if (ScoreManager.HealthScore > 0)
+                    {
+                        Miss();
+                    }
                     inputIndex++;
+                }
+            }
+
+            if (ScoreManager.HealthScore == 0)
+            {
+                if (SongManager.Instance.audioSource.pitch > 0)
+                {
+                    SongManager.Instance.audioSource.pitch -= 0.08f * Time.deltaTime;
+                }
+                else
+                {
+                    SongManager.Instance.audioSource.pitch = 0;
+                    if (!hasEnded)
+                    {
+                        End();
+                        hasEnded = true;
+                    }
                 }
             }
         }
@@ -120,5 +146,10 @@ public class Lane : MonoBehaviour
     private void Miss()
     {
         ScoreManager.Miss();
+    }
+
+    private void End()
+    {
+        ScoreManager.End();
     }
 }
