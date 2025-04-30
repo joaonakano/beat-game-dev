@@ -1,6 +1,8 @@
 using System;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class ScoreManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip endSFX;
+
+    [SerializeField]
+    private List<AudioClip> hitClips;
+    static List<AudioClip> hitsSFX;
 
     public TMP_Text scoreText;
     static int comboScore;
@@ -32,6 +38,7 @@ public class ScoreManager : MonoBehaviour
         missedNotesScore = 0;
         healthScore = 100.0;
         endClip = endSFX;
+        hitsSFX = hitClips;
     }
 
     void Update()
@@ -44,11 +51,12 @@ public class ScoreManager : MonoBehaviour
     public static void Hit()
     {
         comboScore += 1;
+        var randIndex = UnityEngine.Random.Range(0, hitsSFX.Count);
 
         healthScore += 15.52;                                               // Arrumar depois e colocar um valor melhor de pontos de vida
         healthScore = Math.Clamp(healthScore, 0, 100);
 
-        Instance.hitSFX.Play();
+        Instance.hitSFX.PlayOneShot(hitsSFX[randIndex]);
     }
 
     public static void Miss()

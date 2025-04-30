@@ -3,6 +3,7 @@ using Melanchall.DryWetMidi.MusicTheory;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Lane : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class Lane : MonoBehaviour
     public GameObject notePrefab;
 
     private bool hasEnded = false;
+
+    public RawImage crosshair;
+    public ParticleSystem burstExplosionParticles;
 
     // Lista que armazena objetos Note
     List<Note> notes = new List<Note>();
@@ -67,6 +71,14 @@ public class Lane : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKey(input))
+        {
+            crosshair.CrossFadeAlpha(1, 0.1f, false);
+        }
+        else
+        {
+            crosshair.CrossFadeAlpha(0.1f, 0, false);
+        }
 
         if (spawnIndex < timeStamps.Count)                              // Lógica de Spawn das Notas
         {
@@ -91,9 +103,11 @@ public class Lane : MonoBehaviour
             {
                 if (Math.Abs(audioTime - timeStamp) < marginOfError)
                 {
+
                     Hit();
-                    //print($"Hit na nota {inputIndex}");
-                    notes[inputIndex].gameObject.SetActive(false);
+                    ParticleSystem explosionInstance = Instantiate(burstExplosionParticles, new Vector3(0, notes[inputIndex].gameObject.transform.position.y, notes[inputIndex].gameObject.transform.position.z), transform.rotation);
+                    Destroy(notes[inputIndex].gameObject);
+                    Destroy(explosionInstance.gameObject, 1);
                     inputIndex++;
                 }
                 else
@@ -119,20 +133,21 @@ public class Lane : MonoBehaviour
                 }
             }
 
-            if (ScoreManager.HealthScore == 0)
+        }
+
+        if (ScoreManager.HealthScore == 0)
+        {
+            if (SongManager.Instance.audioSource.pitch > 0)
             {
-                if (SongManager.Instance.audioSource.pitch > 0)
+                SongManager.Instance.audioSource.pitch -= 0.08f * Time.deltaTime;
+            }
+            else
+            {
+                SongManager.Instance.audioSource.pitch = 0;
+                if (!hasEnded)
                 {
-                    SongManager.Instance.audioSource.pitch -= 0.08f * Time.deltaTime;
-                }
-                else
-                {
-                    SongManager.Instance.audioSource.pitch = 0;
-                    if (!hasEnded)
-                    {
-                        End();
-                        hasEnded = true;
-                    }
+                    End();
+                    hasEnded = true;
                 }
             }
         }
