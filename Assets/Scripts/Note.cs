@@ -9,14 +9,10 @@ public class Note : MonoBehaviour
 
     public float assignedTime;
 
-    [SerializeField]
-    private List<MeshRenderer> renderers = new List<MeshRenderer>();
-
     void Start()
     {
         timeInstantiated = SongManager.GetAudioSourceTime();
         hideNotePosition = SongManager.Instance.noteTapZ * 2;
-        GetAllChildMeshRenderers();
     }
 
     void Update()
@@ -40,26 +36,4 @@ public class Note : MonoBehaviour
             transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnZ, Vector3.forward * SongManager.Instance.noteDespawnZ, t);
         }
     }
-
-    private void GetAllChildMeshRenderers()
-    {
-        foreach (var child in gameObject.GetComponentsInChildren<Renderer>())
-        {
-            MeshRenderer renderer = child.GetComponent<MeshRenderer>();
-
-            if (renderer != null)
-            {
-                renderers.Add(renderer);
-            }
-        }
-    }
-
-    public void DeactivateMeshRenderers()
-    {
-        foreach (MeshRenderer renderer in renderers)
-        {
-            renderer.enabled = false;
-        }
-    }
-
 }

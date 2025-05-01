@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
     static List<AudioClip> hitsSFX;
 
     public TMP_Text scoreText;
-    static int comboScore;
+    public static int comboScore;
 
     public TMP_Text missedText;
     static int missedNotesScore;
@@ -53,6 +53,8 @@ public class ScoreManager : MonoBehaviour
         comboScore += 1;
         var randIndex = UnityEngine.Random.Range(0, hitsSFX.Count);
 
+        ShakeManager.instance.HitShake();
+
         healthScore += 15.52;                                               // Arrumar depois e colocar um valor melhor de pontos de vida
         healthScore = Math.Clamp(healthScore, 0, 100);
 
@@ -63,8 +65,9 @@ public class ScoreManager : MonoBehaviour
     {
         comboScore = 0;
         missedNotesScore += 1;
+
         healthScore -= 10.52;                                               // Arrumar depois e colocar um valor melhor de pontos de dano
-        healthScore = Math.Clamp(healthScore,0, 100);
+        healthScore = Math.Clamp(healthScore, 0, 100);
 
         Instance.missSFX.Play();
     }

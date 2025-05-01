@@ -52,6 +52,7 @@ public class SongManager : MonoBehaviour
         foreach (var lane in lanes) lane.SetTimeStamps(array);
 
         Invoke(nameof(StartSong), songDelayInSeconds);
+        Debug.Log(notes.Count);
     }
 
     public void StartSong()
