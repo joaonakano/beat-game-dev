@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assignedTime: 0
-  renderers: []
 --- !u!65 &5832208184445545247
 BoxCollider:
   m_ObjectHideFlags: 0

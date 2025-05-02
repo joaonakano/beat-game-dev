@@ -22,28 +22,32 @@ public class ShakeManager : MonoBehaviour
 
     void Update()
     {
-        if (ScoreManager.HealthScore > 50f)
+        if (ScoreManager.healthScore > 50f)
         {
             shakeStrength *= 1 + (0.01f * Time.deltaTime);
             shakeStrength = Mathf.Clamp(shakeStrength, 1f, 3f);
 
-            shakeInstance.StrengthScale = shakeStrength;
-            shakeInstance.RoughnessScale = shakeStrength;
+            SetStrengthAndRoughnessScale(shakeInstance, shakeStrength);
         }
         else
         {
-            float normalizedHealth = Mathf.Clamp01((float)ScoreManager.HealthScore / 50f);
+            float normalizedHealth = Mathf.Clamp01((float)ScoreManager.healthScore / 50f);
             float decayMultiplier = 1f - normalizedHealth;
             float decayRate = decayMultiplier * 2f;
 
             shakeStrength -= decayRate * Time.deltaTime;
             shakeStrength = Mathf.Clamp(shakeStrength, 0.7f, 3f);
 
-            shakeInstance.StrengthScale = shakeStrength;
-            shakeInstance.RoughnessScale = shakeStrength;
+            SetStrengthAndRoughnessScale(shakeInstance, shakeStrength);
         }
 
         // Debug.Log($"ShakeStrengthConstant: {shakeStrength} - ShakeStrengthScale: {shakeInstance.CurrentStrength} - ShakeRoughnessScale: {shakeInstance.CurrentRoughness}");
+    }
+
+    private void SetStrengthAndRoughnessScale(ShakeInstance instance, float strength)
+    {
+        instance.StrengthScale = strength;
+        instance.RoughnessScale = strength;
     }
 
     public void HitShake()

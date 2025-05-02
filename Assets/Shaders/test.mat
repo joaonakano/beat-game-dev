@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Outliner_MAT 2
-  m_Shader: {fileID: -6465566751694194690, guid: 8ab34f52ef5432c4f8fc366ca469a229, type: 3}
+  m_Name: test
+  m_Shader: {fileID: -6465566751694194690, guid: 1346c39e3fb97a04e87debfd13dde499, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -40,12 +40,10 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 0
-    m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
+    m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &9136567863297070516
+--- !u!114 &6937684524083008684
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

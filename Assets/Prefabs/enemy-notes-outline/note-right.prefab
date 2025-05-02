@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assignedTime: 0
-  renderers: []
 --- !u!65 &6538892590917290819
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -795,7 +794,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: c44f504bca9fd58418577970eaeacb6a, type: 2}
-  - {fileID: 2100000, guid: 092997d47d2ab3240b864415447bd5c5, type: 2}
+  - {fileID: 2100000, guid: 7f7b74c08f95b754d938fbcc22341d8d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

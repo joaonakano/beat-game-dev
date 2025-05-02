@@ -8,37 +8,61 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
-    public AudioSource hitSFX;
-    public AudioSource missSFX;
+    public AudioSource hitAudioSource;
+    public AudioSource missAudioSource;
+    public AudioSource voicelinesAudioSource;
 
     static AudioClip endClip;
+    static AudioClip loseClip;
+    static AudioClip milestoneClip;
+    static List<AudioClip> hitClips;
+    static List<AudioClip> voicelines;
+
+    static bool alreadyPlayedEndingSFX = false;
 
     [SerializeField]
     private AudioClip endSFX;
+    
+    [SerializeField]
+    private AudioClip milestoneSFX;
 
     [SerializeField]
-    private List<AudioClip> hitClips;
-    static List<AudioClip> hitsSFX;
+    private AudioClip loseSFX;
+
+    [SerializeField]
+    private List<AudioClip> hitsSFX;
+
+    [SerializeField]
+    private List<AudioClip> voicelinesSFX;
 
     public TMP_Text scoreText;
     public static int comboScore;
 
     public TMP_Text missedText;
-    static int missedNotesScore;
+    public static int missedNotesScore;
 
     public TMP_Text healthText;
-    static double healthScore;
+    public static double healthScore;
 
-    public static double HealthScore => healthScore;
+    public static int lastMilestone;
+
+    static int voicelineIndex = 0;
+
 
     void Start()
     {
         Instance = this;
+
+        lastMilestone = 0;
         comboScore = 0;
         missedNotesScore = 0;
         healthScore = 100.0;
+
+        loseClip = loseSFX;
         endClip = endSFX;
-        hitsSFX = hitClips;
+        hitClips = hitsSFX;
+        voicelines = voicelinesSFX;
+        milestoneClip = milestoneSFX;
     }
 
     void Update()
@@ -46,19 +70,35 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = comboScore.ToString();
         missedText.text = missedNotesScore.ToString();
         healthText.text = $"{healthScore:F2}%";
+
+        if (SongManager.HasSongEnded() && !alreadyPlayedEndingSFX)
+        {
+            End();
+        }
+
+        if (comboScore >= 10 && comboScore % 20 == 0 && comboScore > lastMilestone)
+        {
+            lastMilestone = comboScore;
+            PlayMilestone();
+            ActivateVoiceline();
+            Debug.Log($"New milestone: {lastMilestone}");
+        }
+
+        if (healthScore == 0 && !SongManager.HasSongEnded()) Lose();
     }
 
     public static void Hit()
     {
         comboScore += 1;
-        var randIndex = UnityEngine.Random.Range(0, hitsSFX.Count);
+
+        var randIndex = UnityEngine.Random.Range(0, hitClips.Count);
 
         ShakeManager.instance.HitShake();
 
         healthScore += 15.52;                                               // Arrumar depois e colocar um valor melhor de pontos de vida
         healthScore = Math.Clamp(healthScore, 0, 100);
 
-        Instance.hitSFX.PlayOneShot(hitsSFX[randIndex]);
+        Instance.hitAudioSource.PlayOneShot(hitClips[randIndex]);
     }
 
     public static void Miss()
@@ -69,12 +109,36 @@ public class ScoreManager : MonoBehaviour
         healthScore -= 10.52;                                               // Arrumar depois e colocar um valor melhor de pontos de dano
         healthScore = Math.Clamp(healthScore, 0, 100);
 
-        Instance.missSFX.Play();
+        Instance.missAudioSource.Play();
+    }
+
+    public static void Lose()
+    {
+        Instance.missAudioSource.clip = loseClip;
+        Instance.missAudioSource.Play();
     }
 
     public static void End()
     {
-        Instance.missSFX.clip = endClip;
-        Instance.missSFX.Play();
+        Instance.missAudioSource.clip = endClip;
+        Instance.missAudioSource.Play();
+        alreadyPlayedEndingSFX = true;
+    }
+
+    public static void PlayMilestone()
+    {
+        Instance.hitAudioSource.PlayOneShot(milestoneClip);
+    }
+
+    public static void ActivateVoiceline()
+    {
+        if (voicelineIndex >= voicelines.Count)
+        {
+            voicelineIndex = 0;
+        }
+
+        Instance.voicelinesAudioSource.clip = voicelines[voicelineIndex];
+        Instance.voicelinesAudioSource.Play();
+        voicelineIndex++;
     }
 }

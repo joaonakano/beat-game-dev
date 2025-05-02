@@ -5,14 +5,14 @@ public class Crosshair : MonoBehaviour
     [SerializeField]
     private KeyCode input;
 
-    private Renderer renderer;
+    private Renderer crosshairRenderer;
 
     private float fadeLerpConstant = 8f;
 
     void Start()
     {
-        renderer = GetComponent<Renderer>();
-        renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, 0.1f);
+        crosshairRenderer = GetComponent<Renderer>();
+        crosshairRenderer.material.color = new Color(crosshairRenderer.material.color.r, crosshairRenderer.material.color.g, crosshairRenderer.material.color.b, 0.1f);
     }
 
     void Update()
@@ -20,13 +20,13 @@ public class Crosshair : MonoBehaviour
         float newAlpha;
         if (Input.GetKey(input))
         {
-            newAlpha = Mathf.Lerp(renderer.material.color.a, 1, fadeLerpConstant);
-            renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+            newAlpha = Mathf.Lerp(crosshairRenderer.material.color.a, 1, fadeLerpConstant);
+            crosshairRenderer.material.color = new Color(crosshairRenderer.material.color.r, crosshairRenderer.material.color.g, crosshairRenderer.material.color.b, newAlpha);
         }
         else
         {
-            newAlpha = Mathf.Lerp(renderer.material.color.a, .06f, Time.deltaTime * fadeLerpConstant);
-            renderer.material.color = new Color(renderer.material.color.r, renderer.material.color.g, renderer.material.color.b, newAlpha);
+            newAlpha = Mathf.Lerp(crosshairRenderer.material.color.a, .06f, Time.deltaTime * fadeLerpConstant);
+            crosshairRenderer.material.color = new Color(crosshairRenderer.material.color.r, crosshairRenderer.material.color.g, crosshairRenderer.material.color.b, newAlpha);
         }
     }
 }
