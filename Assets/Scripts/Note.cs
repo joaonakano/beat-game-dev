@@ -7,6 +7,8 @@ public class Note : MonoBehaviour
     double timeInstantiated;
     double hideNotePosition;
 
+    public bool isDarkNote;
+
     public float assignedTime;
 
     void Start()

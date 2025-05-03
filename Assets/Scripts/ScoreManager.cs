@@ -95,21 +95,35 @@ public class ScoreManager : MonoBehaviour
 
         ShakeManager.instance.HitShake();
 
-        healthScore += 15.52;                                               // Arrumar depois e colocar um valor melhor de pontos de vida
+        float missingHealthPercentage = (float)(100 - healthScore) / 100f;
+        float baseHeal = 5.5f;
+        float dynamicHeal = baseHeal * missingHealthPercentage;
+
+        healthScore += dynamicHeal;                                         // Arrumar depois e colocar um valor melhor de pontos de vida
         healthScore = Math.Clamp(healthScore, 0, 100);
 
         Instance.hitAudioSource.PlayOneShot(hitClips[randIndex]);
     }
 
-    public static void Miss()
+    public static void Miss(float damageMultiplier = 1)
     {
         comboScore = 0;
         missedNotesScore += 1;
 
-        healthScore -= 10.52;                                               // Arrumar depois e colocar um valor melhor de pontos de dano
+        healthScore -= 10.52 * damageMultiplier;                            // Arrumar depois e colocar um valor melhor de pontos de dano
         healthScore = Math.Clamp(healthScore, 0, 100);
 
         Instance.missAudioSource.Play();
+    }
+
+    public static void WrongPressMiss()
+    {
+        comboScore = 0;
+
+        healthScore -= 5;
+        healthScore = Math.Clamp(healthScore, 0, 100);
+
+        // Insert wrong press miss sfx later
     }
 
     public static void Lose()

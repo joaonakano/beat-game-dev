@@ -9,6 +9,7 @@ public class SongManager : MonoBehaviour
     public static double lastNoteTimestamp;
 
     public AudioSource audioSource;
+
     public Lane[] lanes;
 
     public double marginOfError;
@@ -36,6 +37,7 @@ public class SongManager : MonoBehaviour
     {
         Instance = this;
         ReadFromFile();
+
     }
 
     // Leitura o arquivo Midi
@@ -58,7 +60,6 @@ public class SongManager : MonoBehaviour
         foreach (var lane in lanes) lane.SetTimeStamps(array);
 
         Invoke(nameof(StartSong), songDelayInSeconds);
-        // Debug.Log(notes.Count);
     }
 
     private void Update()
