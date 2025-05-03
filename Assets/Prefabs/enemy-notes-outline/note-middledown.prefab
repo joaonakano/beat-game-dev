@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6375eaba56c0fc94493a755cf74c7ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDarkNote: 0
+  deathTextPrefab: {fileID: 3247127290083314541, guid: 805c00b79d6df0a4bb8e3e630dfa4594, type: 3}
   assignedTime: 0
 --- !u!65 &6538892590917290819
 BoxCollider:

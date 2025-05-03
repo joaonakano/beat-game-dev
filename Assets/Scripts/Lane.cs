@@ -29,6 +29,7 @@ public class Lane : MonoBehaviour
     int spawnIndex = 0;
     int inputIndex = 0;
 
+    public GameObject textPrefab;
 
     // Converte TICKS em SEGUNDOS de um parâmetro fornecido (Length, EndTime e Time)
     public double ConvertToMetricStamp(long noteParamToConvert)
@@ -81,12 +82,14 @@ public class Lane : MonoBehaviour
             }
 
             // INTERAÇÃO - PLAYER/NOTA
-            if (inputIndex < timeStamps.Count && inputIndex < notes.Count)                              
+            if (inputIndex < timeStamps.Count && inputIndex < notes.Count)
             {
                 double timeStamp = timeStamps[inputIndex];
                 double marginOfError = SongManager.Instance.marginOfError;
                 double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
                 bool isDarkNote = notes[inputIndex].isDarkNote;
+
+                double timeDifference = Math.Abs(audioTime - timeStamp);
 
                 GameObject noteGameObject = notes[inputIndex].gameObject;
 
@@ -94,9 +97,10 @@ public class Lane : MonoBehaviour
                 {
                     bool specialInputPressed = Input.GetKeyDown(specialInput);
                     bool laneKeyPressed = Input.GetKeyDown(input);
-                    bool noteHit = false;
+                    bool noteProcessed = false;
 
-                    if (Math.Abs(audioTime - timeStamp) < marginOfError)
+
+                    if (timeDifference < marginOfError)
                     {
                         Vector3 notePosition = noteGameObject.transform.position;
                         if (isDarkNote)
@@ -106,16 +110,15 @@ public class Lane : MonoBehaviour
                                 Hit();
                                 ParticleSystemManager.InstantiateHitParticles(burstExplosionParticles, new Vector3(0, notePosition.y, notePosition.z), transform.rotation, 1);
                                 Destroy(noteGameObject);
-                                inputIndex++;
-                                noteHit = true;
+                                noteProcessed = true;
+                                Debug.Log("HIT");
                             }
                             else if (laneKeyPressed)
                             {
-                                Miss(2f);
-                                inputIndex++;
-                                noteHit = true;
+                                SuperMiss();
+                                noteProcessed = true;
+                                Debug.Log("SUPERMISS");
                             }
-
                         }
                         else
                         {
@@ -124,24 +127,23 @@ public class Lane : MonoBehaviour
                                 Hit();
                                 ParticleSystemManager.InstantiateHitParticles(burstExplosionParticles, new Vector3(0, notePosition.y, notePosition.z), transform.rotation, 1);
                                 Destroy(noteGameObject);
-                                inputIndex++;
-                                noteHit = true;
-                            }
-                            else if (!specialInputPressed && Input.anyKeyDown)
-                            {
-                                Miss();
-                                inputIndex++;
-                                noteHit = true;
+                                noteProcessed = true;
+                                Debug.Log("HIT");
                             }
                         }
 
-                        if (!noteHit && (laneKeyPressed|| specialInputPressed))
+                        if (noteProcessed)
                         {
-                            WrongPressMiss();
+                            inputIndex++;
                         }
-                    }                    
+                    }
+
+                    if (laneKeyPressed && timeDifference > marginOfError)
+                    {
+                        WrongPressMiss();
+                        ShowFloatingText("Muito cedo!", TextManager.instance.tooEarlyTextPrefab);
+                    }
                 }
-                    // Debug.Log($"Timestamp: {timeStamp} - Audiotime: {audioTime}");
 
                 if (timeStamp + marginOfError <= audioTime)                 // Se o tempo da música for superior, exemplo 2 segundos, ao timeStamp da nota, exemplo 1.5 segundos, quer dizer que a nota passou do limite aceitável de TAPPING (2s > 1.5s)
                 {
@@ -156,17 +158,26 @@ public class Lane : MonoBehaviour
                         {
                             if (notes[inputIndex].isDarkNote)
                             {
-                                Miss(2.5f);
+                                SuperMiss();
+                                ShowFloatingText("LOL!", TextManager.instance.missedSuperNoteTextPrefab);
+
                             }
-                            // Miss();
+                            else
+                            {
+                                Miss();
+                            }
                         }
                         inputIndex++;
                     }
                 }
-
-                //Debug.Log($"Input Index: {inputIndex}");
             }
         }
+    }
+
+    private void ShowFloatingText(string text, GameObject splashPrefab)
+    {
+        GameObject prefab = Instantiate(splashPrefab, new Vector3(1f, transform.position.y, -3), textPrefab.transform.rotation, transform);
+        prefab.GetComponentInChildren<TMPro.TMP_Text>().text = text;
     }
 
     private void Hit()
@@ -174,9 +185,14 @@ public class Lane : MonoBehaviour
         ScoreManager.Hit();
     }
 
-    private void Miss(float damageMultiplier = 1)
+    private void Miss()
     {
-        ScoreManager.Miss(damageMultiplier);
+        ScoreManager.Miss();
+    }
+
+    private void SuperMiss()
+    {
+        ScoreManager.SuperMiss();
     }
 
     private void WrongPressMiss() {

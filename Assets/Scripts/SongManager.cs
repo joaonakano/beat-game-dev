@@ -79,7 +79,7 @@ public class SongManager : MonoBehaviour
         {
             if (audioSource.pitch > 0.2)
             {
-                audioSource.pitch -= 0.08f * Time.deltaTime;
+                audioSource.pitch -= 0.2f * Time.deltaTime;
             }
             else
             {
