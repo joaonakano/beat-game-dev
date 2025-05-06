@@ -2789,6 +2789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cd4b60fb84eb741b24b8eb02710a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeStrength: 1
   hitShakePreset: {fileID: 11400000, guid: f7c56890e4287eb4987564cf33f18110, type: 2}
   longShakePreset: {fileID: 11400000, guid: 27dab9fe65a919f438be56e5cec321c5, type: 2}
   cameraShaker: {fileID: 96167176}
@@ -7159,14 +7160,14 @@ MonoBehaviour:
   hitAudioSource: {fileID: 238522883}
   missAudioSource: {fileID: 505260924}
   voicelinesAudioSource: {fileID: 1661568307}
-  endSFX: {fileID: 8300000, guid: 0e405f455b8f27249a5691fc8bfdc617, type: 3}
-  milestoneSFX: {fileID: 8300000, guid: 8519133778a61344290d581672ff0d02, type: 3}
-  loseSFX: {fileID: 8300000, guid: 01656364dbbe64d43aa19a1d695fba24, type: 3}
-  hitsSFX:
+  endClips: {fileID: 8300000, guid: 0e405f455b8f27249a5691fc8bfdc617, type: 3}
+  milestoneClips: {fileID: 8300000, guid: 8519133778a61344290d581672ff0d02, type: 3}
+  loseClips: {fileID: 8300000, guid: 01656364dbbe64d43aa19a1d695fba24, type: 3}
+  hitsClips:
   - {fileID: 8300000, guid: 89ef91d774f3e2d41b0e673e99b7884c, type: 3}
   - {fileID: 8300000, guid: 73fc49bd9ad67064295fe07865df680c, type: 3}
   - {fileID: 8300000, guid: 35aeb62287265b64c83ad00b1690703e, type: 3}
-  voicelinesSFX:
+  voicelinesClips:
   - {fileID: 8300000, guid: ec4f4799bf5f1904b83313d671f68992, type: 3}
   - {fileID: 8300000, guid: b23ed42eca0ba2f42b75396634c108a9, type: 3}
   - {fileID: 8300000, guid: dec803cb6485d024fa1d766939dc74b1, type: 3}
@@ -7178,18 +7179,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 17266e2afd6582c4f826a62a5f746af8, type: 3}
   - {fileID: 8300000, guid: 67cf4447cad92e647af193dc5daa4c54, type: 3}
   - {fileID: 8300000, guid: 5e89ae25e73846247ac003dc0022678d, type: 3}
-  superMissesSFX:
+  superMissesClips:
   - {fileID: 8300000, guid: ee08346fdf3cb1f4da80465a98fbe28f, type: 3}
   - {fileID: 8300000, guid: d308da53409b7b64ea27921911e3e9e3, type: 3}
-  missesSFX:
+  missesClips:
   - {fileID: 8300000, guid: 5892f0a69105e394a84c662cce39e09a, type: 3}
-  wrongPressMissSFX:
+  wrongPressMissClips:
   - {fileID: 8300000, guid: d935e6fa2d6c3bf438ba0f15f055d374, type: 3}
   scoreText: {fileID: 1810856623}
   specialPercentageText: {fileID: 1464410059}
   missedText: {fileID: 1191693398}
   healthText: {fileID: 1142830966}
   comboConstantIncrement: 1
+  milestoneStep: 100
 --- !u!4 &2077855947
 Transform:
   m_ObjectHideFlags: 0
