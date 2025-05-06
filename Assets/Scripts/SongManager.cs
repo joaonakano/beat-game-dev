@@ -1,6 +1,7 @@
 using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using System.Linq;
 
 public class SongManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class SongManager : MonoBehaviour
 
     public string fileName;
     public float noteTime;
+
+    public static int musicNoteCount;
 
     // PRINCIPAIS ÁREAS DE EVENTO DAS NOTAS (Spawn, Despawn e Tap)
     public float noteSpawnZ;
@@ -54,12 +57,18 @@ public class SongManager : MonoBehaviour
         var array = new Melanchall.DryWetMidi.Interaction.Note[notes.Count];
         notes.CopyTo(array, 0);
 
+        SetMusicNoteCount(array);
         lastNoteTimestamp = GetLastNoteTimestamp();
 
         // Passagem da lista de notas extraídas para serem spawnadas na Lane correta
         foreach (var lane in lanes) lane.SetTimeStamps(array);
 
         Invoke(nameof(StartSong), songDelayInSeconds);
+    }
+
+    public static void SetMusicNoteCount(Melanchall.DryWetMidi.Interaction.Note[] noteArray)
+    {
+        musicNoteCount = noteArray.Count();
     }
 
     private void Update()

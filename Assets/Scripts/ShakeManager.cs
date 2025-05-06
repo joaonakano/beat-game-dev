@@ -3,15 +3,20 @@ using UnityEngine;
 
 public class ShakeManager : MonoBehaviour
 {
+    // Shake Config
+    public float shakeStrength = 1.0f;
+
+    // Shake Presets
     public ShakePreset hitShakePreset;
     public ShakePreset longShakePreset;
 
+    // Shake Pivot
     public Shaker cameraShaker;
-    private ShakeInstance shakeInstance;
 
+    // Instances
+    private ShakeInstance shakeInstance;
     public static ShakeManager instance;
 
-    private float shakeStrength = 1.0f;
 
     void Start()
     {
@@ -41,7 +46,6 @@ public class ShakeManager : MonoBehaviour
             SetStrengthAndRoughnessScale(shakeInstance, shakeStrength);
         }
 
-        // Debug.Log($"ShakeStrengthConstant: {shakeStrength} - ShakeStrengthScale: {shakeInstance.CurrentStrength} - ShakeRoughnessScale: {shakeInstance.CurrentRoughness}");
     }
 
     private void SetStrengthAndRoughnessScale(ShakeInstance instance, float strength)

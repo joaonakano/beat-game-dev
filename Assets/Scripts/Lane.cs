@@ -107,17 +107,15 @@ public class Lane : MonoBehaviour
                         {
                             if (specialInputPressed)
                             {
-                                Hit();
+                                SuperHit();
                                 ParticleSystemManager.InstantiateHitParticles(burstExplosionParticles, new Vector3(0, notePosition.y, notePosition.z), transform.rotation, 1);
                                 Destroy(noteGameObject);
                                 noteProcessed = true;
-                                Debug.Log("HIT");
                             }
                             else if (laneKeyPressed)
                             {
                                 SuperMiss();
                                 noteProcessed = true;
-                                Debug.Log("SUPERMISS");
                             }
                         }
                         else
@@ -128,7 +126,6 @@ public class Lane : MonoBehaviour
                                 ParticleSystemManager.InstantiateHitParticles(burstExplosionParticles, new Vector3(0, notePosition.y, notePosition.z), transform.rotation, 1);
                                 Destroy(noteGameObject);
                                 noteProcessed = true;
-                                Debug.Log("HIT");
                             }
                         }
 
@@ -178,6 +175,11 @@ public class Lane : MonoBehaviour
     {
         GameObject prefab = Instantiate(splashPrefab, new Vector3(1f, transform.position.y, -3), textPrefab.transform.rotation, transform);
         prefab.GetComponentInChildren<TMPro.TMP_Text>().text = text;
+    }
+
+    private void SuperHit()
+    {
+        ScoreManager.SuperHit();
     }
 
     private void Hit()

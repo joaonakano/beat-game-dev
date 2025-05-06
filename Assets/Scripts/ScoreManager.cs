@@ -1,56 +1,51 @@
 using System;
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 
 public class ScoreManager : MonoBehaviour
 {
+    // Instance
     public static ScoreManager Instance;
 
+    // Input Variables
+    public KeyCode specialToggleKey = KeyCode.T;
+
+    // Audio Source Variables
     public AudioSource hitAudioSource;
     public AudioSource missAudioSource;
     public AudioSource voicelinesAudioSource;
 
-    static AudioClip endClip;
-    static AudioClip loseClip;
-    static AudioClip milestoneClip;
-
-    static List<AudioClip> superMissClips;
-    static List<AudioClip> missesClips;
-    static List<AudioClip> hitClips;
-    static List<AudioClip> voicelines;
-    static List<AudioClip> wrongPressMissClips;
-
-    static bool alreadyPlayedEndingSFX = false;
-
     [SerializeField]
-    private AudioClip endSFX;
+    private AudioClip endClips;
     
     [SerializeField]
-    private AudioClip milestoneSFX;
+    private AudioClip milestoneClips;
 
     [SerializeField]
-    private AudioClip loseSFX;
+    private AudioClip loseClips;
 
     [SerializeField]
-    private List<AudioClip> hitsSFX;
+    private List<AudioClip> hitsClips;
 
     [SerializeField]
-    private List<AudioClip> voicelinesSFX;
+    private List<AudioClip> voicelinesClips;
 
     [SerializeField]
-    private List<AudioClip> superMissesSFX;
+    private List<AudioClip> superMissesClips;
 
     [SerializeField]
-    private List<AudioClip> missesSFX;
+    private List<AudioClip> missesClips;
 
     [SerializeField]
-    private List<AudioClip> wrongPressMissSFX;
+    private List<AudioClip> wrongPressMissClips;
 
+    // Text Variables
     public TMP_Text scoreText;
     public static int comboScore;
+
+    public TMP_Text specialPercentageText;
+    public static double specialPercentageScore;
 
     public TMP_Text missedText;
     public static int missedNotesScore;
@@ -58,74 +53,118 @@ public class ScoreManager : MonoBehaviour
     public TMP_Text healthText;
     public static double healthScore;
 
+    // Score Varibles
+    public int comboConstantIncrement = 1;
+    public int milestoneStep = 100;
     public static int lastMilestone;
+    private double specialComboRatio;
+    private double decreaseAmount = 100;
+    private double duration = 5.0;
+    private double elapsedTime = 0;
 
+    // Index Variables
     static int voicelineIndex = 0;
 
+    // Control Boolean Variables
+    private bool alreadyPlayedEndingSFX = false;
+    private bool isDecreasing = false;
 
     void Start()
     {
         Instance = this;
 
+        // Initial Variable Values
         lastMilestone = 0;
         comboScore = 0;
         missedNotesScore = 0;
+        specialPercentageScore = 0.0;
         healthScore = 100.0;
-
-        superMissClips = superMissesSFX;
-        missesClips = missesSFX;
-        wrongPressMissClips = wrongPressMissSFX;
-
-        loseClip = loseSFX;
-        endClip = endSFX;
-
-        hitClips = hitsSFX;
-        voicelines = voicelinesSFX;
-        milestoneClip = milestoneSFX;
+        specialComboRatio = (1 / (SongManager.musicNoteCount * 0.3)) * 100.0;
     }
 
     void Update()
     {
+        // Changing text
+            // Top
         scoreText.text = comboScore.ToString();
         missedText.text = missedNotesScore.ToString();
+        specialPercentageText.text = $"{specialPercentageScore:F0}%";
+            // Bottom
         healthText.text = $"{healthScore:F2}%";
 
+        // End match or Lose Match
         if (!alreadyPlayedEndingSFX && SongManager.HasSongEnded())
         {
-            End();
+            Invoke(nameof(PlayEndingSFX), 0);
 
             if (healthScore == 0)
             {
-                Invoke(nameof(Lose), 2f);
+                Invoke(nameof(PlayLoserSFX), 2f);
             }
         }
         
-        if (comboScore >= 10 && comboScore % 20 == 0 && comboScore > lastMilestone)
+        // If the special is ready...
+        if (specialPercentageScore == 100.0)
         {
-            lastMilestone = comboScore;
+            Debug.Log("Special is Ready!");
+        }
+
+        // If the special is ready and it was toggled, then...
+        if (Input.GetKeyDown(specialToggleKey) && specialPercentageScore == 100.0)
+        {
+            ToggleSpecial(10);
+        }
+
+        // If it was toggled the special condition, then increases the combo const
+        if (isDecreasing)
+        {
+            double amountPerSecond = decreaseAmount / duration;
+            double delta = amountPerSecond * Time.deltaTime;
+
+            specialPercentageScore -= delta;
+            elapsedTime += Time.deltaTime;
+
+            specialPercentageScore = Math.Clamp(specialPercentageScore, 0.0, 100.0);
+
+            if (elapsedTime >= duration)
+            {
+                ToggleSpecial(1);
+            }
+        }
+ 
+        // Check milestones
+        while (comboScore >= lastMilestone + milestoneStep)
+        {
+            lastMilestone += milestoneStep;
             PlayMilestone();
             ActivateVoiceline();
             Debug.Log($"New milestone: {lastMilestone}");
         }
     }
 
+
     // HIT COUNT LOGIC
     public static void Hit()
     {
-        comboScore += 1;
-
-        var randIndex = UnityEngine.Random.Range(0, hitClips.Count);
+        comboScore += Instance.comboConstantIncrement;
 
         ShakeManager.instance.HitShake();
 
-        float missingHealthPercentage = (float)(100 - healthScore) / 100f;
-        float baseHeal = 5.5f;
-        float dynamicHeal = baseHeal * missingHealthPercentage;
+        Instance.AddToSuperScoreIfNormal(Instance.specialComboRatio);
+        Instance.DynamicHealthHealing(5.5f);
+        Instance.PlayRandomSFXFromList(Instance.hitsClips);
+    }
 
-        healthScore += dynamicHeal;                                         // Arrumar depois e colocar um valor melhor de pontos de vida
-        healthScore = Math.Clamp(healthScore, 0, 100);
+    // DARK NOTE HIT COUNT LOGIC
+    public static void SuperHit()
+    {
+        comboScore += Instance.comboConstantIncrement * 3;
 
-        Instance.hitAudioSource.PlayOneShot(hitClips[randIndex]);
+        ShakeManager.instance.HitShake();
+
+        Instance.AddToSuperScoreIfNormal(Instance.specialComboRatio * 1.5);
+        Instance.DynamicHealthHealing(10f);
+        Instance.PlayRandomSFXFromList(Instance.hitsClips);            // Adicionar novos sons para super
     }
 
     // MISS COUNT LOGIC
@@ -134,15 +173,9 @@ public class ScoreManager : MonoBehaviour
         comboScore = 0;
         missedNotesScore += 1;
 
-        AudioClip clipToPlay;
-        var randIndex = UnityEngine.Random.Range(0, missesClips.Count);
-
-        clipToPlay = missesClips[randIndex];
-
-        healthScore -= 5.5;                                                 // Arrumar depois e colocar um valor melhor de pontos de dano
-        healthScore = Math.Clamp(healthScore, 0, 100);
-
-        Instance.missAudioSource.PlayOneShot(clipToPlay);
+        Instance.SetSuperScoreIfNormal(0f);
+        Instance.DynamicHealthDamaging(5.5f);
+        Instance.PlayRandomSFXFromList(Instance.missesClips);
     }
 
     // SUPER NOTE MISS LOGIC
@@ -151,14 +184,9 @@ public class ScoreManager : MonoBehaviour
         comboScore = 0;
         missedNotesScore += 2;
 
-        AudioClip clipToPlay;
-        var randIndex = UnityEngine.Random.Range(0, superMissClips.Count);
-
-        healthScore -= 10.5;                                               // Arrumar depois e colocar um valor melhor de pontos de dano
-        healthScore = Math.Clamp(healthScore, 0, 100);
-
-        clipToPlay = superMissClips[randIndex];
-        Instance.missAudioSource.PlayOneShot(clipToPlay);
+        Instance.SetSuperScoreIfNormal(0f);
+        Instance.DynamicHealthDamaging(10.5f);
+        Instance.PlayRandomSFXFromList(Instance.superMissesClips);
     }
     
     // TOO EARLY MISS LOGIC
@@ -166,43 +194,106 @@ public class ScoreManager : MonoBehaviour
     {
         comboScore = 0;
 
-        healthScore -= 5;
-        healthScore = Math.Clamp(healthScore, 0, 100);
-
-        var randIndex = UnityEngine.Random.Range(0, wrongPressMissClips.Count);
-        Instance.missAudioSource.PlayOneShot(wrongPressMissClips[randIndex]);
-    }
-
-    // PLAYING MATCH LOSE AUDIO
-    public void Lose()
-    {
-        Instance.missAudioSource.PlayOneShot(loseClip);
+        Instance.SetSuperScoreIfNormal(0f);
+        Instance.DynamicHealthDamaging(4f);
+        Instance.PlayRandomSFXFromList(Instance.wrongPressMissClips);
     }
 
     // MATCH ENDING LOGIC
-    public static void End()
+
+
+    // (UTILITIES) - AUDIO PLAYERS
+    private void PlayOneSFX(AudioClip clip, AudioSource audioSource)
     {
-        Instance.missAudioSource.clip = endClip;
-        Instance.missAudioSource.Play();
+        audioSource.clip = clip;
+        audioSource.Play();
+    }
+
+    private void PlayRandomSFXFromList(List<AudioClip> clips)
+    {
+        int randIndex = UnityEngine.Random.Range(0, clips.Count);
+        hitAudioSource.PlayOneShot(clips[randIndex]);
+    }
+
+    private void PlayOneShotSFX(AudioClip clip, AudioSource audioSource)
+    {
+        audioSource.PlayOneShot(clip);
+    }
+
+    private void PlayEndingSFX()
+    {
         alreadyPlayedEndingSFX = true;
+        PlayOneSFX(endClips, missAudioSource);
     }
 
-    // PLAYING MILESTONE AUDIO
-    public static void PlayMilestone()
+    private void PlayLoserSFX()
     {
-        Instance.hitAudioSource.PlayOneShot(milestoneClip);
+        PlayOneShotSFX(loseClips, missAudioSource);
     }
 
-    // VOICELINES PLAY LOGIC
+    public void PlayMilestone()
+    {
+        PlayOneShotSFX(milestoneClips, hitAudioSource);
+    }
+
     public static void ActivateVoiceline()
     {
-        if (voicelineIndex >= voicelines.Count)
+        if (voicelineIndex >= Instance.voicelinesClips.Count)
         {
             voicelineIndex = 0;
         }
 
-        Instance.voicelinesAudioSource.clip = voicelines[voicelineIndex];
-        Instance.voicelinesAudioSource.Play();
+        Instance.PlayOneSFX(Instance.voicelinesClips[voicelineIndex], Instance.voicelinesAudioSource);
         voicelineIndex++;
+    }
+
+
+    // (UTILITIES) - HEALTH MODIFIERS
+    private void DynamicHealthHealing(float baseHeal)
+    {
+        float missingHealthPercentage = (100f - (float)healthScore) / 100f;
+        float dynamicHeal = baseHeal * missingHealthPercentage;
+
+        healthScore += dynamicHeal;
+        healthScore = Math.Clamp(healthScore, 0, 100);
+    }
+
+    private void DynamicHealthDamaging(float damagePoints)
+    {
+        healthScore -= damagePoints;
+        healthScore = Math.Clamp(healthScore, 0, 100);
+    }
+
+
+    // (UTILITIES) - SCORE MODIFIERS
+    public void AddToSuperScoreIfNormal(double addRatio)
+    {
+        if (!isDecreasing)
+        {
+            specialPercentageScore += addRatio;
+            specialPercentageScore = Math.Clamp(specialPercentageScore, 0.0, 100.0);
+        }
+    }
+
+    public void SetSuperScoreIfNormal(float desiredScore)
+    {
+        if (!isDecreasing)
+        {
+            specialPercentageScore = desiredScore;
+        }
+    }
+
+    private void ToggleSpecial(int desiredIncrement = 1)
+    {
+        if (isDecreasing)
+        {
+            isDecreasing = false;
+        } else
+        {
+            isDecreasing = true;
+        }
+
+        comboConstantIncrement = desiredIncrement;
+        elapsedTime = 0;
     }
 }
