@@ -988,7 +988,7 @@ MonoBehaviour:
   specialInput: 114
   lightNotePrefab: {fileID: 2057679718592447682, guid: 1be26089271a4df43b238823c82bef38, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  burstExplosionParticles: {fileID: 5472676188475500966, guid: d50274253b8f8b8408f29f517c12f98c, type: 3}
+  burstExplosionParticles: {fileID: 5862650055698334116, guid: 6153fbfac3762474e85f643a8e3b98c2, type: 3}
   timeStamps: []
   textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
 --- !u!4 &312165724
@@ -1146,19 +1146,19 @@ AudioReverbFilter:
   m_Enabled: 0
   m_DryLevel: 0
   m_Room: -1000
-  m_RoomHF: -151
-  m_DecayTime: 7.56
-  m_DecayHFRatio: 0.91
-  m_ReflectionsLevel: -626
-  m_ReverbLevel: 774
-  m_ReverbDelay: 0.03
+  m_RoomHF: -1000
+  m_DecayTime: 1.49
+  m_DecayHFRatio: 0.83
+  m_ReflectionsLevel: -10000
+  m_ReverbLevel: 500
+  m_ReverbDelay: 0.025
   m_Diffusion: 100
   m_Density: 100
   m_HFReference: 5000
   m_RoomLF: 0
   m_LFReference: 250
   m_ReflectionsDelay: 0
-  m_ReverbPreset: 26
+  m_ReverbPreset: 19
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,7 +1980,7 @@ MonoBehaviour:
   specialInput: 114
   lightNotePrefab: {fileID: 5617894176088930124, guid: f34c85b86033c484c8ea38fa03406a25, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  burstExplosionParticles: {fileID: 5472676188475500966, guid: d50274253b8f8b8408f29f517c12f98c, type: 3}
+  burstExplosionParticles: {fileID: 6475488707809966003, guid: cea216fcff6e6d447b70f54492535bc7, type: 3}
   timeStamps: []
   textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
 --- !u!4 &605393494
@@ -3706,6 +3706,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161396997}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1162413521
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1162413522}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1162413522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162413521}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451840420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191693397
 GameObject:
   m_ObjectHideFlags: 0
@@ -4231,6 +4262,8 @@ Transform:
   - {fileID: 898744218}
   - {fileID: 1775823116}
   - {fileID: 899241778}
+  - {fileID: 1162413522}
+  - {fileID: 1646746448}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1463818698
@@ -4726,7 +4759,7 @@ MonoBehaviour:
   specialInput: 114
   lightNotePrefab: {fileID: 5514577366846466354, guid: c3144e858580379428e01a5f89ce4cec, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  burstExplosionParticles: {fileID: 5472676188475500966, guid: d50274253b8f8b8408f29f517c12f98c, type: 3}
+  burstExplosionParticles: {fileID: 744024589366315954, guid: 92d8d1bf7dae6cc45ac81053f56e26c2, type: 3}
   timeStamps: []
   textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
 --- !u!4 &1510237871
@@ -5239,6 +5272,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595279194}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1646746447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1646746448}
+  - component: {fileID: 1646746449}
+  m_Layer: 0
+  m_Name: FullScreenEffectController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1646746448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646746447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451840420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1646746449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646746447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2baee68e4e43e9b4e81a61bbed6ca21a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _crtEffect: {fileID: -5038506774702530474, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!1 &1657936067
 GameObject:
   m_ObjectHideFlags: 0
@@ -7186,6 +7264,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5892f0a69105e394a84c662cce39e09a, type: 3}
   wrongPressMissClips:
   - {fileID: 8300000, guid: d935e6fa2d6c3bf438ba0f15f055d374, type: 3}
+  superScoreActivation:
+  - {fileID: 8300000, guid: 4e6b9351d580ac547b61b9ccef7b7555, type: 3}
+  superScoreActive:
+  - {fileID: 8300000, guid: 44c7e04d38f13e145811528ea3128070, type: 3}
   scoreText: {fileID: 1810856623}
   specialPercentageText: {fileID: 1464410059}
   missedText: {fileID: 1191693398}

@@ -136,4 +136,15 @@ public class SongManager : MonoBehaviour
             return false;
         }
     }
+
+    public static void ToggleReverbOnMusic(bool desireEffect)
+    {
+        if (desireEffect)
+        {
+            Instance.audioSource.GetComponent<AudioReverbFilter>().enabled = true;
+        } else
+        {
+            Instance.audioSource.GetComponent<AudioReverbFilter>().enabled = false;
+        }
+    }
 }

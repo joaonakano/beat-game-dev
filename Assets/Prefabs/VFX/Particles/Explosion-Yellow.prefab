@@ -4903,7 +4903,7 @@ GameObject:
   - component: {fileID: 5472676188475500966}
   - component: {fileID: 2057995750358198344}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: Explosion-Yellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

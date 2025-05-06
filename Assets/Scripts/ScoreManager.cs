@@ -40,6 +40,12 @@ public class ScoreManager : MonoBehaviour
     [SerializeField]
     private List<AudioClip> wrongPressMissClips;
 
+    [SerializeField]
+    private List<AudioClip> superScoreActivation;
+
+    [SerializeField]
+    private List<AudioClip> superScoreActive;
+
     // Text Variables
     public TMP_Text scoreText;
     public static int comboScore;
@@ -67,6 +73,7 @@ public class ScoreManager : MonoBehaviour
 
     // Control Boolean Variables
     private bool alreadyPlayedEndingSFX = false;
+    private bool alreadyPlayedSpecialSFX = false;
     private bool isDecreasing = false;
 
     void Start()
@@ -104,15 +111,20 @@ public class ScoreManager : MonoBehaviour
         }
         
         // If the special is ready...
-        if (specialPercentageScore == 100.0)
+        if (specialPercentageScore >= 100.0 && !alreadyPlayedSpecialSFX)
         {
+            PlayRandomSFXFromList(superScoreActivation, missAudioSource);
             Debug.Log("Special is Ready!");
+            alreadyPlayedSpecialSFX = true;
         }
 
         // If the special is ready and it was toggled, then...
         if (Input.GetKeyDown(specialToggleKey) && specialPercentageScore == 100.0)
         {
+            PlayRandomSFXFromList(superScoreActive, missAudioSource);
             ToggleSpecial(10);
+            SongManager.ToggleReverbOnMusic(true);
+            FullscreenTestController.SetCRT((float)duration);
         }
 
         // If it was toggled the special condition, then increases the combo const
@@ -129,6 +141,8 @@ public class ScoreManager : MonoBehaviour
             if (elapsedTime >= duration)
             {
                 ToggleSpecial(1);
+                alreadyPlayedSpecialSFX = false;
+                SongManager.ToggleReverbOnMusic(false);
             }
         }
  
@@ -152,7 +166,7 @@ public class ScoreManager : MonoBehaviour
 
         Instance.AddToSuperScoreIfNormal(Instance.specialComboRatio);
         Instance.DynamicHealthHealing(5.5f);
-        Instance.PlayRandomSFXFromList(Instance.hitsClips);
+        Instance.PlayRandomSFXFromList(Instance.hitsClips, Instance.hitAudioSource);
     }
 
     // DARK NOTE HIT COUNT LOGIC
@@ -164,7 +178,7 @@ public class ScoreManager : MonoBehaviour
 
         Instance.AddToSuperScoreIfNormal(Instance.specialComboRatio * 1.5);
         Instance.DynamicHealthHealing(10f);
-        Instance.PlayRandomSFXFromList(Instance.hitsClips);            // Adicionar novos sons para super
+        Instance.PlayRandomSFXFromList(Instance.hitsClips, Instance.hitAudioSource);            // Adicionar novos sons para super
     }
 
     // MISS COUNT LOGIC
@@ -175,7 +189,7 @@ public class ScoreManager : MonoBehaviour
 
         Instance.SetSuperScoreIfNormal(0f);
         Instance.DynamicHealthDamaging(5.5f);
-        Instance.PlayRandomSFXFromList(Instance.missesClips);
+        Instance.PlayRandomSFXFromList(Instance.missesClips, Instance.missAudioSource);
     }
 
     // SUPER NOTE MISS LOGIC
@@ -186,7 +200,7 @@ public class ScoreManager : MonoBehaviour
 
         Instance.SetSuperScoreIfNormal(0f);
         Instance.DynamicHealthDamaging(10.5f);
-        Instance.PlayRandomSFXFromList(Instance.superMissesClips);
+        Instance.PlayRandomSFXFromList(Instance.superMissesClips, Instance.missAudioSource);
     }
     
     // TOO EARLY MISS LOGIC
@@ -196,7 +210,7 @@ public class ScoreManager : MonoBehaviour
 
         Instance.SetSuperScoreIfNormal(0f);
         Instance.DynamicHealthDamaging(4f);
-        Instance.PlayRandomSFXFromList(Instance.wrongPressMissClips);
+        Instance.PlayRandomSFXFromList(Instance.wrongPressMissClips, Instance.missAudioSource);
     }
 
     // MATCH ENDING LOGIC
@@ -209,10 +223,10 @@ public class ScoreManager : MonoBehaviour
         audioSource.Play();
     }
 
-    private void PlayRandomSFXFromList(List<AudioClip> clips)
+    private void PlayRandomSFXFromList(List<AudioClip> clips, AudioSource audiosource)
     {
         int randIndex = UnityEngine.Random.Range(0, clips.Count);
-        hitAudioSource.PlayOneShot(clips[randIndex]);
+        audiosource.PlayOneShot(clips[randIndex]);
     }
 
     private void PlayOneShotSFX(AudioClip clip, AudioSource audioSource)
