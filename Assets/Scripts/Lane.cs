@@ -60,7 +60,7 @@ public class Lane : MonoBehaviour
 
     void Update()
     {
-        if (!SongManager.hasEnded)
+        if (!SongManager.hasEnded && !SongManager.isPaused)
         {
             // SPAWN - NOTAS
             if (spawnIndex < timeStamps.Count)                              

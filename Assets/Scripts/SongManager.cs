@@ -7,6 +7,7 @@ public class SongManager : MonoBehaviour
 {
     public static SongManager Instance;
     public static bool hasEnded = false;
+    public static bool isPaused = false;
     public static double lastNoteTimestamp;
 
     public AudioSource audioSource;
@@ -99,6 +100,7 @@ public class SongManager : MonoBehaviour
                 }
             }
         }
+        Debug.Log(audioSource.timeSamples);
     }
 
     public static double GetLastNoteTimestamp()
@@ -113,6 +115,18 @@ public class SongManager : MonoBehaviour
     public void StartSong()
     {
         audioSource.Play();
+    }
+
+    public void UnpauseSong()
+    {
+        audioSource.UnPause();
+        isPaused = false;
+    }
+
+    public void PauseSong()
+    {
+        audioSource.Pause();
+        isPaused = true;
     }
 
     public static void EndSong()
