@@ -6,7 +6,7 @@ public class GameMenuManager : MonoBehaviour
 
     public void RestartMatch()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
     public void ResumeMatch()
@@ -19,6 +19,6 @@ public class GameMenuManager : MonoBehaviour
 
     public void SwitchToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 }

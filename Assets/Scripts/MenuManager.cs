@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour
             if (InGameMenuObject.activeSelf)
             {
                 InGameMenuObject.SetActive(false);
+                SongManager.Instance.UnpauseSong();
                 //isMenuBeingShown = true;
             }
             else
