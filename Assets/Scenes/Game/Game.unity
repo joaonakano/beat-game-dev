@@ -614,6 +614,7 @@ GameObject:
   - component: {fileID: 188207955}
   - component: {fileID: 188207954}
   - component: {fileID: 188207953}
+  - component: {fileID: 188207957}
   m_Layer: 5
   m_Name: Stats
   m_TagString: Untagged
@@ -709,6 +710,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &188207957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188207952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 291b2b0b0ec4f764cabf40b4c7e924cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 960457976}
+  specialSlider: {fileID: 1583582236}
 --- !u!1 &238522882
 GameObject:
   m_ObjectHideFlags: 0
