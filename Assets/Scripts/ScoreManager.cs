@@ -86,7 +86,7 @@ public class ScoreManager : MonoBehaviour
         missedNotesScore = 0;
         specialPercentageScore = 0.0;
         healthScore = 100.0;
-        specialComboRatio = (1 / (SongManager.musicNoteCount * 0.3)) * 100.0;
+        specialComboRatio = (1 / (SongManager.Instance.musicNoteCount * 0.3)) * 100.0;
     }
 
     void Update()
@@ -100,7 +100,7 @@ public class ScoreManager : MonoBehaviour
         healthText.text = $"{healthScore:F2}%";
 
         // End match or Lose Match
-        if (!alreadyPlayedEndingSFX && SongManager.HasSongEnded())
+        if (!alreadyPlayedEndingSFX && SongManager.Instance.HasSongEnded())
         {
             Invoke(nameof(PlayEndingSFX), 0);
 
@@ -123,7 +123,7 @@ public class ScoreManager : MonoBehaviour
         {
             PlayRandomSFXFromList(superScoreActive, missAudioSource);
             ToggleSpecial(10);
-            SongManager.ToggleReverbOnMusic(true);
+            SongManager.Instance.ToggleReverbOnMusic(true);
             FullscreenTestController.SetCRT((float)duration);
         }
 
@@ -142,7 +142,7 @@ public class ScoreManager : MonoBehaviour
             {
                 ToggleSpecial(1);
                 alreadyPlayedSpecialSFX = false;
-                SongManager.ToggleReverbOnMusic(false);
+                SongManager.Instance.ToggleReverbOnMusic(false);
             }
         }
  

@@ -6,8 +6,10 @@ using System.Linq;
 public class SongManager : MonoBehaviour
 {
     public static SongManager Instance;
-    public static bool hasEnded = false;
-    public static double lastNoteTimestamp;
+
+    public bool hasEnded = false;
+    public bool isPaused = false;
+    public double lastNoteTimestamp;
 
     public AudioSource audioSource;
 
@@ -21,7 +23,7 @@ public class SongManager : MonoBehaviour
     public string fileName;
     public float noteTime;
 
-    public static int musicNoteCount;
+    public int musicNoteCount;
 
     // PRINCIPAIS ÁREAS DE EVENTO DAS NOTAS (Spawn, Despawn e Tap)
     public float noteSpawnZ;
@@ -34,13 +36,12 @@ public class SongManager : MonoBehaviour
         }
     }
 
-    public static MidiFile midiFile;
+    public MidiFile midiFile;
 
     void Start()
     {
         Instance = this;
         ReadFromFile();
-
     }
 
     // Leitura o arquivo Midi
@@ -48,6 +49,7 @@ public class SongManager : MonoBehaviour
     {
         midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileName + ".mid");
         GetDataFromMidi();
+        Debug.Log("Reading the midi file");
     }
 
     // Extração das notas do arquivo Midi e início da música
@@ -66,7 +68,7 @@ public class SongManager : MonoBehaviour
         Invoke(nameof(StartSong), songDelayInSeconds);
     }
 
-    public static void SetMusicNoteCount(Melanchall.DryWetMidi.Interaction.Note[] noteArray)
+    public void SetMusicNoteCount(Melanchall.DryWetMidi.Interaction.Note[] noteArray)
     {
         musicNoteCount = noteArray.Count();
     }
@@ -92,7 +94,6 @@ public class SongManager : MonoBehaviour
             }
             else
             {
-                // SongManager.Instance.audioSource.pitch = 0;
                 if (!HasSongEnded())
                 {
                     hasEnded = true;
@@ -101,7 +102,7 @@ public class SongManager : MonoBehaviour
         }
     }
 
-    public static double GetLastNoteTimestamp()
+    public double GetLastNoteTimestamp()
     {
         MetricTimeSpan metricLastTimeStamp = TimeConverter.ConvertTo<MetricTimeSpan>(midiFile.GetDuration(TimeSpanType.Metric), midiFile.GetTempoMap());
         double stamp = (double)metricLastTimeStamp.Minutes * 60f + metricLastTimeStamp.Seconds + (double)metricLastTimeStamp.Milliseconds / 1000f;
@@ -115,18 +116,30 @@ public class SongManager : MonoBehaviour
         audioSource.Play();
     }
 
-    public static void EndSong()
+    public void UnpauseSong()
     {
-        Instance.audioSource.Stop();
+        audioSource.UnPause();
+        isPaused = false;
+    }
+
+    public void PauseSong()
+    {
+        audioSource.Pause();
+        isPaused = true;
+    }
+
+    public void EndSong()
+    {
+        audioSource.Stop();
     }
 
     // Solicitar a minutagem em segundos da música
-    public static double GetAudioSourceTime()
+    public double GetAudioSourceTime()
     {
-        return (double)Instance.audioSource.timeSamples / Instance.audioSource.clip.frequency;
+        return (double)audioSource.timeSamples / audioSource.clip.frequency;
     }
 
-    public static bool HasSongEnded()
+    public bool HasSongEnded()
     {
         if (hasEnded)
         {
@@ -137,14 +150,14 @@ public class SongManager : MonoBehaviour
         }
     }
 
-    public static void ToggleReverbOnMusic(bool desireEffect)
+    public void ToggleReverbOnMusic(bool desireEffect)
     {
         if (desireEffect)
         {
-            Instance.audioSource.GetComponent<AudioReverbFilter>().enabled = true;
+            audioSource.GetComponent<AudioReverbFilter>().enabled = true;
         } else
         {
-            Instance.audioSource.GetComponent<AudioReverbFilter>().enabled = false;
+            audioSource.GetComponent<AudioReverbFilter>().enabled = false;
         }
     }
 }

@@ -31,10 +31,16 @@ public class Lane : MonoBehaviour
 
     public GameObject textPrefab;
 
+    private void Awake()
+    {
+        spawnIndex = 0;
+        inputIndex = 0;
+    }
+
     // Converte TICKS em SEGUNDOS de um parâmetro fornecido (Length, EndTime e Time)
     public double ConvertToMetricStamp(long noteParamToConvert)
     {
-        var metricStamp = TimeConverter.ConvertTo<MetricTimeSpan>(noteParamToConvert, SongManager.midiFile.GetTempoMap());
+        var metricStamp = TimeConverter.ConvertTo<MetricTimeSpan>(noteParamToConvert, SongManager.Instance.midiFile.GetTempoMap());
         var stamp = (double)metricStamp.Minutes * 60f + metricStamp.Seconds + (double)metricStamp.Milliseconds / 1000f;
 
         return stamp;
@@ -43,6 +49,7 @@ public class Lane : MonoBehaviour
     // Define os segundos em que devem surgir as notas
     public void SetTimeStamps(Melanchall.DryWetMidi.Interaction.Note[] array)
     {
+        Debug.Log("The code of midi file was read, setting timestamps for lane");
         System.Random random = new System.Random();
 
         foreach (var note in array)
@@ -60,12 +67,12 @@ public class Lane : MonoBehaviour
 
     void Update()
     {
-        if (!SongManager.hasEnded)
+        if (!SongManager.Instance.hasEnded && !SongManager.Instance.isPaused)
         {
             // SPAWN - NOTAS
             if (spawnIndex < timeStamps.Count)                              
             {
-                if (SongManager.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
+                if (SongManager.Instance.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
                 {
                     GameObject prefabToUse = isDarkNoteList[spawnIndex] ? darkNotePrefab : lightNotePrefab;
                     var note = Instantiate(prefabToUse, transform);
@@ -86,7 +93,7 @@ public class Lane : MonoBehaviour
             {
                 double timeStamp = timeStamps[inputIndex];
                 double marginOfError = SongManager.Instance.marginOfError;
-                double audioTime = SongManager.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
+                double audioTime = SongManager.Instance.GetAudioSourceTime() - (SongManager.Instance.inputDelayInMilliseconds / 1000.0);
                 bool isDarkNote = notes[inputIndex].isDarkNote;
 
                 double timeDifference = Math.Abs(audioTime - timeStamp);

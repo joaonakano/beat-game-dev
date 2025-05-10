@@ -13,13 +13,13 @@ public class Note : MonoBehaviour
 
     void Start()
     {
-        timeInstantiated = SongManager.GetAudioSourceTime();
+        timeInstantiated = SongManager.Instance.GetAudioSourceTime();
         hideNotePosition = SongManager.Instance.noteTapZ * 2;
     }
 
     void Update()
     {
-        double timeSinceInstantiated = SongManager.GetAudioSourceTime() - timeInstantiated;
+        double timeSinceInstantiated = SongManager.Instance.GetAudioSourceTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (SongManager.Instance.noteTime * 2));                 // Note Time Ratio - Usado para calcular taxa do Tempo de Existência de uma Nota em relação ao Tempo Permitido na Lane. A divisão gera a taxa da posição da nota, que é utilizada para calcular a interpolação
 
         if (t > 1)
