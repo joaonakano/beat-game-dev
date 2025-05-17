@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class GameMenuManager : MonoBehaviour
 {
+    public GameObject MainMenuGame;
+    public GameObject MenuOptions;
+    public GameObject MenuMusicSFX;
 
     public void RestartMatch()
     {
@@ -20,5 +23,23 @@ public class GameMenuManager : MonoBehaviour
     public void SwitchToMainMenu()
     {
         SceneManager.LoadSceneAsync("MainMenu");
+    }
+
+    public void BackToMenu()
+    {
+        MenuOptions.SetActive(false);
+        MainMenuGame.SetActive(true);
+    }
+
+    public void GoToOptions()
+    {
+        MainMenuGame.SetActive(false);
+        MenuOptions.SetActive(true);
+    }
+
+    public void GoToAudio()
+    {
+        MenuOptions.SetActive(false);
+        MenuMusicSFX.SetActive(true);
     }
 }
