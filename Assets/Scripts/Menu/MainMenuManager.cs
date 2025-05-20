@@ -8,6 +8,8 @@ public class MainMenuManager : MonoBehaviour
     public GameObject settingsMenu;
     public GameObject creditsMenu;
     public GameObject menuMusicSFX;
+    public GameObject graphicsMenu;
+
 
     void Start()
     {
@@ -44,9 +46,16 @@ public class MainMenuManager : MonoBehaviour
     // SETTINGS MENU BUTTONS
     public void OnGraphicsClicked()
     {
-        Debug.Log("Abrir configurações gráficas");
-        // Aqui você pode abrir um painel de gráficos, por exemplo.
+        settingsMenu.SetActive(false);
+        graphicsMenu.SetActive(true);
     }
+
+    public void OnGraphicsBackClicked()
+    {
+        graphicsMenu.SetActive(false);
+        settingsMenu.SetActive(true);
+    }
+
 
     public void OnAudioClicked()
     {
