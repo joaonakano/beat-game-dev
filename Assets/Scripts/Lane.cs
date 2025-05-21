@@ -1,4 +1,4 @@
-using Melanchall.DryWetMidi.Interaction;
+ï»¿using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.MusicTheory;
 using System;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ public class Lane : MonoBehaviour
     public GameObject lightNotePrefab;
     public GameObject darkNotePrefab;
 
+    public double darkNoteChance = 0.15;
     private List<bool> isDarkNoteList = new List<bool>();
 
     public ParticleSystem burstExplosionParticles;
@@ -37,7 +38,7 @@ public class Lane : MonoBehaviour
         inputIndex = 0;
     }
 
-    // Converte TICKS em SEGUNDOS de um parâmetro fornecido (Length, EndTime e Time)
+    // Converte TICKS em SEGUNDOS de um parï¿½metro fornecido (Length, EndTime e Time)
     public double ConvertToMetricStamp(long noteParamToConvert)
     {
         var metricStamp = TimeConverter.ConvertTo<MetricTimeSpan>(noteParamToConvert, SongManager.Instance.midiFile.GetTempoMap());
@@ -59,7 +60,8 @@ public class Lane : MonoBehaviour
                 var noteTime = ConvertToMetricStamp(note.Time);
                 timeStamps.Add(noteTime);
 
-                bool isDark = random.NextDouble() < 0.15;
+                // Define se a nota serï¿½ preta
+                bool isDark = random.NextDouble() < darkNoteChance;
                 isDarkNoteList.Add(isDark);
             }
         }
@@ -70,7 +72,7 @@ public class Lane : MonoBehaviour
         if (!SongManager.Instance.hasEnded && !SongManager.Instance.isPaused)
         {
             // SPAWN - NOTAS
-            if (spawnIndex < timeStamps.Count)                              
+            if (spawnIndex < timeStamps.Count)
             {
                 if (SongManager.Instance.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
                 {
@@ -88,7 +90,7 @@ public class Lane : MonoBehaviour
                 }
             }
 
-            // INTERAÇÃO - PLAYER/NOTA
+            // INTERAï¿½ï¿½O - PLAYER/NOTA
             if (inputIndex < timeStamps.Count && inputIndex < notes.Count)
             {
                 double timeStamp = timeStamps[inputIndex];
@@ -149,9 +151,9 @@ public class Lane : MonoBehaviour
                     }
                 }
 
-                if (timeStamp + marginOfError <= audioTime)                 // Se o tempo da música for superior, exemplo 2 segundos, ao timeStamp da nota, exemplo 1.5 segundos, quer dizer que a nota passou do limite aceitável de TAPPING (2s > 1.5s)
+                if (timeStamp + marginOfError <= audioTime)                 // Se o tempo da mï¿½sica for superior, exemplo 2 segundos, ao timeStamp da nota, exemplo 1.5 segundos, quer dizer que a nota passou do limite aceitï¿½vel de TAPPING (2s > 1.5s)
                 {
-                    if (!noteGameObject.activeSelf)                         // Se a nota a ser verificada tiver seu Estado de Ativação como FALSO, isso quer dizer que o AIMBOT reconheceu a nota e registrou um acerto, portanto, ela deve ser destruída
+                    if (!noteGameObject.activeSelf)                         // Se a nota a ser verificada tiver seu Estado de Ativaï¿½ï¿½o como FALSO, isso quer dizer que o AIMBOT reconheceu a nota e registrou um acerto, portanto, ela deve ser destruï¿½da
                     {
                         Destroy(noteGameObject);
                         inputIndex++;
@@ -204,7 +206,8 @@ public class Lane : MonoBehaviour
         ScoreManager.SuperMiss();
     }
 
-    private void WrongPressMiss() {
+    private void WrongPressMiss()
+    {
         ScoreManager.WrongPressMiss();
     }
 }
