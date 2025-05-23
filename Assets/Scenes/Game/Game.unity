@@ -1054,6 +1054,7 @@ MonoBehaviour:
   specialInput: 114
   lightNotePrefab: {fileID: 2057679718592447682, guid: 1be26089271a4df43b238823c82bef38, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
+  darkNoteChance: 0.15
   burstExplosionParticles: {fileID: 5862650055698334116, guid: 6153fbfac3762474e85f643a8e3b98c2, type: 3}
   timeStamps: []
   textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
@@ -1100,8 +1101,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 876a3d05e6dfad8489de021e7ca891b5, type: 3}
-  m_Resource: {fileID: 8300000, guid: 876a3d05e6dfad8489de021e7ca891b5, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c523389d703b373469106127c5290a0d, type: 3}
+  m_Resource: {fileID: 8300000, guid: c523389d703b373469106127c5290a0d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.415
   m_Pitch: 1
@@ -2257,6 +2258,7 @@ MonoBehaviour:
   specialInput: 114
   lightNotePrefab: {fileID: 5617894176088930124, guid: f34c85b86033c484c8ea38fa03406a25, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
+  darkNoteChance: 0.15
   burstExplosionParticles: {fileID: 6475488707809966003, guid: cea216fcff6e6d447b70f54492535bc7, type: 3}
   timeStamps: []
   textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
@@ -2344,6 +2346,7 @@ MonoBehaviour:
   specialInput: 114
   lightNotePrefab: {fileID: 329461441686660313, guid: 7b190e5a0c984b541932ba0fade5b317, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
+  darkNoteChance: 0.15
   burstExplosionParticles: {fileID: 5472676188475500966, guid: d50274253b8f8b8408f29f517c12f98c, type: 3}
   timeStamps: []
   textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
@@ -3512,7 +3515,7 @@ MonoBehaviour:
   marginOfError: 0.07
   songDelayInSeconds: 0
   inputDelayInMilliseconds: 0
-  fileName: notes-chess
+  fileName: music_brainstew
   noteTime: 1
   musicNoteCount: 0
   noteSpawnZ: 10
@@ -5443,6 +5446,7 @@ MonoBehaviour:
   specialInput: 114
   lightNotePrefab: {fileID: 5514577366846466354, guid: c3144e858580379428e01a5f89ce4cec, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
+  darkNoteChance: 0.15
   burstExplosionParticles: {fileID: 744024589366315954, guid: 92d8d1bf7dae6cc45ac81053f56e26c2, type: 3}
   timeStamps: []
   textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
@@ -8354,6 +8358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2888645e689b044a1039f7cbcf70fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MainMenuGame: {fileID: 0}
+  MenuOptions: {fileID: 0}
+  MenuMusicSFX: {fileID: 0}
 --- !u!114 &2068277082
 MonoBehaviour:
   m_ObjectHideFlags: 0
