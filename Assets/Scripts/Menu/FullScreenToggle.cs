@@ -7,15 +7,18 @@ public class FullscreenToggle : MonoBehaviour
 
     void Start()
     {
-        // Inicializa o toggle com o estado atual
-        fullscreenToggle.isOn = Screen.fullScreen;
+        bool isFullscreen = PlayerPrefs.GetInt("Fullscreen", Screen.fullScreen ? 1 : 0) == 1;
+        fullscreenToggle.isOn = isFullscreen;
+        Screen.fullScreen = isFullscreen;
 
-        // Adiciona o listener
         fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
     }
 
     public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+        PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+        PlayerPrefs.Save();
     }
+
 }

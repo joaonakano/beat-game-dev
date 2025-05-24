@@ -9,6 +9,9 @@ public class KeybindManager : MonoBehaviour
 
     public Dictionary<string, KeyCode> keybinds = new Dictionary<string, KeyCode>();
 
+    bool waitingForKey = false;
+    string currentAction = "";
+
     void Awake()
     {
         if (Instance == null)
@@ -36,7 +39,7 @@ public class KeybindManager : MonoBehaviour
 
     public void LoadKeybinds()
     {
-        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special" }; // apenas uma tecla especial
+        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special" };
 
         foreach (string action in actions)
         {
@@ -48,4 +51,33 @@ public class KeybindManager : MonoBehaviour
         }
     }
 
+    public void ResetToDefault()
+    {
+        SetKey("Lane1", KeyCode.Alpha3);  
+        SetKey("Lane2", KeyCode.E);
+        SetKey("Lane3", KeyCode.D);
+        SetKey("Lane4", KeyCode.C);
+        SetKey("Special", KeyCode.R);
+    }
+
+
+    // UI de rebind
+    public void StartRebind(string action)
+    {
+        waitingForKey = true;
+        currentAction = action;
+    }
+
+    void OnGUI()
+    {
+        if (waitingForKey)
+        {
+            Event e = Event.current;
+            if (e.isKey)
+            {
+                SetKey(currentAction, e.keyCode);
+                waitingForKey = false;
+            }
+        }
+    }
 }
