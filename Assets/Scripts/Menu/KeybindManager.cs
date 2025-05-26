@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
@@ -8,9 +7,6 @@ public class KeybindManager : MonoBehaviour
     public static KeybindManager Instance;
 
     public Dictionary<string, KeyCode> keybinds = new Dictionary<string, KeyCode>();
-
-    bool waitingForKey = false;
-    string currentAction = "";
 
     void Awake()
     {
@@ -53,31 +49,10 @@ public class KeybindManager : MonoBehaviour
 
     public void ResetToDefault()
     {
-        SetKey("Lane1", KeyCode.Alpha3);  
+        SetKey("Lane1", KeyCode.Alpha3);
         SetKey("Lane2", KeyCode.E);
         SetKey("Lane3", KeyCode.D);
         SetKey("Lane4", KeyCode.C);
         SetKey("Special", KeyCode.R);
-    }
-
-
-    // UI de rebind
-    public void StartRebind(string action)
-    {
-        waitingForKey = true;
-        currentAction = action;
-    }
-
-    void OnGUI()
-    {
-        if (waitingForKey)
-        {
-            Event e = Event.current;
-            if (e.isKey)
-            {
-                SetKey(currentAction, e.keyCode);
-                waitingForKey = false;
-            }
-        }
     }
 }
