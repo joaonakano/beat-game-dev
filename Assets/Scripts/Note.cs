@@ -13,14 +13,10 @@ public class Note : MonoBehaviour
 
     public bool hasBeenProcessed = false;
 
-    private float hideZ => SongManager.Instance.noteHideZ;
-    private float despawnZ => SongManager.Instance.noteDespawnZ;
-    private float tapZ => SongManager.Instance.noteTapZ;
-    private float spawnZ => SongManager.Instance.noteSpawnZ;
-
     void Start()
     {
         timeInstantiated = SongManager.Instance.GetAudioSourceTime();
+        // hideNotePosition = SongManager.Instance.noteTapZ * 2;
     }
 
     void Update()
@@ -28,25 +24,20 @@ public class Note : MonoBehaviour
         double timeSinceInstantiated = SongManager.Instance.GetAudioSourceTime() - timeInstantiated;
         float t = (float)(timeSinceInstantiated / (SongManager.Instance.noteTime * 2));                 // Note Time Ratio - Usado para calcular taxa do Tempo de Existência de uma Nota em relação ao Tempo Permitido na Lane. A divisão gera a taxa da posição da nota, que é utilizada para calcular a interpolação
 
-        transform.localPosition = Vector3.Lerp(
-            Vector3.forward * spawnZ,
-            Vector3.forward * tapZ,
-            t
-        );
-
-        float currentZ = transform.localPosition.z;
-
-        if (currentZ < hideZ)
+        if (t > 1)
+        {
+            Destroy(gameObject);
+        }
+        /*else if (gameObject.transform.position.z < hideNotePosition)                                    // Se a nota passar do TAPZONE e chegar em uma posição configurada em hideNotePosition, ela é ocultada para não poluir a tela
         {
             foreach (var renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
                 renderer.enabled = false;
             }
         }
-
-        if (currentZ < despawnZ)
+        else
         {
-            Destroy(gameObject);
-        }
+        }*/
+        transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnZ, Vector3.forward * SongManager.Instance.noteDespawnZ, t);
     }
 }

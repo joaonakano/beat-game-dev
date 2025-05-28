@@ -13,10 +13,8 @@ MonoBehaviour:
   m_Name: Bottom-Middle Lane
   m_EditorClassIdentifier: 
   noteRestriction: 9
-  input: 100
-  specialInput: 114
   darkNoteChance: 0.15
   lightNotePrefab: {fileID: 329461441686660313, guid: 7b190e5a0c984b541932ba0fade5b317, type: 3}
   darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  burstExplosionParticles: {fileID: 5472676188475500966, guid: d50274253b8f8b8408f29f517c12f98c, type: 3}
   smallTextPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
+  hitParticleEffects: {fileID: 5472676188475500966, guid: d50274253b8f8b8408f29f517c12f98c, type: 3}

@@ -28,13 +28,16 @@ public class SongManager : MonoBehaviour
     public int musicNoteCount;
 
     // PRINCIPAIS ÁREAS DE EVENTO DAS NOTAS (Spawn, Despawn e Tap)
-    public float hideDistance = 2.0f;
-    public float despawnDistance = 4.0f;
-
     public float noteSpawnZ;
     public float noteTapZ;
-    public float noteHideZ => noteTapZ - hideDistance;
-    public float noteDespawnZ => noteTapZ - despawnDistance;
+
+    public float noteDespawnZ
+    {
+        get
+        {
+            return noteTapZ - (noteSpawnZ - noteTapZ);
+        }
+    }
 
 
     public MidiFile midiFile;
