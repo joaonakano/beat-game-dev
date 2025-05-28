@@ -3562,6 +3562,54 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &581223479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 581223480}
+  - component: {fileID: 581223481}
+  m_Layer: 5
+  m_Name: KeyBindObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &581223480
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581223479}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1189768947}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &581223481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581223479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39cf8a84f7e76b844b518547bdf0fa77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &583831005
 GameObject:
   m_ObjectHideFlags: 0
@@ -9045,7 +9093,6 @@ GameObject:
   - component: {fileID: 1189768948}
   - component: {fileID: 1189768949}
   - component: {fileID: 1189768950}
-  - component: {fileID: 1189768951}
   m_Layer: 5
   m_Name: MainMenuManager
   m_TagString: Untagged
@@ -9128,6 +9175,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 581223480}
   - {fileID: 929047192}
   - {fileID: 1332860864}
   - {fileID: 901074308}
@@ -9180,18 +9228,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fullscreenToggle: {fileID: 249582869}
---- !u!114 &1189768951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189768942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39cf8a84f7e76b844b518547bdf0fa77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1191286864
 GameObject:
   m_ObjectHideFlags: 0
@@ -10985,6 +11021,8 @@ MonoBehaviour:
   rebindPopupText: {fileID: 1166118159}
   rowPrefab: {fileID: 1325888820}
   rowsParent: {fileID: 113654904}
+  currentRow: {fileID: 0}
+  waitingForKey: 0
 --- !u!1 &1421221162
 GameObject:
   m_ObjectHideFlags: 0

@@ -53,7 +53,7 @@ public class KeybindManager : MonoBehaviour
 
     public void ResetToDefault()
     {
-        SetKey("Lane1", KeyCode.Alpha3);  
+        SetKey("Lane1", KeyCode.Alpha3);
         SetKey("Lane2", KeyCode.E);
         SetKey("Lane3", KeyCode.D);
         SetKey("Lane4", KeyCode.C);
