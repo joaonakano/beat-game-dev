@@ -12,6 +12,8 @@ public class SongManager : MonoBehaviour
     public double lastNoteTimestamp;
 
     public AudioSource audioSource;
+    public AudioSource crackleAudioSource;
+    public AudioClip trainStartClip;
 
     public Lane[] lanes;
 
@@ -65,6 +67,9 @@ public class SongManager : MonoBehaviour
         // Passagem da lista de notas extraídas para serem spawnadas na Lane correta
         foreach (var lane in lanes) lane.SetTimeStamps(array);
 
+        // Inicio da musica
+        // crackleAudioSource.PlayOneShot(trainStartClip);
+
         Invoke(nameof(StartSong), songDelayInSeconds);
     }
 
@@ -90,7 +95,7 @@ public class SongManager : MonoBehaviour
         {
             if (audioSource.pitch > 0.2)
             {
-                audioSource.pitch -= 0.2f * Time.deltaTime;
+                audioSource.pitch -= 0.5f * Time.deltaTime;
             }
             else
             {
@@ -114,17 +119,20 @@ public class SongManager : MonoBehaviour
     public void StartSong()
     {
         audioSource.Play();
+        //crackleAudioSource.Play();
     }
 
     public void UnpauseSong()
     {
         audioSource.UnPause();
+        crackleAudioSource.UnPause();
         isPaused = false;
     }
 
     public void PauseSong()
     {
         audioSource.Pause();
+        crackleAudioSource.Pause();
         isPaused = true;
     }
 

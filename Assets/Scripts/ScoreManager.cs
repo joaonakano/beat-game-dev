@@ -26,6 +26,9 @@ public class ScoreManager : MonoBehaviour
     private AudioClip loseClips;
 
     [SerializeField]
+    private AudioClip scratchClip;
+
+    [SerializeField]
     private List<AudioClip> hitsClips;
 
     [SerializeField]
@@ -103,6 +106,7 @@ public class ScoreManager : MonoBehaviour
         if (!alreadyPlayedEndingSFX && SongManager.Instance.HasSongEnded())
         {
             Invoke(nameof(PlayEndingSFX), 0);
+            // Invoke(nameof(PlayScratchSFX), 0);
 
             if (healthScore == 0)
             {
@@ -243,6 +247,11 @@ public class ScoreManager : MonoBehaviour
     private void PlayLoserSFX()
     {
         PlayOneShotSFX(loseClips, missAudioSource);
+    }
+
+    private void PlayScratchSFX()
+    {
+        PlayOneShotSFX(scratchClip, missAudioSource);
     }
 
     public void PlayMilestone()

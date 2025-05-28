@@ -3,7 +3,6 @@ using UnityEngine;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject InGameMenuObject;
-    //private bool isMenuBeingShown = false;
 
     void Update()
     {
@@ -13,7 +12,6 @@ public class MenuManager : MonoBehaviour
             {
                 InGameMenuObject.SetActive(false);
                 SongManager.Instance.UnpauseSong();
-                //isMenuBeingShown = true;
             }
             else
             {

@@ -1,9 +1,9 @@
 ﻿using Melanchall.DryWetMidi.Interaction;
 using Melanchall.DryWetMidi.MusicTheory;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Lane : MonoBehaviour
 {
@@ -58,6 +58,10 @@ public class Lane : MonoBehaviour
             if (note.NoteName == noteRestriction)
             {
                 var noteTime = ConvertToMetricStamp(note.Time);
+
+                if (noteTime < SongManager.Instance.noteTime)
+                    continue;
+
                 timeStamps.Add(noteTime);
 
                 // Define se a nota ser� preta
@@ -65,32 +69,15 @@ public class Lane : MonoBehaviour
                 isDarkNoteList.Add(isDark);
             }
         }
+
+        StartCoroutine(SpawnNotesCoroutine());
     }
 
     void Update()
     {
         if (!SongManager.Instance.hasEnded && !SongManager.Instance.isPaused)
         {
-            // SPAWN - NOTAS
-            if (spawnIndex < timeStamps.Count)
-            {
-                if (SongManager.Instance.GetAudioSourceTime() >= timeStamps[spawnIndex] - SongManager.Instance.noteTime)
-                {
-                    GameObject prefabToUse = isDarkNoteList[spawnIndex] ? darkNotePrefab : lightNotePrefab;
-                    var note = Instantiate(prefabToUse, transform);
-                    Note noteComponent = note.GetComponent<Note>();
-
-                    noteComponent.assignedTime = (float)timeStamps[spawnIndex];
-                    noteComponent.isDarkNote = isDarkNoteList[spawnIndex];
-
-                    notes.Add(noteComponent);
-                    note.SetActive(true);
-
-                    spawnIndex++;
-                }
-            }
-
-            // INTERA��O - PLAYER/NOTA
+            // INTERACAO - PLAYER/NOTA
             if (inputIndex < timeStamps.Count && inputIndex < notes.Count)
             {
                 double timeStamp = timeStamps[inputIndex];
@@ -177,6 +164,33 @@ public class Lane : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    // SPAWN DE NOTAS
+    private IEnumerator SpawnNotesCoroutine()
+    {
+        for (int i = 0; i < timeStamps.Count; i++)
+        {
+            double currentTime = timeStamps[i];
+            double spawnTime = currentTime - SongManager.Instance.noteTime;     // SpawnTime (qual segundo da musica a nota deve spawnar) = CurrentTime (segundo da nota) - NoteTime (tempo definido no inspector para a nota sair do ponto ORIGEM -> DESTINO)
+
+            while (SongManager.Instance.GetAudioSourceTime() < spawnTime)       // Enquanto o segundo da musica (ex: musica está em 3s e a nota precisa ser spawnada no segundo 4.5) for menor que o segundo definido para a proxima nota, fica inativo.
+            {
+                yield return null;
+            }
+
+            GameObject prefabToUse = isDarkNoteList[i] ? darkNotePrefab : lightNotePrefab;
+            var note = Instantiate(prefabToUse, transform);
+            Note noteComponent = note.GetComponent<Note>();
+
+            noteComponent.assignedTime = (float)currentTime;
+            noteComponent.isDarkNote = isDarkNoteList[i];
+
+            notes.Add(noteComponent);
+            note.SetActive(true);
+
+            spawnIndex++;
         }
     }
 
