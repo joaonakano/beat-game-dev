@@ -1,17 +1,25 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     // KEYBINDS
+    [Header("Keybinds")]
     public List<KeyCode> laneKeybinds = new();
     public KeyCode specialNoteKeybind = KeyCode.R;
+    public KeyCode inGameMenuKeybind = KeyCode.Escape;
 
     // LANES
+    [Header("Lista dos GameObjects das Lanes")]
     public List<Lane> laneList = new();
 
     // RELATIONSHIP BETWEEN LANES AND KEYBINDS
     private Dictionary<KeyCode, Lane> KeybindMap = new();
+
+    public event Action OnMenuKeybindPressed;
+
+    public static InputManager Instance;
 
     void Start()
     {
@@ -26,6 +34,14 @@ public class InputManager : MonoBehaviour
             if (!KeybindMap.ContainsKey(laneKeybinds[i]))
                 KeybindMap.Add(laneKeybinds[i], laneList[i]);
         }
+    }
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     void Update()
@@ -115,6 +131,12 @@ public class InputManager : MonoBehaviour
                 ScoreManager.WrongPressMiss();
             }
         }
+
+        if (Input.GetKeyDown(inGameMenuKeybind))
+        {
+            OnMenuKeybindPressed?.Invoke();
+        }
+            
     }
 
     [ContextMenu("Validar Keybinds e Lanes")]
