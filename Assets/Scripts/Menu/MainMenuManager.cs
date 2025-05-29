@@ -5,12 +5,12 @@ public class MainMenuManager : MonoBehaviour
 {
     [Header("Menus")]
     public GameObject mainMenu;
+    public GameObject menuLevels;
     public GameObject settingsMenu;
     public GameObject creditsMenu;
     public GameObject menuMusicSFX;
     public GameObject graphicsMenu;
     public GameObject controlsMenu;
-
 
     void Start()
     {
@@ -20,8 +20,8 @@ public class MainMenuManager : MonoBehaviour
     // MAIN MENU BUTTONS
     public void OnPlayClicked()
     {
-        // Carrega a cena principal (certifique-se de adicioná-la no Build Settings)
-        SceneManager.LoadScene("Game");
+        mainMenu.SetActive(false);
+        menuLevels.SetActive(true);
     }
 
     public void OnSettingsClicked()
@@ -44,6 +44,18 @@ public class MainMenuManager : MonoBehaviour
 #endif
     }
 
+    // MENU LEVELS BUTTONS
+    public void OnLevelPlayClicked()
+    {
+        SceneManager.LoadScene("Game"); // Troque "Game" pelo nome da sua cena do jogo
+    }
+
+    public void OnLevelBackClicked()
+    {
+        menuLevels.SetActive(false);
+        mainMenu.SetActive(true);
+    }
+
     // SETTINGS MENU BUTTONS
     public void OnGraphicsClicked()
     {
@@ -57,10 +69,8 @@ public class MainMenuManager : MonoBehaviour
         settingsMenu.SetActive(true);
     }
 
-
     public void OnAudioClicked()
     {
-        Debug.Log("Abrir configurações de áudio");
         settingsMenu.SetActive(false);
         menuMusicSFX.SetActive(true);
     }
@@ -71,17 +81,15 @@ public class MainMenuManager : MonoBehaviour
         settingsMenu.SetActive(true);
     }
 
-
     public void OnControlsClicked()
     {
-        Debug.Log("Abrir configurações de controles");
         settingsMenu.SetActive(false);
         controlsMenu.SetActive(true);
     }
 
     public void OnControlsBackClicked()
     {
-       controlsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
         settingsMenu.SetActive(true);
     }
 
@@ -91,7 +99,7 @@ public class MainMenuManager : MonoBehaviour
         mainMenu.SetActive(true);
     }
 
-    // CREDITS MENU BUTTON
+    // CREDITS MENU BUTTON 
     public void OnCreditsBackClicked()
     {
         creditsMenu.SetActive(false);
@@ -101,7 +109,11 @@ public class MainMenuManager : MonoBehaviour
     void ShowMainMenu()
     {
         mainMenu.SetActive(true);
+        menuLevels.SetActive(false);
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
+        graphicsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+        menuMusicSFX.SetActive(false);
     }
 }
