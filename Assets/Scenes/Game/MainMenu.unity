@@ -6459,7 +6459,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &929047192
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11269,7 +11269,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1470395498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11283,9 +11283,9 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 301837305}
+  - {fileID: 1642836821}
   - {fileID: 647934595}
   - {fileID: 441697168}
-  - {fileID: 1642836821}
   m_Father: {fileID: 1189768947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12971,7 +12971,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: "CR\xC9DITOS\n\nDesenvolvimento\n\nPrograma\xE7\xE3o: \nEmanuel  Jo\xE3o\n\nDesign
+    e Arte: \nBoris & G. Fran\xE7a\n\nTrilha Sonora:  \nBeethoven\n\nRoteiro: \nTarantino\n\nTestes
+    e QA\n\nTestadores: \nEmanuel C.  Jo\xE3o N.   \nBoris P.  Gustavo F.  Gustavo
+    G.\n\nAgradecimentos Especiais:\nProfessor Gabriel\nM\xE3e do Gabriel\n\nFerramentas
+    Utilizadas\n\nMotor do jogo:\nUnity\n\nEdi\xE7\xE3o de \xC1udio:\nAudacity &
+    FL Studio\n\nDesign Grafico:\nPhotoshop & Blender\n\nOBRIGADO POR JOGAR!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
