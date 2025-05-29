@@ -170,10 +170,7 @@ public class SongManager : MonoBehaviour
 
     public bool IsGameRunning()
     {
-        if ((!HasSongEnded() || !HasSongBeenPaused()) && ScoreManager.healthScore > 0)
-            return true;
-        else
-            return false;
+        return !HasSongEnded() && !HasSongBeenPaused() && ScoreManager.healthScore > 0;
     }
 
     public void ToggleReverbOnMusic(bool desireEffect)

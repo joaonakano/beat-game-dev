@@ -18,9 +18,10 @@ public class Lane : MonoBehaviour
 
     void Update()
     {
-        if (SongManager.Instance.IsGameRunning())
-        {
-            if (noteQueue.Count == 0) 
+        if (!SongManager.Instance.IsGameRunning() || SongManager.Instance.HasSongEnded() || SongManager.Instance.HasSongBeenPaused())
+            return;
+
+        if (noteQueue.Count == 0) 
                 return;
 
             double currentTime = SongManager.Instance.GetAudioSourceTime();
@@ -29,12 +30,12 @@ public class Lane : MonoBehaviour
 
             Note nextNote = noteQueue.Peek();
 
-            if (currentTime > nextNote.assignedTime + margin + inputDelay)
+            if (!nextNote.hasBeenProcessed && currentTime > nextNote.assignedTime + margin + inputDelay)
             {
                 Miss();
                 HandleMiss(nextNote);
             }
-        }
+        
     }
 
     public Queue<Note> GetNoteQueue() => noteQueue;
