@@ -1049,15 +1049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0469b051165843a44a4e87bbe781dccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteRestriction: 11
-  input: 99
-  specialInput: 114
-  lightNotePrefab: {fileID: 2057679718592447682, guid: 1be26089271a4df43b238823c82bef38, type: 3}
-  darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  darkNoteChance: 0.15
-  burstExplosionParticles: {fileID: 5862650055698334116, guid: 6153fbfac3762474e85f643a8e3b98c2, type: 3}
-  timeStamps: []
-  textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
+  settings: {fileID: 11400000, guid: a8c30ea20952a454ab18133206edddad, type: 2}
 --- !u!4 &312165724
 Transform:
   m_ObjectHideFlags: 0
@@ -1101,8 +1093,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c523389d703b373469106127c5290a0d, type: 3}
-  m_Resource: {fileID: 8300000, guid: c523389d703b373469106127c5290a0d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 876a3d05e6dfad8489de021e7ca891b5, type: 3}
+  m_Resource: {fileID: 8300000, guid: 876a3d05e6dfad8489de021e7ca891b5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.415
   m_Pitch: 1
@@ -2253,15 +2245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0469b051165843a44a4e87bbe781dccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteRestriction: 7
-  input: 101
-  specialInput: 114
-  lightNotePrefab: {fileID: 5617894176088930124, guid: f34c85b86033c484c8ea38fa03406a25, type: 3}
-  darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  darkNoteChance: 0.15
-  burstExplosionParticles: {fileID: 6475488707809966003, guid: cea216fcff6e6d447b70f54492535bc7, type: 3}
-  timeStamps: []
-  textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
+  settings: {fileID: 11400000, guid: d16bc12b9a91f97409b59abede4945a6, type: 2}
 --- !u!4 &605393494
 Transform:
   m_ObjectHideFlags: 0
@@ -2472,15 +2456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0469b051165843a44a4e87bbe781dccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteRestriction: 9
-  input: 100
-  specialInput: 114
-  lightNotePrefab: {fileID: 329461441686660313, guid: 7b190e5a0c984b541932ba0fade5b317, type: 3}
-  darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  darkNoteChance: 0.15
-  burstExplosionParticles: {fileID: 5472676188475500966, guid: d50274253b8f8b8408f29f517c12f98c, type: 3}
-  timeStamps: []
-  textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
+  settings: {fileID: 11400000, guid: 62b0590ffbc61ee43b1b2cf0b919cee2, type: 2}
 --- !u!4 &649047148
 Transform:
   m_ObjectHideFlags: 0
@@ -2815,6 +2791,106 @@ Transform:
   - {fileID: 312165724}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &765686346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 765686347}
+  - component: {fileID: 765686348}
+  m_Layer: 0
+  m_Name: NoteSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &765686347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765686346}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451840420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &765686348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765686346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c2dda9b5b5c2ed4f92096ffd2b520af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanes:
+  - {fileID: 1510237870}
+  - {fileID: 605393493}
+  - {fileID: 649047147}
+  - {fileID: 312165723}
+--- !u!1 &776547957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 776547958}
+  - component: {fileID: 776547959}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &776547958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776547957}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1451840420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &776547959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776547957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5501b5229d4332340bfe31dacf77e925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laneKeybinds: 33000000650000006400000063000000
+  specialNoteKeybind: 114
+  laneList:
+  - {fileID: 1510237870}
+  - {fileID: 605393493}
+  - {fileID: 649047147}
+  - {fileID: 312165723}
 --- !u!1 &831596375
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,16 +3716,12 @@ MonoBehaviour:
   audioSource: {fileID: 318589219}
   crackleAudioSource: {fileID: 644217831}
   trainStartClip: {fileID: 8300000, guid: cf4eae70393ab284b92b76080bd42d89, type: 3}
-  lanes:
-  - {fileID: 1510237870}
-  - {fileID: 605393493}
-  - {fileID: 649047147}
-  - {fileID: 312165723}
   marginOfError: 0.07
   songDelayInSeconds: 0
   inputDelayInMilliseconds: 0
-  fileName: music_brainstew
+  fileName: notes-chess
   noteTime: 1
+  noteSpawner: {fileID: 765686348}
   musicNoteCount: 0
   noteSpawnZ: 10
   noteTapZ: -3
@@ -4553,7 +4625,7 @@ Transform:
   m_GameObject: {fileID: 1198742292}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.12, y: 0, z: 0}
+  m_LocalPosition: {x: -0.12, y: 0, z: 0.92}
   m_LocalScale: {x: 0, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5052,6 +5124,8 @@ Transform:
   - {fileID: 899241778}
   - {fileID: 1646746448}
   - {fileID: 1824249416}
+  - {fileID: 776547958}
+  - {fileID: 765686347}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1463818698
@@ -5542,15 +5616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0469b051165843a44a4e87bbe781dccd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteRestriction: 5
-  input: 51
-  specialInput: 114
-  lightNotePrefab: {fileID: 5514577366846466354, guid: c3144e858580379428e01a5f89ce4cec, type: 3}
-  darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
-  darkNoteChance: 0.15
-  burstExplosionParticles: {fileID: 744024589366315954, guid: 92d8d1bf7dae6cc45ac81053f56e26c2, type: 3}
-  timeStamps: []
-  textPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
+  settings: {fileID: 11400000, guid: f8165cc379a6bbb49ab3326a716b64f8, type: 2}
 --- !u!4 &1510237871
 Transform:
   m_ObjectHideFlags: 0
@@ -7234,7 +7300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4e4072e62b016e348a2702d2edd5883f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1073917118795358319, guid: 4e4072e62b016e348a2702d2edd5883f, type: 3}
       propertyPath: m_Layer
@@ -8988,7 +9054,7 @@ Transform:
   m_GameObject: {fileID: 2084828065}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3}
+  m_LocalPosition: {x: -2.47, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 31.71, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -4,6 +4,7 @@ public class LaneInitializer : MonoBehaviour
 {
     void Start()
     {
+         /*
         // Acha todas as lanes na cena
         Lane[] allLanes = FindObjectsOfType<Lane>();
 
@@ -14,6 +15,6 @@ public class LaneInitializer : MonoBehaviour
         foreach (Lane lane in allLanes)
         {
             lane.specialInput = specialKey;
-        }
+        }*/
     }
 }

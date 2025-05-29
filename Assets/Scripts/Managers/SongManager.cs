@@ -15,8 +15,6 @@ public class SongManager : MonoBehaviour
     public AudioSource crackleAudioSource;
     public AudioClip trainStartClip;
 
-    public Lane[] lanes;
-
     public double marginOfError;
 
     public float songDelayInSeconds;
@@ -25,11 +23,14 @@ public class SongManager : MonoBehaviour
     public string fileName;
     public float noteTime;
 
+    public NoteSpawner noteSpawner;
+
     public int musicNoteCount;
 
     // PRINCIPAIS ÁREAS DE EVENTO DAS NOTAS (Spawn, Despawn e Tap)
     public float noteSpawnZ;
     public float noteTapZ;
+
     public float noteDespawnZ
     {
         get
@@ -37,6 +38,7 @@ public class SongManager : MonoBehaviour
             return noteTapZ - (noteSpawnZ - noteTapZ);
         }
     }
+
 
     public MidiFile midiFile;
 
@@ -49,9 +51,12 @@ public class SongManager : MonoBehaviour
     // Leitura o arquivo Midi
     public void ReadFromFile()
     {
+        Debug.Log("Started reading the midi file");
         midiFile = MidiFile.Read(Application.streamingAssetsPath + "/" + fileName + ".mid");
+        Debug.Log("Finished read the midi file");
+
+        Debug.Log("Started getting the data from the midi file");
         GetDataFromMidi();
-        Debug.Log("Reading the midi file");
     }
 
     // Extração das notas do arquivo Midi e início da música
@@ -65,8 +70,9 @@ public class SongManager : MonoBehaviour
         lastNoteTimestamp = GetLastNoteTimestamp();
 
         // Passagem da lista de notas extraídas para serem spawnadas na Lane correta
-        foreach (var lane in lanes) lane.SetTimeStamps(array);
+        noteSpawner.SetTimeStamps(array);
 
+        Debug.Log("Finished getting the data from the midi file");
         // Inicio da musica
         // crackleAudioSource.PlayOneShot(trainStartClip);
 
@@ -118,7 +124,9 @@ public class SongManager : MonoBehaviour
 
     public void StartSong()
     {
+        Debug.Log("Starting SONG!");
         audioSource.Play();
+        StartCoroutine(noteSpawner.SpawnNotesCoroutine());
         //crackleAudioSource.Play();
     }
 
@@ -149,13 +157,20 @@ public class SongManager : MonoBehaviour
 
     public bool HasSongEnded()
     {
-        if (hasEnded)
-        {
+        return hasEnded;
+    }
+
+    public bool HasSongBeenPaused()
+    {
+        if (!audioSource.isPlaying)
             return true;
-        } else
-        {
+        else
             return false;
-        }
+    }
+
+    public bool IsGameRunning()
+    {
+        return !HasSongEnded() && !HasSongBeenPaused() && ScoreManager.healthScore > 0;
     }
 
     public void ToggleReverbOnMusic(bool desireEffect)

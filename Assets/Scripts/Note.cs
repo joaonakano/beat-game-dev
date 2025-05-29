@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Note : MonoBehaviour
@@ -7,9 +8,11 @@ public class Note : MonoBehaviour
     double timeInstantiated;
     double hideNotePosition;
 
-    public bool isDarkNote;
+    public bool isSpecialNote;
+    public double assignedTime;
+    public Lane assignedLane;
 
-    public float assignedTime;
+    public bool hasBeenProcessed = false;
 
     void Start()
     {
@@ -37,5 +40,6 @@ public class Note : MonoBehaviour
         {
             transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnZ, Vector3.forward * SongManager.Instance.noteDespawnZ, t);
         }
+
     }
 }
