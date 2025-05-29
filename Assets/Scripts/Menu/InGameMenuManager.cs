@@ -18,6 +18,7 @@ public class GameMenuManager : MonoBehaviour
         SongManager.Instance.audioSource.timeSamples = playbackRollbackInSeconds;
         SongManager.Instance.UnpauseSong();
         gameObject.SetActive(false);
+        MainMenuGame.SetActive(false);
     }
 
     public void SwitchToMainMenu()

@@ -14684,6 +14684,7 @@ GameObject:
   - component: {fileID: 2871172005521407019}
   - component: {fileID: 5862650055698334116}
   - component: {fileID: 1761813691320469622}
+  - component: {fileID: 7268925228614053247}
   m_Layer: 0
   m_Name: Explosion-Green
   m_TagString: Untagged
@@ -19510,6 +19511,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7268925228614053247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3183325943786361103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510bbd9e6fbcb6f489167a9403075bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3335720265671077431
 GameObject:
   m_ObjectHideFlags: 0
