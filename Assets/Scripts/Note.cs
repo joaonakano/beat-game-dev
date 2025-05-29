@@ -6,6 +6,7 @@ using UnityEngine;
 public class Note : MonoBehaviour
 {
     double timeInstantiated;
+    double hideNotePosition;
 
     public bool isSpecialNote;
     public double assignedTime;
@@ -16,7 +17,7 @@ public class Note : MonoBehaviour
     void Start()
     {
         timeInstantiated = SongManager.Instance.GetAudioSourceTime();
-        // hideNotePosition = SongManager.Instance.noteTapZ * 2;
+        hideNotePosition = SongManager.Instance.noteTapZ * 2;
     }
 
     void Update()
@@ -28,7 +29,7 @@ public class Note : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        /*else if (gameObject.transform.position.z < hideNotePosition)                                    // Se a nota passar do TAPZONE e chegar em uma posição configurada em hideNotePosition, ela é ocultada para não poluir a tela
+        else if (gameObject.transform.position.z < hideNotePosition)                                    // Se a nota passar do TAPZONE e chegar em uma posição configurada em hideNotePosition, ela é ocultada para não poluir a tela
         {
             foreach (var renderer in gameObject.GetComponentsInChildren<Renderer>())
             {
@@ -37,7 +38,8 @@ public class Note : MonoBehaviour
         }
         else
         {
-        }*/
-        transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnZ, Vector3.forward * SongManager.Instance.noteDespawnZ, t);
+            transform.localPosition = Vector3.Lerp(Vector3.forward * SongManager.Instance.noteSpawnZ, Vector3.forward * SongManager.Instance.noteDespawnZ, t);
+        }
+
     }
 }

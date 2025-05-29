@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
 
         foreach (var kvp in KeybindMap)
         {
-            if (Input.GetKeyDown(kvp.Key) && ScoreManager.healthScore > 0 && !SongManager.Instance.HasSongEnded())
+            if (Input.GetKeyDown(kvp.Key) && SongManager.Instance.IsGameRunning())
             {
                 Lane lane = kvp.Value;
                 Queue<Note> queue = lane.GetNoteQueue();
@@ -68,10 +68,14 @@ public class InputManager : MonoBehaviour
                 {
                     lane.WrongPressMiss();
                 }
+                else if (timeDiff >= -hitWindow && timeDiff <= hitWindow && note.isSpecialNote)
+                {
+                    lane.SuperMiss();
+                }
             }
         }
 
-        if (Input.GetKeyDown(specialNoteKeybind) && ScoreManager.healthScore > 0 && !SongManager.Instance.HasSongEnded())
+        if (Input.GetKeyDown(specialNoteKeybind) && SongManager.Instance.IsGameRunning())
         {
             bool foundValidSpecialNote = false;
 

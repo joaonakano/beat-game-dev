@@ -18,11 +18,21 @@ public class Lane : MonoBehaviour
 
     void Update()
     {
-        if (noteQueue.Count > 0)
+        if (SongManager.Instance.IsGameRunning())
         {
-            if (noteQueue.Peek().assignedTime <= SongManager.Instance.GetAudioSourceTime() - SongManager.Instance.inputDelayInMilliseconds / 1000.0)
+            if (noteQueue.Count == 0) 
+                return;
+
+            double currentTime = SongManager.Instance.GetAudioSourceTime();
+            double inputDelay = SongManager.Instance.inputDelayInMilliseconds / 1000.0;
+            double margin = SongManager.Instance.marginOfError;
+
+            Note nextNote = noteQueue.Peek();
+
+            if (currentTime > nextNote.assignedTime + margin + inputDelay)
             {
-                HandleMiss(noteQueue.Peek());
+                Miss();
+                HandleMiss(nextNote);
             }
         }
     }
@@ -75,18 +85,18 @@ public class Lane : MonoBehaviour
     public void Miss()
     {
         ScoreManager.Miss();
-        ShowFloatingText("MISS!", TextManager.instance.missedSuperNoteTextPrefab);
+        ShowFloatingText("LOL!", TextManager.instance.missedSuperNoteTextPrefab);
     }
 
     public void SuperMiss()
     {
-        ShowFloatingText("SUPER MISS!", TextManager.instance.missedSuperNoteTextPrefab);
+        ShowFloatingText("Dallpozzo m0m3ntz!", TextManager.instance.missedSuperNoteTextPrefab);
         ScoreManager.SuperMiss();
     }
 
     public void WrongPressMiss()
     {
-        ShowFloatingText("WRONG PRESS MISS!", TextManager.instance.tooEarlyTextPrefab);
+        ShowFloatingText("Muito cedo, rapá!", TextManager.instance.tooEarlyTextPrefab);
         ScoreManager.WrongPressMiss();
     }
 }
