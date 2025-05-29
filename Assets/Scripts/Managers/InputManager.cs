@@ -13,19 +13,25 @@ public class InputManager : MonoBehaviour
     // RELATIONSHIP BETWEEN LANES AND KEYBINDS
     private Dictionary<KeyCode, Lane> KeybindMap = new();
 
+    // Singleton instance para acesso global ao InputManager
+    public static InputManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
-        if (laneList.Count != laneKeybinds.Count)
-        {
-            Debug.LogError("Erro: O número de keybinds precisa ser igual ao número de lanes!");
-            return;
-        }
-
-        for (int i = 0; i < laneList.Count; i++)
-        {
-            if (!KeybindMap.ContainsKey(laneKeybinds[i]))
-                KeybindMap.Add(laneKeybinds[i], laneList[i]);
-        }
+        UpdateKeybindMap();
     }
 
     void Update()
@@ -117,23 +123,51 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("Validar Keybinds e Lanes")]
-    private void ValidateKeybinds()
+    public void UpdateKeybindMap()
     {
-        if (laneList.Count == 0 || laneKeybinds.Count == 0)
+        KeybindMap.Clear();
+
+        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4" };
+
+        if (laneList.Count != actions.Length)
         {
-            Debug.LogWarning("Aviso: Um dos campos está vazio.");
+            Debug.LogError("Erro: O número de lanes precisa ser igual ao número de ações definidas!");
             return;
         }
 
-        if (laneList.Count != laneKeybinds.Count)
+        for (int i = 0; i < laneList.Count; i++)
         {
-            Debug.LogWarning($"Aviso: Quantidade desigual - Keybinds: {laneKeybinds.Count}, Lanes: {laneList.Count}");
+            KeyCode key = KeybindManager.Instance.GetKey(actions[i]);
+
+            if (!KeybindMap.ContainsKey(key))
+                KeybindMap.Add(key, laneList[i]);
+            else
+                Debug.LogWarning($"Tecla {key} já está sendo usada por outra lane.");
         }
-        else
-        {
-            Debug.Log($"Validação OK - {laneList.Count} lanes e keybinds.");
-        }
+
+        
+        KeyCode specialKey = KeybindManager.Instance.GetKey("Special");
+        specialNoteKeybind = specialKey != KeyCode.None ? specialKey : KeyCode.R;
     }
+
+
+    [ContextMenu("Validar Keybinds e Lanes")]
+        private void ValidateKeybinds()
+        {
+            if (laneList.Count == 0 || laneKeybinds.Count == 0)
+            {
+                Debug.LogWarning("Aviso: Um dos campos está vazio.");
+                return;
+            }
+
+            if (laneList.Count != laneKeybinds.Count)
+            {
+                Debug.LogWarning($"Aviso: Quantidade desigual - Keybinds: {laneKeybinds.Count}, Lanes: {laneList.Count}");
+            }
+            else
+            {
+                Debug.Log($"Validação OK - {laneList.Count} lanes e keybinds.");
+            }
+        }
 
 }

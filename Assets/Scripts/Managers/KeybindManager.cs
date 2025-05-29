@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
@@ -36,7 +35,7 @@ public class KeybindManager : MonoBehaviour
 
     public void LoadKeybinds()
     {
-        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special" }; // apenas uma tecla especial
+        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special" };
 
         foreach (string action in actions)
         {
@@ -48,4 +47,12 @@ public class KeybindManager : MonoBehaviour
         }
     }
 
+    public void ResetToDefault()
+    {
+        SetKey("Lane1", KeyCode.Alpha3);
+        SetKey("Lane2", KeyCode.E);
+        SetKey("Lane3", KeyCode.D);
+        SetKey("Lane4", KeyCode.C);
+        SetKey("Special", KeyCode.R);
+    }
 }
