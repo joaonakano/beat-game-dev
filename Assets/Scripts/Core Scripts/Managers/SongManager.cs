@@ -126,6 +126,11 @@ public class SongManager : MonoBehaviour
         return (double)songAudioSource.timeSamples / songAudioSource.clip.frequency;
     }
 
+    public double GetAudioLastNoteTime()
+    {
+        return midiHandler.GetLastNoteTimestamp(midiFile);
+    }
+
     public bool HasSongEnded()
     {
         return hasEnded;

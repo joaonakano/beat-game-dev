@@ -15,6 +15,7 @@ MonoBehaviour:
   noteRestriction: 5
   darkNoteChance: 0.15
   lightNotePrefab: {fileID: 5514577366846466354, guid: c3144e858580379428e01a5f89ce4cec, type: 3}
-  darkNotePrefab: {fileID: 2057679718592447682, guid: 14248e15875c2b5439a89e31b673a79c, type: 3}
+  darkNotePrefab: {fileID: 5514577366846466354, guid: 535060461b7886f4b9046a6af86d33e1, type: 3}
   smallTextPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
   hitParticleEffects: {fileID: 744024589366315954, guid: 92d8d1bf7dae6cc45ac81053f56e26c2, type: 3}
+  hitSpecialParticleEffects: {fileID: 744024589366315954, guid: 73a22f19caf15354abd5318c65ed0c51, type: 3}
