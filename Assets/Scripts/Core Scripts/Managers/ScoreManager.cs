@@ -32,10 +32,14 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private List<AudioClip> missSFX;
     [SerializeField] private List<AudioClip> wrongPressSFX;
     [SerializeField] private List<AudioClip> superMissSFX;
+    [SerializeField] private List<AudioClip> superHitSFX;
+    [SerializeField] private List<AudioClip> darkNoteHitSFX;
+
+    public bool IsSuperActive() => isSuperActive;
+    bool isSuperActive = false;
 
     private bool hasPlayedSuperReadySFX = false;
     private bool hasPlayedEndSFX = false;
-    bool isSuperActive = false;
 
     float superDuration = 5f;
     float superElapsed = 0;
@@ -136,22 +140,35 @@ public class ScoreManager : MonoBehaviour
 
     // ==== EVENTOS DE PLACAR ====
 
-    private void RegisterHit(bool isSpecial)
+    public void RegisterHit(bool isSpecial, bool isSuperScoreActive = false)
     {
         scoreTracker.RegisterHit(isSpecial);
+
         healthManager.Heal(isSpecial ? 10f : 5f);
-        PlayRandomSFX(hitSFX, "interaction");
+        if (isSpecial)
+        {
+            PlayRandomSFX(darkNoteHitSFX, "interaction");
+        }
+        else if (isSuperScoreActive)
+        {
+            PlayRandomSFX(superHitSFX, "interaction");
+        }
+        else
+        {
+            PlayRandomSFX(hitSFX, "interaction");
+        }
+
         ShakeManager.instance.HitShake();
     }
 
-    private void RegisterMiss(bool isSpecial)
+    public void RegisterMiss(bool isSpecial)
     {
         scoreTracker.RegisterMiss(isSpecial);
         healthManager.Damage(isSpecial ? 10.5f : 5.5f);
         PlayRandomSFX(isSpecial ? superMissSFX : missSFX, "interaction");
     }
 
-    private void RegisterWrongPress()
+    public void RegisterWrongPress()
     {
         scoreTracker.RegisterWrongPress();
         healthManager.Damage(4f);

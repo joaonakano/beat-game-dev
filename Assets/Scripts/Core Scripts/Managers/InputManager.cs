@@ -75,7 +75,8 @@ public class InputManager : MonoBehaviour
 
                 if (timeDiff >= -hitWindow && timeDiff <= hitWindow && !note.isSpecialNote)
                 {
-                    lane.Hit();
+                    bool superActive = ScoreManager.Instance.IsSuperActive();
+                    ScoreManager.Instance.RegisterHit(isSpecial: false, isSuperScoreActive: superActive);
                     lane.HandleHit(note);
                 }
                 else if (timeDiff > hitWindow)

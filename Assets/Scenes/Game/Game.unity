@@ -3260,8 +3260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f192b9ca63b344aa74a3d5678a96a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  midiFileName: notes-feijao
-  songFileName: feijao-src
+  midiFileName: notes-chess
+  songFileName: chess-src
   startingARoundClip: {fileID: 0}
   songAudioSourceTag: song
   song: {fileID: 0}
@@ -8657,12 +8657,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 73fc49bd9ad67064295fe07865df680c, type: 3}
   - {fileID: 8300000, guid: 35aeb62287265b64c83ad00b1690703e, type: 3}
   missSFX:
-  - {fileID: 8300000, guid: 5892f0a69105e394a84c662cce39e09a, type: 3}
+  - {fileID: 8300000, guid: 24e9614731ded8047ad98270cf678d51, type: 3}
+  - {fileID: 8300000, guid: 1689901688996504c917d158ed07f102, type: 3}
   wrongPressSFX:
   - {fileID: 8300000, guid: d935e6fa2d6c3bf438ba0f15f055d374, type: 3}
   superMissSFX:
   - {fileID: 8300000, guid: ee08346fdf3cb1f4da80465a98fbe28f, type: 3}
   - {fileID: 8300000, guid: d308da53409b7b64ea27921911e3e9e3, type: 3}
+  superHitSFX:
+  - {fileID: 8300000, guid: e09d64e855b492742bcae62c8baa7687, type: 3}
+  - {fileID: 8300000, guid: 53feabe978ed8f840ac191ff3ee72179, type: 3}
+  - {fileID: 8300000, guid: 69ed84a0b0fab3744b38a247924f55c1, type: 3}
+  darkNoteHitSFX:
+  - {fileID: 8300000, guid: 0a6382fed2730354ca0a001c4540d81e, type: 3}
+  - {fileID: 8300000, guid: c90f21f62ab40a64b86e65138021d627, type: 3}
 --- !u!4 &2077855947
 Transform:
   m_ObjectHideFlags: 0
