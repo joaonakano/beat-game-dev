@@ -1,40 +1,66 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class CreditosScroller : MonoBehaviour
+public class CreditsRoll : MonoBehaviour
 {
-    public float scrollSpeed = 50f; // Velocidade da rolagem
-    public RectTransform creditsText; // Objeto do texto que sobe
-    public float endY = 1000f; // Posição Y onde considera que terminou
+    [Header("Configuração do Texto")]
+    public RectTransform creditsText;
+    public float scrollSpeed = 50f;
 
-    public GameObject menuCredits;  // Painel dos créditos
-    public GameObject menuMain;      // Painel do menu principal (MainMenuGame)
+    [Header("Limite de Altura")]
+    public float endYPosition = 800f;
+
+    [Header("Menus")]
+    public GameObject creditsMenu;
+    public GameObject mainMenuGame;
+
+    [Header("Música dos Créditos")]
+    public AudioSource creditsMusic;
 
     private Vector3 startPosition;
+    private bool isScrolling = false;
 
-    void Start()
+    void OnEnable()
     {
         startPosition = creditsText.anchoredPosition;
+        isScrolling = true;
+
+        if (creditsMusic != null)
+        {
+            creditsMusic.Play();
+        }
     }
 
     void Update()
     {
-        creditsText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
-
-        if (creditsText.anchoredPosition.y >= endY)
+        if (isScrolling)
         {
-            ReturnToMenu();
+            creditsText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
+
+            if (creditsText.anchoredPosition.y >= endYPosition)
+            {
+                EndCredits();
+            }
         }
     }
 
-    public void ReturnToMenu()
+    public void EndCredits()
     {
-        // Reseta a posição do texto para caso abra novamente
+        isScrolling = false;
+
+        if (creditsMusic != null)
+        {
+            creditsMusic.Stop();
+        }
+
         creditsText.anchoredPosition = startPosition;
 
-        // Desativa o menu de créditos
-        menuCredits.SetActive(false);
+        creditsMenu.SetActive(false);
+        mainMenuGame.SetActive(true);
+    }
 
-        // Ativa o menu principal
-        menuMain.SetActive(true);
+    public void SkipCredits()
+    {
+        EndCredits();
     }
 }
