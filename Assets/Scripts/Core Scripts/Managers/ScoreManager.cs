@@ -7,6 +7,13 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
+    [Header("Configurações de Placar")]
+    [SerializeField] private double specialNoteDamage = 15.5;
+    [SerializeField] private double normalNoteDamage = 10.5;
+    [SerializeField] private double wrongPressDamage = 4.5;
+    [SerializeField] private double normalHeal = 5.0;
+    [SerializeField] private double specialHeal = 10.0;
+
     [Header("Dependências")]
     [SerializeField] private ScoreTracker scoreTracker;
     [SerializeField] private HealthManager healthManager;
@@ -144,7 +151,7 @@ public class ScoreManager : MonoBehaviour
     {
         scoreTracker.RegisterHit(isSpecial);
 
-        healthManager.Heal(isSpecial ? 10f : 5f);
+        healthManager.Heal(isSpecial ? specialHeal : normalHeal);
         if (isSpecial)
         {
             PlayRandomSFX(darkNoteHitSFX, "interaction");
@@ -164,14 +171,14 @@ public class ScoreManager : MonoBehaviour
     public void RegisterMiss(bool isSpecial)
     {
         scoreTracker.RegisterMiss(isSpecial);
-        healthManager.Damage(isSpecial ? 10.5f : 5.5f);
+        healthManager.Damage(isSpecial ? specialNoteDamage : normalNoteDamage);
         PlayRandomSFX(isSpecial ? superMissSFX : missSFX, "interaction");
     }
 
     public void RegisterWrongPress()
     {
         scoreTracker.RegisterWrongPress();
-        healthManager.Damage(4f);
+        healthManager.Damage(wrongPressDamage);
         PlayRandomSFX(wrongPressSFX, "interaction");
     }
 

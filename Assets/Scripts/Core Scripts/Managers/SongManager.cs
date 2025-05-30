@@ -5,6 +5,7 @@ using Melanchall.DryWetMidi.Interaction;
 public class SongManager : MonoBehaviour
 {
     public static SongManager Instance;
+    private Coroutine noteSpawningCoroutine;
 
     [Header("Informações de Música")]
     [Tooltip("Nome do arquivo MIDI")] public string midiFileName;
@@ -114,7 +115,7 @@ public class SongManager : MonoBehaviour
 
         AudioManager.Instance.Play("song", song);
 
-        StartCoroutine(noteSpawner.SpawnNotesCoroutine(midiHandler.noteDataList));
+        noteSpawningCoroutine = StartCoroutine(noteSpawner.SpawnNotesCoroutine(midiHandler.noteDataList));
     }
 
     // Solicitar a minutagem em segundos da música
@@ -168,6 +169,7 @@ public class SongManager : MonoBehaviour
         // (FAZER DEPOIS UMA CORROTINA QUE DIMINUI O PITCH NO AUDIOMANAGER)
         if (HealthManager.Instance.CurrentHealth == 0)
         {
+            StopCoroutine(noteSpawningCoroutine);
             if (songAudioSource.pitch > 0.2)
             {
                 songAudioSource.pitch -= 0.5f * Time.deltaTime;

@@ -4297,7 +4297,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -8638,6 +8638,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cd4e7b4eb8cd734b9170342acda9590, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  specialNoteDamage: 15.5
+  normalNoteDamage: 10.5
+  wrongPressDamage: 4.5
+  normalHeal: 5
+  specialHeal: 10
   scoreTracker: {fileID: 2077855949}
   healthManager: {fileID: 2077855948}
   voicelineManager: {fileID: 2077855950}
@@ -8667,7 +8672,6 @@ MonoBehaviour:
   superHitSFX:
   - {fileID: 8300000, guid: e09d64e855b492742bcae62c8baa7687, type: 3}
   - {fileID: 8300000, guid: 53feabe978ed8f840ac191ff3ee72179, type: 3}
-  - {fileID: 8300000, guid: 69ed84a0b0fab3744b38a247924f55c1, type: 3}
   darkNoteHitSFX:
   - {fileID: 8300000, guid: 0a6382fed2730354ca0a001c4540d81e, type: 3}
   - {fileID: 8300000, guid: c90f21f62ab40a64b86e65138021d627, type: 3}
@@ -8711,7 +8715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff2d70015f0eccb4fbfd258857710d75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  milestoneStep: 100
+  milestoneStep: 20
   specialComboRatio: 1
   comboIncrement: 1
 --- !u!114 &2077855950

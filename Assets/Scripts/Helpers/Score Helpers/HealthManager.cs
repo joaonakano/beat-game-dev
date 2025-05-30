@@ -19,16 +19,16 @@ public class HealthManager : MonoBehaviour
         Instance = this;
     }
 
-    public void Heal(float baseAmount)
+    public void Heal(double baseAmount)
     {
-        float missingHealthPercentage = (100f - (float)currentHealth) / 100f;
-        float healAmount = baseAmount * missingHealthPercentage;
+        double missingHealthPercentage = (100f - (float)currentHealth) / 100f;
+        double healAmount = baseAmount * missingHealthPercentage;
 
         currentHealth += healAmount;
         currentHealth = Math.Clamp(currentHealth, 0, 100);
     }
 
-    public void Damage(float amount)
+    public void Damage(double amount)
     {
         currentHealth -= amount;
         currentHealth = Math.Clamp(currentHealth, 0, 100);
