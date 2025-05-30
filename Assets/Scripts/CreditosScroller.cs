@@ -2,39 +2,26 @@ using UnityEngine;
 
 public class CreditosScroller : MonoBehaviour
 {
-    public float scrollSpeed = 50f; // Velocidade da rolagem
-    public RectTransform creditsText; // Objeto do texto que sobe
-    public float endY = 1000f; // Posição Y onde considera que terminou
+    public float scrollSpeed = 50f;
+    public float startY = -600f;
+    public float endY = 1000f;
 
-    public GameObject menuCredits;  // Painel dos créditos
-    public GameObject menuMain;      // Painel do menu principal (MainMenuGame)
+    private Vector3 startPos;
 
-    private Vector3 startPosition;
-
-    void Start()
+    void OnEnable()
     {
-        startPosition = creditsText.anchoredPosition;
+        // Resetar a posição quando o menu de créditos for aberto
+        startPos = new Vector3(transform.localPosition.x, startY, transform.localPosition.z);
+        transform.localPosition = startPos;
     }
 
     void Update()
     {
-        creditsText.anchoredPosition += Vector2.up * scrollSpeed * Time.deltaTime;
+        transform.localPosition += Vector3.up * scrollSpeed * Time.deltaTime;
 
-        if (creditsText.anchoredPosition.y >= endY)
+        if (transform.localPosition.y >= endY)
         {
-            ReturnToMenu();
+            transform.localPosition = startPos;
         }
-    }
-
-    public void ReturnToMenu()
-    {
-        // Reseta a posição do texto para caso abra novamente
-        creditsText.anchoredPosition = startPosition;
-
-        // Desativa o menu de créditos
-        menuCredits.SetActive(false);
-
-        // Ativa o menu principal
-        menuMain.SetActive(true);
     }
 }
