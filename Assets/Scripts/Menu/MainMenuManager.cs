@@ -9,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
     public GameObject creditsMenu;
     public GameObject menuMusicSFX;
     public GameObject graphicsMenu;
+    public GameObject ControlsMenu;
 
 
     void Start()
@@ -73,8 +74,14 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnControlsClicked()
     {
-        Debug.Log("Abrir configurações de controles");
-        // Aqui você pode abrir um painel de controles.
+        settingsMenu.SetActive(false);
+        ControlsMenu.SetActive(true);
+    }
+
+    public void OnControlsBackClicked()
+    {
+        ControlsMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 
     public void OnSettingsBackClicked()
