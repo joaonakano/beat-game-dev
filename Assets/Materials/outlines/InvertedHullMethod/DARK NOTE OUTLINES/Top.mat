@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: OutlineExplosive
+  m_Name: Top
   m_Shader: {fileID: -6465566751694194690, guid: 4ffaf33f4cc7aba49980d678efe8446f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -44,7 +44,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Outline_Color: {r: 1, g: 0.46176243, b: 0, a: 0.03529412}
+    - _Outline_Color: {r: 1, g: 0, b: 0.89411765, a: 0.03529412}
     - _Pivot_Offset: {r: -0.002, g: 0, b: -0.001, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -64,8 +64,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d6b7e217356433547965c6dc6d2883f6, type: 2}
-  - {fileID: 2100000, guid: 7f7b74c08f95b754d938fbcc22341d8d, type: 2}
+  - {fileID: 2100000, guid: d698215d55ec3e84591a0497e586fa7e, type: 2}
+  - {fileID: 2100000, guid: 477731f75c8c5004cad2c2c237f223e9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 4573658402764775211}
   - component: {fileID: 7462845357475637637}
   m_Layer: 0
-  m_Name: note-up
+  m_Name: Top
   m_TagString: Note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -517,9 +517,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6375eaba56c0fc94493a755cf74c7ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDarkNote: 0
-  deathTextPrefab: {fileID: 3247127290083314541, guid: 805c00b79d6df0a4bb8e3e630dfa4594, type: 3}
+  isSpecialNote: 0
   assignedTime: 0
+  assignedLane: {fileID: 0}
+  hasBeenProcessed: 0
 --- !u!65 &4891955009492128518
 BoxCollider:
   m_ObjectHideFlags: 0

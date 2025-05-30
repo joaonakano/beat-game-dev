@@ -55,8 +55,13 @@ public class Lane : MonoBehaviour
     // Note Interaction Handlers
     public void HandleHit(Note note)
     {
-        ParticleSystemManager.InstantiateHitParticles(settings.hitParticleEffects,
-            new Vector3(0, note.transform.position.y, note.transform.position.z), transform.rotation, 1);
+        ParticleSystemManager.InstantiateHitParticles(
+           (note.isSpecialNote? settings.hitSpecialParticleEffects : settings.hitParticleEffects),
+            new Vector3(
+                0,
+                note.transform.position.y,
+                note.transform.position.z
+            ), transform.rotation, 1);
 
         noteQueue.Dequeue();
         note.hasBeenProcessed = true;

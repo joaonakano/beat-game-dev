@@ -7,9 +7,11 @@ public class HealthManager : MonoBehaviour
 
     [Header("Valores de Vida")]
 
-    [Tooltip("Vida do Jogador (0-100)")]
+    [Tooltip("Vida do Jogador (0-x)")]
     [SerializeField] private double currentHealth = 100.0;
+    [SerializeField] private double maxHealth = 100.0;
 
+    public double MaxHealth => maxHealth;
     public double CurrentHealth => currentHealth;
 
     public event Action OnHealthDepleted;
@@ -21,17 +23,17 @@ public class HealthManager : MonoBehaviour
 
     public void Heal(double baseAmount)
     {
-        double missingHealthPercentage = (100f - (float)currentHealth) / 100f;
+        double missingHealthPercentage = (maxHealth - (float)currentHealth) / 100f;
         double healAmount = baseAmount * missingHealthPercentage;
 
         currentHealth += healAmount;
-        currentHealth = Math.Clamp(currentHealth, 0, 100);
+        currentHealth = Math.Clamp(currentHealth, 0, maxHealth);
     }
 
     public void Damage(double amount)
     {
         currentHealth -= amount;
-        currentHealth = Math.Clamp(currentHealth, 0, 100);
+        currentHealth = Math.Clamp(currentHealth, 0, maxHealth);
 
         if (currentHealth == 0)
         {
