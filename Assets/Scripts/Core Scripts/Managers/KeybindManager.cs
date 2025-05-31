@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
@@ -9,8 +8,7 @@ public class KeybindManager : MonoBehaviour
 
     public Dictionary<string, KeyCode> keybinds = new Dictionary<string, KeyCode>();
 
-    bool waitingForKey = false;
-    string currentAction = "";
+    private string waitingForKeyAction = null;
 
     void Awake()
     {
@@ -26,6 +24,30 @@ public class KeybindManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (waitingForKeyAction != null)
+        {
+            foreach (KeyCode key in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(key))
+                {
+                    SetKey(waitingForKeyAction, key);
+                    waitingForKeyAction = null;
+                    Debug.Log($"Set {waitingForKeyAction} to {key}");
+                    KeybindUIManager.Instance.UpdateUI();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void StartRebind(string action)
+    {
+        waitingForKeyAction = action;
+        Debug.Log($"Press a key to bind {action}");
+    }
+
     public void SetKey(string action, KeyCode key)
     {
         keybinds[action] = key;
@@ -39,7 +61,7 @@ public class KeybindManager : MonoBehaviour
 
     public void LoadKeybinds()
     {
-        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special" };
+        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special", "Menu", "SuperScore" };
 
         foreach (string action in actions)
         {
@@ -58,26 +80,12 @@ public class KeybindManager : MonoBehaviour
         SetKey("Lane3", KeyCode.D);
         SetKey("Lane4", KeyCode.C);
         SetKey("Special", KeyCode.R);
+        SetKey("Menu", KeyCode.Escape);
+        SetKey("SuperScore", KeyCode.T);
     }
 
-
-    // UI de rebind
-    public void StartRebind(string action)
+    public bool IsRebinding()
     {
-        waitingForKey = true;
-        currentAction = action;
-    }
-
-    void OnGUI()
-    {
-        if (waitingForKey)
-        {
-            Event e = Event.current;
-            if (e.isKey)
-            {
-                SetKey(currentAction, e.keyCode);
-                waitingForKey = false;
-            }
-        }
+        return waitingForKeyAction != null;
     }
 }

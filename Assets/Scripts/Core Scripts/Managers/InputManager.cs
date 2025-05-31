@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour
 {
     // KEYBINDS
     [Header("Keybinds")]
-    public List<KeyCode> laneKeybinds = new();
     public KeyCode specialNoteKeybind = KeyCode.R;
     public KeyCode inGameMenuKeybind = KeyCode.Escape;
     public KeyCode superScoreKeybind = KeyCode.T;
@@ -15,43 +14,40 @@ public class InputManager : MonoBehaviour
     [Header("Lista dos GameObjects das Lanes")]
     public List<Lane> laneList = new();
 
-    // RELATIONSHIP BETWEEN LANES AND KEYBINDS
+    // RELACIONAMENTO ENTRE LANES E TECLAS
     private Dictionary<KeyCode, Lane> KeybindMap = new();
 
-    // EVENTS
+    // Eventos
     public event Action OnSuperScoreKeybindPressed;
     public event Action OnMenuKeybindPressed;
 
+    // Singleton
     public static InputManager Instance;
 
-    void Start()
-    {
-        if (laneList.Count != laneKeybinds.Count)
-        {
-            Debug.LogError("Erro: O número de keybinds precisa ser igual ao número de lanes!");
-            return;
-        }
-
-        for (int i = 0; i < laneList.Count; i++)
-        {
-            if (!KeybindMap.ContainsKey(laneKeybinds[i]))
-                KeybindMap.Add(laneKeybinds[i], laneList[i]);
-        }
-    }
-
-    void Awake()
+    private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
+        {
             Destroy(gameObject);
+        }
     }
 
-    void Update()
+    private void Start()
+    {
+        UpdateKeybindMap();
+    }
+
+    private void Update()
     {
         double currentTime = SongManager.Instance.GetAudioSourceTime();
         double hitWindow = 0.15f;
 
+        // Lógica de lanes
         foreach (var kvp in KeybindMap)
         {
             if (Input.GetKeyDown(kvp.Key) && SongManager.Instance.IsGameRunning())
@@ -95,6 +91,7 @@ public class InputManager : MonoBehaviour
             }
         }
 
+        // Special Note
         if (Input.GetKeyDown(specialNoteKeybind) && SongManager.Instance.IsGameRunning())
         {
             bool foundValidSpecialNote = false;
@@ -136,31 +133,70 @@ public class InputManager : MonoBehaviour
             }
         }
 
+        // Abrir Menu
         if (Input.GetKeyDown(inGameMenuKeybind))
             OnMenuKeybindPressed?.Invoke();
 
+        // Super Score
         if (Input.GetKeyDown(superScoreKeybind))
             OnSuperScoreKeybindPressed?.Invoke();
-            
     }
 
-    [ContextMenu("Validar Keybinds e Lanes")]
-    private void ValidateKeybinds()
+    /// <summary>
+    /// Atualiza o mapeamento de teclas usando o KeybindManager.
+    /// </summary>
+    public void UpdateKeybindMap()
     {
-        if (laneList.Count == 0 || laneKeybinds.Count == 0)
+        KeybindMap.Clear();
+
+        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4" };
+
+        if (laneList.Count != actions.Length)
         {
-            Debug.LogWarning("Aviso: Um dos campos está vazio.");
+            Debug.LogError("Erro: O número de lanes precisa ser igual ao número de ações definidas!");
             return;
         }
 
-        if (laneList.Count != laneKeybinds.Count)
+        for (int i = 0; i < laneList.Count; i++)
         {
-            Debug.LogWarning($"Aviso: Quantidade desigual - Keybinds: {laneKeybinds.Count}, Lanes: {laneList.Count}");
+            KeyCode key = KeybindManager.Instance.GetKey(actions[i]);
+
+            if (!KeybindMap.ContainsKey(key))
+                KeybindMap.Add(key, laneList[i]);
+            else
+                Debug.LogWarning($"Tecla {key} já está sendo usada por outra lane.");
+        }
+
+        // Pega também as teclas de funções especiais
+        specialNoteKeybind = KeybindManager.Instance.GetKey("Special");
+        inGameMenuKeybind = KeybindManager.Instance.GetKey("Menu");
+        superScoreKeybind = KeybindManager.Instance.GetKey("SuperScore");
+
+        // Fallback se não encontrar
+        if (specialNoteKeybind == KeyCode.None) specialNoteKeybind = KeyCode.R;
+        if (inGameMenuKeybind == KeyCode.None) inGameMenuKeybind = KeyCode.Escape;
+        if (superScoreKeybind == KeyCode.None) superScoreKeybind = KeyCode.T;
+    }
+
+    /// <summary>
+    /// Valida se a quantidade de lanes e keybinds estão corretas.
+    /// </summary>
+    [ContextMenu("Validar Keybinds e Lanes")]
+    private void ValidateKeybinds()
+    {
+        if (laneList.Count == 0)
+        {
+            Debug.LogWarning("Aviso: Lista de lanes está vazia.");
+            return;
+        }
+
+        if (laneList.Count != 4)
+        {
+            Debug.LogWarning($"Aviso: Quantidade incorreta de lanes. Esperado: 4, Atual: {laneList.Count}");
         }
         else
         {
-            Debug.Log($"Validação OK - {laneList.Count} lanes e keybinds.");
+            Debug.Log($"Validação OK - {laneList.Count} lanes.");
         }
     }
-
 }
