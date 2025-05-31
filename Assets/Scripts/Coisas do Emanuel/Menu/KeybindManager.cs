@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
@@ -58,7 +59,6 @@ public class KeybindManager : MonoBehaviour
         SetKey("Lane4", KeyCode.C);
         SetKey("Special", KeyCode.R);
     }
-<<<<<<<< HEAD:Assets/Scripts/Coisas do Emanuel/Menu/KeybindManager.cs
 
 
     // UI de rebind
@@ -81,6 +81,3 @@ public class KeybindManager : MonoBehaviour
         }
     }
 }
-========
-}
->>>>>>>> keybind_test:Assets/Scripts/Core Scripts/Managers/KeybindManager.cs
