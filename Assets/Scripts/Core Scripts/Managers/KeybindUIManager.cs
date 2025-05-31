@@ -32,7 +32,6 @@ public class KeybindUIManager : MonoBehaviour
     {
         string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special", "Menu", "SuperScore" };
 
-
         foreach (string action in actions)
         {
             GameObject obj = Instantiate(rowPrefab, rowsParent);
@@ -75,5 +74,17 @@ public class KeybindUIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void UpdateUI()
+    {
+        // Remove todas as linhas antigas
+        foreach (Transform child in rowsParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Gera as linhas atualizadas
+        GenerateRows();
     }
 }
