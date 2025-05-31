@@ -10,6 +10,11 @@ public class KeybindManager : MonoBehaviour
 
     private string waitingForKeyAction = null;
 
+    private readonly List<string> actions = new List<string>
+    {
+        "Lane1", "Lane2", "Lane3", "Lane4", "Special", "Menu", "SuperScore"
+    };
+
     void Awake()
     {
         if (Instance == null)
@@ -35,6 +40,7 @@ public class KeybindManager : MonoBehaviour
                     SetKey(waitingForKeyAction, key);
                     waitingForKeyAction = null;
                     Debug.Log($"Set {waitingForKeyAction} to {key}");
+
                     KeybindUIManager.Instance.UpdateUI();
                     break;
                 }
@@ -61,8 +67,6 @@ public class KeybindManager : MonoBehaviour
 
     public void LoadKeybinds()
     {
-        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4", "Special", "Menu", "SuperScore" };
-
         foreach (string action in actions)
         {
             string savedKey = PlayerPrefs.GetString(action, "");
@@ -87,5 +91,10 @@ public class KeybindManager : MonoBehaviour
     public bool IsRebinding()
     {
         return waitingForKeyAction != null;
+    }
+
+    public List<string> GetActions()
+    {
+        return actions;
     }
 }
