@@ -1,50 +1,37 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     // KEYBINDS
-    [Header("Keybinds")]
     public List<KeyCode> laneKeybinds = new();
     public KeyCode specialNoteKeybind = KeyCode.R;
-    public KeyCode inGameMenuKeybind = KeyCode.Escape;
-    public KeyCode superScoreKeybind = KeyCode.T;
 
     // LANES
-    [Header("Lista dos GameObjects das Lanes")]
     public List<Lane> laneList = new();
 
     // RELATIONSHIP BETWEEN LANES AND KEYBINDS
     private Dictionary<KeyCode, Lane> KeybindMap = new();
 
-    // EVENTS
-    public event Action OnSuperScoreKeybindPressed;
-    public event Action OnMenuKeybindPressed;
-
+    // Singleton instance para acesso global ao InputManager
     public static InputManager Instance;
 
-    void Start()
+    private void Awake()
     {
-        if (laneList.Count != laneKeybinds.Count)
+        if (Instance == null)
         {
-            Debug.LogError("Erro: O número de keybinds precisa ser igual ao número de lanes!");
-            return;
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-
-        for (int i = 0; i < laneList.Count; i++)
+        else
         {
-            if (!KeybindMap.ContainsKey(laneKeybinds[i]))
-                KeybindMap.Add(laneKeybinds[i], laneList[i]);
+            Destroy(gameObject);
         }
     }
 
-    void Awake()
+    void Start()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        UpdateKeybindMap();
     }
 
     void Update()
@@ -75,8 +62,7 @@ public class InputManager : MonoBehaviour
 
                 if (timeDiff >= -hitWindow && timeDiff <= hitWindow && !note.isSpecialNote)
                 {
-                    bool superActive = ScoreManager.Instance.IsSuperActive();
-                    ScoreManager.Instance.RegisterHit(isSpecial: false, isSuperScoreActive: superActive);
+                    lane.Hit();
                     lane.HandleHit(note);
                 }
                 else if (timeDiff > hitWindow)
@@ -135,32 +121,53 @@ public class InputManager : MonoBehaviour
                 ScoreManager.WrongPressMiss();
             }
         }
-
-        if (Input.GetKeyDown(inGameMenuKeybind))
-            OnMenuKeybindPressed?.Invoke();
-
-        if (Input.GetKeyDown(superScoreKeybind))
-            OnSuperScoreKeybindPressed?.Invoke();
-            
     }
 
-    [ContextMenu("Validar Keybinds e Lanes")]
-    private void ValidateKeybinds()
+    public void UpdateKeybindMap()
     {
-        if (laneList.Count == 0 || laneKeybinds.Count == 0)
+        KeybindMap.Clear();
+
+        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4" };
+
+        if (laneList.Count != actions.Length)
         {
-            Debug.LogWarning("Aviso: Um dos campos está vazio.");
+            Debug.LogError("Erro: O número de lanes precisa ser igual ao número de ações definidas!");
             return;
         }
 
-        if (laneList.Count != laneKeybinds.Count)
+        for (int i = 0; i < laneList.Count; i++)
         {
-            Debug.LogWarning($"Aviso: Quantidade desigual - Keybinds: {laneKeybinds.Count}, Lanes: {laneList.Count}");
+            KeyCode key = KeybindManager.Instance.GetKey(actions[i]);
+
+            if (!KeybindMap.ContainsKey(key))
+                KeybindMap.Add(key, laneList[i]);
+            else
+                Debug.LogWarning($"Tecla {key} já está sendo usada por outra lane.");
         }
-        else
-        {
-            Debug.Log($"Validação OK - {laneList.Count} lanes e keybinds.");
-        }
+
+        
+        KeyCode specialKey = KeybindManager.Instance.GetKey("Special");
+        specialNoteKeybind = specialKey != KeyCode.None ? specialKey : KeyCode.R;
     }
+
+
+    [ContextMenu("Validar Keybinds e Lanes")]
+        private void ValidateKeybinds()
+        {
+            if (laneList.Count == 0 || laneKeybinds.Count == 0)
+            {
+                Debug.LogWarning("Aviso: Um dos campos está vazio.");
+                return;
+            }
+
+            if (laneList.Count != laneKeybinds.Count)
+            {
+                Debug.LogWarning($"Aviso: Quantidade desigual - Keybinds: {laneKeybinds.Count}, Lanes: {laneList.Count}");
+            }
+            else
+            {
+                Debug.Log($"Validação OK - {laneList.Count} lanes e keybinds.");
+            }
+        }
 
 }
