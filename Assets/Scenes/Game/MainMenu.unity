@@ -928,7 +928,6 @@ GameObject:
   - component: {fileID: 122242922}
   - component: {fileID: 122242921}
   - component: {fileID: 122242920}
-  - component: {fileID: 122242919}
   - component: {fileID: 122242918}
   m_Layer: 5
   m_Name: PlayButtonLeft
@@ -973,18 +972,6 @@ MonoBehaviour:
   tmpText: {fileID: 509131202}
   normalColor: {r: 0.6392157, g: 0.09019608, b: 0.6509804, a: 1}
   hoverColor: {r: 1, g: 0.10980392, b: 0.9254902, a: 1}
---- !u!114 &122242919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122242916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf4172890f26b4488c3d39545eb45ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &122242920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1029,7 +1016,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3307518942873939373}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
         m_MethodName: OnLevelPlayClicked
         m_Mode: 1
@@ -1214,7 +1201,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3307518942873939373}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
         m_MethodName: OnLevelBackClicked
         m_Mode: 1
