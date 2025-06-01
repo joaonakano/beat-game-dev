@@ -38,9 +38,8 @@ public class KeybindManager : MonoBehaviour
                 if (Input.GetKeyDown(key))
                 {
                     SetKey(waitingForKeyAction, key);
-                    waitingForKeyAction = null;
                     Debug.Log($"Set {waitingForKeyAction} to {key}");
-
+                    waitingForKeyAction = null;
                     KeybindUIManager.Instance.UpdateUI();
                     break;
                 }
@@ -58,6 +57,7 @@ public class KeybindManager : MonoBehaviour
     {
         keybinds[action] = key;
         PlayerPrefs.SetString(action, key.ToString());
+        PlayerPrefs.Save();
     }
 
     public KeyCode GetKey(string action)
@@ -67,14 +67,37 @@ public class KeybindManager : MonoBehaviour
 
     public void LoadKeybinds()
     {
+        bool hasAnySavedKey = false;
+
         foreach (string action in actions)
         {
             string savedKey = PlayerPrefs.GetString(action, "");
-            if (Enum.TryParse(savedKey, out KeyCode key))
+            if (Enum.TryParse(savedKey, out KeyCode key) && key != KeyCode.None)
+            {
                 keybinds[action] = key;
+                hasAnySavedKey = true;
+            }
             else
+            {
                 keybinds[action] = KeyCode.None;
+            }
         }
+
+        if (!hasAnySavedKey)
+        {
+            ResetToDefault();
+            SaveKeybinds();
+            Debug.Log("Nenhum keybind salvo encontrado, carregando padrões.");
+        }
+    }
+
+    public void SaveKeybinds()
+    {
+        foreach (var kvp in keybinds)
+        {
+            PlayerPrefs.SetString(kvp.Key, kvp.Value.ToString());
+        }
+        PlayerPrefs.Save();
     }
 
     public void ResetToDefault()
