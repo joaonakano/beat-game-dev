@@ -428,11 +428,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourceList:
   - tag: song
+    audioObject: {fileID: 1241347751}
     audioSource: {fileID: 1241347753}
   - tag: interaction
+    audioObject: {fileID: 1726316904}
     audioSource: {fileID: 2007199177}
   - tag: voiceline
+    audioObject: {fileID: 1726316904}
     audioSource: {fileID: 1726316905}
+  mainMixer: {fileID: 24100000, guid: d700520344305f84eb101c68dcbf89e1, type: 2}
 --- !u!1 &70756262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2567,7 +2571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5501b5229d4332340bfe31dacf77e925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laneKeybinds: 33000000650000006400000063000000
   specialNoteKeybind: 114
   inGameMenuKeybind: 27
   superScoreKeybind: 116

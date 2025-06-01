@@ -428,11 +428,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourceList:
   - tag: song
+    audioObject: {fileID: 1241347751}
     audioSource: {fileID: 1241347753}
   - tag: interaction
+    audioObject: {fileID: 2007199175}
     audioSource: {fileID: 2007199177}
   - tag: voiceline
+    audioObject: {fileID: 1726316904}
     audioSource: {fileID: 1726316905}
+  mainMixer: {fileID: 24100000, guid: d700520344305f84eb101c68dcbf89e1, type: 2}
 --- !u!1 &70756262
 GameObject:
   m_ObjectHideFlags: 0
