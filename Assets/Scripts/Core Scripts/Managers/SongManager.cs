@@ -34,13 +34,7 @@ public class SongManager : MonoBehaviour
     [Header("Informações Obrigatórias de Posição")]
     [Tooltip("Posição do Spawn das notas no eixo Z")] public float noteSpawnZ;
     [Tooltip("Posição da Área de Tapping no eixo Z")] public float noteTapZ;
-    public float NoteDespawnZ
-    {
-        get
-        {
-            return noteTapZ - (noteSpawnZ - noteTapZ);
-        }
-    }
+    public float NoteDespawnZ => noteTapZ - (noteSpawnZ - noteTapZ);
 
     [Header("Estatísticas para Nerds")]
     public bool hasEnded = false;
@@ -48,23 +42,109 @@ public class SongManager : MonoBehaviour
     public double lastNoteTimestamp;
     public int musicNoteCount;
 
-    void Start()
+    #region Unity Lifecycle
+
+    void Awake()
     {
         Instance = this;
+    }
 
+    void Start()
+    {
         LoadSongAudioClip(songFileName);
 
-        if (songAudioSource == null)
-            songAudioSource = GetSongAudioSource(songAudioSourceTag);
+        EnsureAudioSource();
 
-        // Game Start
         ReadMidiFile();
     }
 
+    void Update()
+    {
+        double currentAudioTime = System.Math.Round(GetAudioSourceTime(), 3);
+
+        if (HealthManager.Instance != null && HealthManager.Instance.CurrentHealth == 0)
+        {
+            if (noteSpawningCoroutine != null)
+                StopCoroutine(noteSpawningCoroutine);
+
+            if (IsSongAudioSourceValid())
+            {
+                if (songAudioSource.pitch > 0.2f)
+                {
+                    songAudioSource.pitch -= 0.5f * Time.deltaTime;
+                }
+                else
+                {
+                    if (!hasEnded)
+                        hasEnded = true;
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region Audio Management
+
+    private void EnsureAudioSource()
+    {
+        if (songAudioSource == null)
+            songAudioSource = GetSongAudioSource(songAudioSourceTag);
+    }
+
+    private bool IsSongAudioSourceValid()
+    {
+        if (songAudioSource == null)
+            songAudioSource = GetSongAudioSource(songAudioSourceTag);
+
+        return songAudioSource != null;
+    }
+
+    private AudioSource GetSongAudioSource(string tag)
+    {
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogError("[SongManager] AudioManager.Instance está nulo. Verifique a ordem de execução dos scripts.");
+            return null;
+        }
+
+        AudioSource source = AudioManager.Instance.GetAudioSource(tag);
+
+        if (source == null)
+            Debug.LogError($"[SongManager] Falha ao encontrar a tag '{tag}' no AudioManager.");
+
+        return source;
+    }
+
+    public void StartSong()
+    {
+        Debug.Log("Starting SONG!");
+
+        EnsureAudioSource();
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.Play(songAudioSourceTag, song);
+
+        noteSpawningCoroutine = StartCoroutine(noteSpawner.SpawnNotesCoroutine(midiHandler.noteDataList));
+    }
+
+    public void ToggleReverbOnMusic(bool desiredEffect)
+    {
+        if (IsSongAudioSourceValid())
+        {
+            var reverb = songAudioSource.GetComponent<AudioReverbFilter>();
+            if (reverb != null)
+                reverb.enabled = desiredEffect;
+        }
+    }
+
+    #endregion
+
+    #region Song Handling
+
     private string FormatFileName(string filename, string beginningArgs = "", string endArgs = "")
     {
-        string newStr = beginningArgs + filename.Trim() + endArgs;
-        return newStr;
+        return beginningArgs + filename.Trim() + endArgs;
     }
 
     private void LoadSongAudioClip(string filename)
@@ -74,54 +154,38 @@ public class SongManager : MonoBehaviour
         song = Resources.Load<AudioClip>(path);
 
         if (song == null)
-            Debug.LogError($"Erro ao tentar carregar a música: {songFileName} de {path}");
+            Debug.LogError($"[SongManager] Erro ao tentar carregar a música: {songFileName} de {path}");
         else
-            Debug.Log($"Música carregada: {songFileName}");
-    }
-
-    private AudioSource GetSongAudioSource(string tag)
-    {
-        AudioSource songAudioSource = AudioManager.Instance.GetAudioSource(tag);
-
-        if (songAudioSource == null)
-            Debug.LogError($"Falha ao tentar procurar a tag especificada no AudioManager.cs: {tag}. Verifique se existe a tag {tag} no Script/Componente.");
-
-        return songAudioSource;
+            Debug.Log($"[SongManager] Música carregada: {songFileName}");
     }
 
     public void ReadMidiFile()
     {
         if (!midiFileName.Contains(".mid"))
             midiFileName = FormatFileName(midiFileName, endArgs: ".mid");
-                
-        Debug.Log($"Started reading the midi file: {midiFileName}");
+
+        Debug.Log($"[SongManager] Lendo arquivo MIDI: {midiFileName}");
 
         midiFile = MidiFile.Read(Application.streamingAssetsPath + "/Audio/Notes/" + midiFileName);
 
-        Debug.Log($"Finished read the midi file: {midiFileName}");
+        Debug.Log($"[SongManager] Leitura finalizada do MIDI: {midiFileName}");
 
         midiHandler.GetDataFromMidiAndParseNotes(midiFile);
 
         lastNoteTimestamp = midiHandler.GetLastNoteTimestamp(midiFile);
         musicNoteCount = midiHandler.GetSongNoteCount();
 
-        // Inicio da musica
         Invoke(nameof(StartSong), songDelayInSeconds);
     }
 
-    public void StartSong()
-    {
-        Debug.Log("Starting SONG!");
+    #endregion
 
-        AudioManager.Instance.Play("song", song);
+    #region Getters
 
-        noteSpawningCoroutine = StartCoroutine(noteSpawner.SpawnNotesCoroutine(midiHandler.noteDataList));
-    }
-
-    // Solicitar a minutagem em segundos da música
     public double GetAudioSourceTime()
     {
-        if (songAudioSource == null) return 0;
+        if (!IsSongAudioSourceValid() || songAudioSource.clip == null)
+            return 0;
 
         return (double)songAudioSource.timeSamples / songAudioSource.clip.frequency;
     }
@@ -138,54 +202,22 @@ public class SongManager : MonoBehaviour
 
     public bool HasSongBeenPaused()
     {
-        return (!songAudioSource.isPlaying? true : false);
+        if (!IsSongAudioSourceValid())
+        {
+            Debug.LogWarning("[SongManager] songAudioSource está nulo ao verificar pausa.");
+            return true;
+        }
+
+        return !songAudioSource.isPlaying;
     }
 
     public bool IsGameRunning()
     {
-        return !HasSongEnded() && !HasSongBeenPaused() && HealthManager.Instance.CurrentHealth > 0;
+        bool healthOk = HealthManager.Instance != null && HealthManager.Instance.CurrentHealth > 0;
+        bool audioOk = IsSongAudioSourceValid() && !HasSongBeenPaused();
+
+        return !HasSongEnded() && audioOk && healthOk;
     }
 
-    public void ToggleReverbOnMusic(bool desiredEffect)
-    {
-        if (desiredEffect)
-        {
-            songAudioSource.GetComponent<AudioReverbFilter>().enabled = true;
-        } else
-        {
-            songAudioSource.GetComponent<AudioReverbFilter>().enabled = false;
-        }
-    }
-
-    private void Update()
-    {
-        double currentAudioTime = System.Math.Round(GetAudioSourceTime(), 3);
-
-        /* (NAO SEI O QUE FAZ ISSO, TALVEZ DE PRA DELETAR)
-        if (currentAudioTime >= lastNoteTimestamp)
-        {
-            //if (audioSource.pitch > 0.2)
-            //{
-            //    audioSource.pitch -= 0.08f * Time.deltaTime;
-            //    hasEnded = true;
-            //}
-        } */
-
-        // (FAZER DEPOIS UMA CORROTINA QUE DIMINUI O PITCH NO AUDIOMANAGER)
-        if (HealthManager.Instance.CurrentHealth == 0)
-        {
-            StopCoroutine(noteSpawningCoroutine);
-            if (songAudioSource.pitch > 0.2)
-            {
-                songAudioSource.pitch -= 0.5f * Time.deltaTime;
-            }
-            else
-            {
-                if (!HasSongEnded())
-                {
-                    hasEnded = true;
-                }
-            }
-        }
-    }
+    #endregion
 }

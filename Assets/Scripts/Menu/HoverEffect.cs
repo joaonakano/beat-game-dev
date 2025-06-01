@@ -11,18 +11,23 @@ public class HoverEffect : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     void Start()
     {
         if (tmpText == null)
-            tmpText = GetComponent<TextMeshProUGUI>();
+            tmpText = GetComponentInChildren<TextMeshProUGUI>();
 
-        tmpText.color = normalColor;
+        if (tmpText != null)
+            tmpText.color = normalColor;
+        else
+            Debug.LogWarning("TMP não encontrado no objeto " + gameObject.name);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tmpText.color = hoverColor;
+        if (tmpText != null)
+            tmpText.color = hoverColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tmpText.color = normalColor;
+        if (tmpText != null)
+            tmpText.color = normalColor;
     }
 }
