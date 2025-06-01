@@ -47,9 +47,18 @@ public class MainMenuManager : MonoBehaviour
     // MENU LEVELS BUTTONS
     public void OnLevelPlayClicked()
     {
-        SceneManager.LoadScene("Game"); // Troque "Game" pelo nome da sua cena do jogo
+        SceneManager.LoadScene("Game-chess"); // Troque "Game" pelo nome da sua cena do jogo
     }
 
+    public void OnLevelMiddlePlayClicked()
+    {
+        SceneManager.LoadScene("Game-brainstew"); // Troque "Game" pelo nome da sua cena do jogo
+    }
+
+    public void OnLevelRightPlayClicked()
+    {
+        SceneManager.LoadScene("Game-terceiro"); // Troque "Game" pelo nome da sua cena do jogo
+    }
     public void OnLevelBackClicked()
     {
         menuLevels.SetActive(false);
