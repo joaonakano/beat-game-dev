@@ -425,7 +425,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 653166613}
-  - {fileID: 2068277085}
   m_Father: {fileID: 1451840420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &96167172
@@ -2935,6 +2934,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2068277085}
   - {fileID: 188207956}
   - {fileID: 1198742293}
   - {fileID: 10566211}
@@ -9050,7 +9050,7 @@ GameObject:
   - component: {fileID: 2068277086}
   - component: {fileID: 2068277087}
   m_Layer: 5
-  m_Name: Canva
+  m_Name: PauseScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9140,7 +9140,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068277080}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
@@ -9150,7 +9150,7 @@ RectTransform:
   - {fileID: 1514723183}
   - {fileID: 928997443}
   - {fileID: 1322332347}
-  m_Father: {fileID: 70756264}
+  m_Father: {fileID: 872356256}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
