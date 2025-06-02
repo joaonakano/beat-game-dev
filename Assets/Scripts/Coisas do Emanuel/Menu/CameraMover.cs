@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using System.Collections;
 
 public class CameraMover : MonoBehaviour
 {
@@ -18,55 +19,42 @@ public class CameraMover : MonoBehaviour
     public float moveDuration = 1f;
     public Ease moveEase = Ease.InOutSine;
 
-    private Camera mainCamera;
+    private Transform cameraRig;
 
     void Start()
     {
-        mainCamera = Camera.main;
+        cameraRig = Camera.main.transform.parent;
 
         if (fadeImage != null)
         {
             fadeImage.gameObject.SetActive(true);
-            fadeImage.color = new Color(0, 0, 0, 0); // Começa transparente
+            fadeImage.color = new Color(0, 0, 0, 0);
         }
     }
 
-    public void MoveToMainMenu()
+    public void MoveTo(Transform target)
     {
-        StartCoroutine(FadeAndMove(mainMenuPos));
+        StartCoroutine(FadeAndMove(target));
     }
 
-    public void MoveToSettings()
-    {
-        StartCoroutine(FadeAndMove(settingsPos));
-    }
+    public void MoveToMainMenu() => MoveTo(mainMenuPos);
+    public void MoveToSettings() => MoveTo(settingsPos);
+    public void MoveToLevels() => MoveTo(levelsPos);
+    public void MoveToCredits() => MoveTo(creditsPos);
 
-    public void MoveToLevels()
+    IEnumerator FadeAndMove(Transform target)
     {
-        StartCoroutine(FadeAndMove(levelsPos));
-    }
-
-    public void MoveToCredits()
-    {
-        StartCoroutine(FadeAndMove(creditsPos));
-    }
-
-    System.Collections.IEnumerator FadeAndMove(Transform target)
-    {
-        // Fade Out
         yield return Fade(1);
 
-        // Movimenta a Câmera
-        mainCamera.transform.DOMove(target.position, moveDuration).SetEase(moveEase);
-        mainCamera.transform.DORotateQuaternion(target.rotation, moveDuration).SetEase(moveEase);
+        cameraRig.DOMove(target.position, moveDuration).SetEase(moveEase);
+        cameraRig.DORotateQuaternion(target.rotation, moveDuration).SetEase(moveEase);
 
         yield return new WaitForSeconds(moveDuration);
 
-        // Fade In
         yield return Fade(0);
     }
 
-    System.Collections.IEnumerator Fade(float targetAlpha)
+    IEnumerator Fade(float targetAlpha)
     {
         if (fadeImage == null)
             yield break;
