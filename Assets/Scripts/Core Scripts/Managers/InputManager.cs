@@ -44,13 +44,16 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if (!IsInGameScene() || SongManager.Instance == null || !SongManager.Instance.IsGameRunning())
+            return;
+
         double currentTime = SongManager.Instance.GetAudioSourceTime();
         double hitWindow = 0.15f;
 
         // Lógica de lanes
         foreach (var kvp in KeybindMap)
         {
-            if (Input.GetKeyDown(kvp.Key) && SongManager.Instance.IsGameRunning())
+            if (Input.GetKeyDown(kvp.Key))
             {
                 Lane lane = kvp.Value;
                 Queue<Note> queue = lane.GetNoteQueue();
@@ -92,7 +95,7 @@ public class InputManager : MonoBehaviour
         }
 
         // Special Note
-        if (Input.GetKeyDown(specialNoteKeybind) && SongManager.Instance.IsGameRunning())
+        if (Input.GetKeyDown(specialNoteKeybind))
         {
             bool foundValidSpecialNote = false;
 
@@ -198,5 +201,14 @@ public class InputManager : MonoBehaviour
         {
             Debug.Log($"Validação OK - {laneList.Count} lanes.");
         }
+    }
+
+    /// <summary>
+    /// Verifica se está em uma cena de gameplay.
+    /// </summary>
+    /// <returns>True se estiver em gameplay, False se estiver no menu.</returns>
+    private bool IsInGameScene()
+    {
+        return FindObjectOfType<GameSessionMarker>() != null;
     }
 }
