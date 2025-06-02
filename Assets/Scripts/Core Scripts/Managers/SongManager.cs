@@ -11,9 +11,6 @@ public class SongManager : MonoBehaviour
     [Tooltip("Nome do arquivo MIDI")] public string midiFileName;
     [Tooltip("Nome do arquivo de música")] public string songFileName;
 
-    [Header("Audio Clips")]
-    [Tooltip("Clip tocado quando uma nova rodada é iniciada")] public AudioClip startingARoundClip;
-
     [Header("Audio Source")]
     [Tooltip("Nome da tag de música configurada no Script AudioManager.cs")] public string songAudioSourceTag = "song";
 
@@ -21,11 +18,15 @@ public class SongManager : MonoBehaviour
     [HideInInspector] public MidiFile midiFile;
     [HideInInspector] public AudioSource songAudioSource;
 
+    [Header("Início do Round")]
+    [Tooltip("Clip tocado quando uma nova rodada é iniciada")] public AudioClip roundStartSFX;
+    [SerializeField] private int roundStartSFXDurationSeconds;
+
     [Header("Informações de Gameplay")]
     [Tooltip("Tempo permitido para o jogador acertar uma nota fora do tempo em segundos")] public double marginOfError;
-    [Tooltip("Tempo de delay até a música começar em segundos")] public float songDelayInSeconds;
     [Tooltip("Tempo de delay dos controles em milisegundos")] public int inputDelayInMilliseconds;
     [Tooltip("Tempo de duração que uma nota deve ficar em cena. Quanto menor, mais rápido a nota viaja.")] public float noteTime;
+    [HideInInspector] [Tooltip("Tempo de delay até a música começar em segundos")] public float songDelayInSeconds => roundStartSFXDurationSeconds;
 
     [Header("Referencias Obrigatórias a Outros Scripts")]
     [Tooltip("Referência ao script de Gerenciamento de Midi (MidiHandler.cs)")] public MidiHandler midiHandler;
@@ -105,8 +106,17 @@ public class SongManager : MonoBehaviour
         lastNoteTimestamp = midiHandler.GetLastNoteTimestamp(midiFile);
         musicNoteCount = midiHandler.GetSongNoteCount();
 
+        // Inicio do SFX
+        StartRoundSFX();
+
         // Inicio da musica
         Invoke(nameof(StartSong), songDelayInSeconds);
+    }
+
+    public void StartRoundSFX()
+    {
+        Debug.Log("Start round sfx is on!");
+        AudioManager.Instance.PlayOneShot("interaction",roundStartSFX);
     }
 
     public void StartSong()

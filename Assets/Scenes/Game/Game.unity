@@ -3506,12 +3506,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   midiFileName: notes-chess
   songFileName: chess-src
-  startingARoundClip: {fileID: 0}
   songAudioSourceTag: song
   song: {fileID: 0}
   songAudioSource: {fileID: 0}
+  roundStartSFX: {fileID: 8300000, guid: cf4eae70393ab284b92b76080bd42d89, type: 3}
+  roundStartSFXDurationSeconds: 10
   marginOfError: 0.07
-  songDelayInSeconds: 2
   inputDelayInMilliseconds: 0
   noteTime: 1
   midiHandler: {fileID: 765686348}
