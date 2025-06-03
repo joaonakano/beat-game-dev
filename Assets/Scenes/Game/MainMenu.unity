@@ -9281,11 +9281,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creditsText: {fileID: 2050875581}
-  scrollSpeed: 20
+  scrollSpeed: 200
   endYPosition: 1000
   creditsMenu: {fileID: 505181376}
   mainMenuGame: {fileID: 202363023}
   creditsMusic: {fileID: 1633085138}
+  cameraTransform: {fileID: 1573241413}
+  mainMenuPosition: {fileID: 272507481}
+  moveDuration: 0.5
+  easeType: 0
 --- !u!114 &505181379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14229,8 +14233,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1425709602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.33333355}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15926,9 +15930,9 @@ RectTransform:
   m_Father: {fileID: 787802979}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -17, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &777996060
 MonoBehaviour:
@@ -26453,7 +26457,7 @@ RectTransform:
   m_GameObject: {fileID: 1203693009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 936779057}
@@ -26461,7 +26465,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -247, y: 0}
+  m_AnchoredPosition: {x: -247, y: -45}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203693011
@@ -32439,6 +32443,10 @@ MonoBehaviour:
   creditsMenu: {fileID: 1470395497}
   mainMenuGame: {fileID: 929047191}
   creditsMusic: {fileID: 1888476669}
+  cameraTransform: {fileID: 0}
+  mainMenuPosition: {fileID: 0}
+  moveDuration: 1
+  easeType: 4
 --- !u!1 &1472381860
 GameObject:
   m_ObjectHideFlags: 0
@@ -34841,7 +34849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1540327964
 RectTransform:
   m_ObjectHideFlags: 0

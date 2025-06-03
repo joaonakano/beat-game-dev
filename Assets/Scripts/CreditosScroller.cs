@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CreditsRoll : MonoBehaviour
 {
@@ -16,6 +17,14 @@ public class CreditsRoll : MonoBehaviour
 
     [Header("Música dos Créditos")]
     public AudioSource creditsMusic;
+
+    [Header("Câmera")]
+    public Transform cameraTransform;
+    public Transform mainMenuPosition;
+
+    [Header("Tween Config")]
+    public float moveDuration = 1f;
+    public Ease easeType = Ease.InOutSine;
 
     private Vector3 startPosition;
     private bool isScrolling = false;
@@ -57,6 +66,13 @@ public class CreditsRoll : MonoBehaviour
 
         creditsMenu.SetActive(false);
         mainMenuGame.SetActive(true);
+
+        // DOTween - Move a câmera de volta ao menu principal
+        if (cameraTransform != null && mainMenuPosition != null)
+        {
+            cameraTransform.DOMove(mainMenuPosition.position, moveDuration).SetEase(easeType);
+            cameraTransform.DORotateQuaternion(mainMenuPosition.rotation, moveDuration).SetEase(easeType);
+        }
     }
 
     public void SkipCredits()
