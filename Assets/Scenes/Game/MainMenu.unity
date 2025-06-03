@@ -21274,6 +21274,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: city-17-project
       objectReference: {fileID: 0}
+    - target: {fileID: 1741845526967334423, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2519133100660708337, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -21282,12 +21286,25 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 9f81a986f868f7f47b2a89effc416613, type: 2}
+    - target: {fileID: 5008022236170083033, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008022236170083033, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008022236170083033, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 37e5f7a5fc605824e89fd526f59f24f7, type: 2}
     - target: {fileID: 8239466741698121502, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 28788d21bd0d3344a89693e3b4301466, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7036213049465896255, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 95aa70071fcc9b8488159b4118f1d6da, type: 3}
       insertIndex: -1
