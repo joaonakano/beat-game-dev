@@ -12,11 +12,11 @@ public class NamedAudioSource
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("Audio Sources Utilizados")]
+    [Header("Audio Sources Registrados")]
     public List<NamedAudioSource> audioSourceList = new();
 
     [Header("Audio Mixer")]
-    public AudioMixer mainMixer; // Arraste o AudioMixer aqui no Inspector
+    public AudioMixer mainMixer;
 
     private Dictionary<string, AudioSource> audioSourceMap;
     public static AudioManager Instance;
@@ -34,31 +34,28 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        audioSourceMap = new();
+        audioSourceMap = new Dictionary<string, AudioSource>();
 
         foreach (var entry in audioSourceList)
         {
-            // Busca o AudioSource no objeto informado ou em seus filhos
             entry.audioSource = entry.audioObject.GetComponent<AudioSource>();
             if (entry.audioSource == null)
-            {
                 entry.audioSource = entry.audioObject.GetComponentInChildren<AudioSource>();
-            }
 
             if (entry.audioSource == null)
             {
-                Debug.LogError($"[AudioManager] Nenhum AudioSource encontrado no objeto '{entry.tag}'. Verifique se o AudioSource está corretamente atribuído.");
+                Debug.LogError($"AudioManager: Nenhum AudioSource encontrado no objeto '{entry.tag}'.");
                 continue;
             }
 
             if (!audioSourceMap.ContainsKey(entry.tag))
                 audioSourceMap.Add(entry.tag, entry.audioSource);
             else
-                Debug.LogWarning($"Audio Source duplicado: {entry.tag}");
+                Debug.LogWarning($"AudioManager: Tag duplicada '{entry.tag}'.");
         }
     }
 
-    #region Controles de Playback
+    #region Playback
 
     public void Play(string tag, AudioClip clip, bool loop = false)
     {
@@ -70,7 +67,19 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Não foi possível encontrar o Audio Source com a tag {tag}");
+            Debug.LogWarning($"AudioManager: Tag '{tag}' não encontrada.");
+        }
+    }
+
+    public void PlayOneShot(string tag, AudioClip clip)
+    {
+        if (audioSourceMap.TryGetValue(tag, out var source))
+        {
+            source.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning($"AudioManager: Tag '{tag}' não encontrada.");
         }
     }
 
@@ -94,26 +103,10 @@ public class AudioManager : MonoBehaviour
                 source.UnPause();
     }
 
-    public void PlayOneShot(string tag, AudioClip clip)
-    {
-        if (audioSourceMap.TryGetValue(tag, out var source))
-            source.PlayOneShot(clip);
-        else
-        {
-            Debug.LogWarning($"Não foi possível encontrar Audio Source com a tag {tag}");
-        }
-    }
-
-    public void SetVolume(string tag, float volume)
-    {
-        if (audioSourceMap.TryGetValue(tag, out var source))
-            source.volume = Mathf.Clamp01(volume);
-    }
-
     public void SetPitch(string tag, float pitch)
     {
         if (audioSourceMap.TryGetValue(tag, out var source))
-            source.pitch = Mathf.Clamp(pitch, -3, 3);
+            source.pitch = Mathf.Clamp(pitch, -3f, 3f);
     }
 
     public AudioSource GetAudioSource(string tag)
@@ -126,22 +119,26 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-    #region Controle do Mixer (Master, Music, SFX, Voice)
+    #region Mixer Volume Controls
 
-    // Volume vai de 0.0001 até 1 no slider (nunca 0 porque log10 de 0 dá erro)
+    private float ConvertToDecibel(float volume)
+    {
+        return Mathf.Lerp(-80f, 0f, Mathf.Clamp01(volume));
+    }
+
     public void SetMasterVolume(float volume)
     {
-        mainMixer.SetFloat("MasterVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+        mainMixer.SetFloat("MasterVolume", ConvertToDecibel(volume));
     }
 
     public void SetMusicVolume(float volume)
     {
-        mainMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+        mainMixer.SetFloat("MusicVolume", ConvertToDecibel(volume));
     }
 
     public void SetSFXVolume(float volume)
     {
-        mainMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20);
+        mainMixer.SetFloat("SFXVolume", ConvertToDecibel(volume));
     }
 
     #endregion
