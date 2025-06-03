@@ -5,7 +5,7 @@ public class BlackWhiteShaderController : MonoBehaviour
     public static BlackWhiteShaderController Instance;
     [Header("Materiais de Shader")]
     [SerializeField] private MeshRenderer grayscaleObjectRenderer;
-    [SerializeField] private float grayscaleLevel = 1;
+    [SerializeField] private float grayscaleLevel = 0;
 
     public float GrayscaleLevel => grayscaleLevel;
 

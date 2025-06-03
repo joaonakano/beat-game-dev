@@ -4069,12 +4069,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   midiFileName: music_brainstew
   songFileName: music_brainstew
-  startingARoundClip: {fileID: 0}
   songAudioSourceTag: song
   song: {fileID: 0}
   songAudioSource: {fileID: 0}
+  roundStartSFX: {fileID: 8300000, guid: cf4eae70393ab284b92b76080bd42d89, type: 3}
+  roundStartSFXDurationSeconds: 9
   marginOfError: 0.07
-  songDelayInSeconds: 2
   inputDelayInMilliseconds: 0
   noteTime: 1
   midiHandler: {fileID: 765686348}
@@ -4085,6 +4085,7 @@ MonoBehaviour:
   isPaused: 0
   lastNoteTimestamp: 0
   musicNoteCount: 0
+  theGameHasStarted: 0
 --- !u!4 &992963430
 Transform:
   m_ObjectHideFlags: 0
