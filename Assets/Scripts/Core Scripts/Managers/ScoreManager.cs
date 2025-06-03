@@ -61,7 +61,6 @@ public class ScoreManager : MonoBehaviour
         scoreTracker.OnMilestoneReached += HandleMilestone;
         scoreTracker.Initialize(SongManager.Instance.musicNoteCount);
 
-        HealthManager.Instance.OnHealthDepleted += OnPlayerLost;
         InputManager.Instance.OnSuperScoreKeybindPressed += TryActivateSuper;
     }
 
@@ -199,10 +198,4 @@ public class ScoreManager : MonoBehaviour
     }
 
     private void PlayLoseSFX() => PlaySFX(loseSFX, interactionsAudioSource);
-
-    private void OnPlayerLost ()
-    {
-        //Invoke(nameof(PlayLoseSFX), 2f);
-        Debug.Log("The Player has lost!");
-    }
 }

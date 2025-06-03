@@ -1,6 +1,7 @@
 using UnityEngine;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
+using System;
 
 public class SongManager : MonoBehaviour
 {
@@ -41,6 +42,9 @@ public class SongManager : MonoBehaviour
     public bool isPaused = false;
     public double lastNoteTimestamp;
     public int musicNoteCount;
+    public bool theGameHasStarted = false;
+
+    public event Action OnSongEnded;
 
     #region Unity Lifecycle
 
@@ -79,6 +83,12 @@ public class SongManager : MonoBehaviour
                         hasEnded = true;
                 }
             }
+        }
+
+        if (theGameHasStarted && GetAudioSourceTime() >= lastNoteTimestamp && HealthManager.Instance.CurrentHealth > 0)
+        {
+            hasEnded = true;
+            OnSongEnded?.Invoke();
         }
     }
 
@@ -119,6 +129,7 @@ public class SongManager : MonoBehaviour
     public void StartSong()
     {
         Debug.Log("Starting SONG!");
+        theGameHasStarted = true;
 
         EnsureAudioSource();
 
