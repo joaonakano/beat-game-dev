@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 public class KeybindManager : MonoBehaviour
-{
+{/*
     public static KeybindManager Instance;
 
     public Dictionary<string, KeyCode> keybinds = new Dictionary<string, KeyCode>();
@@ -119,5 +119,5 @@ public class KeybindManager : MonoBehaviour
     public List<string> GetActions()
     {
         return actions;
-    }
+    }*/
 }

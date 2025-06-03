@@ -1,15 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
-    // KEYBINDS
-    [Header("Keybinds")]
-    public KeyCode specialNoteKeybind = KeyCode.R;
-    public KeyCode inGameMenuKeybind = KeyCode.Escape;
-    public KeyCode superScoreKeybind = KeyCode.T;
-
     // LANES
     [Header("Lista dos GameObjects das Lanes")]
     public List<Lane> laneList = new();
@@ -24,191 +19,171 @@ public class InputManager : MonoBehaviour
     // Singleton
     public static InputManager Instance;
 
+    [Header("Input System")]
+    public PlayerInput _playerInput;
+
+    private InputAction _menuOpenCloseAction;
+    private InputAction _specialNoteAction;
+    private InputAction _superModeAction;
+
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
+        if (Instance != null)
             Destroy(gameObject);
-        }
+
+        Instance = this;
+        SetupInputActions();
     }
 
-    private void Start()
+
+    private void SetupInputActions()
     {
-        UpdateKeybindMap();
+        var actions = _playerInput.actions;
+
+        _menuOpenCloseAction = actions["MenuOpenClose"];
+        _specialNoteAction = actions["SpecialNote"];
+        _superModeAction = actions["SuperMode"];
+
+        _menuOpenCloseAction.performed += OnMenuKeyPressed;
+        _superModeAction.performed += OnSuperScorePressed;
+        _specialNoteAction.performed += OnSpecialNotePressed;
+
+        actions["Lane1"].performed += OnLane1Pressed;
+        actions["Lane2"].performed += OnLane2Pressed;
+        actions["Lane3"].performed += OnLane3Pressed;
+        actions["Lane4"].performed += OnLane4Pressed;
     }
 
-    private void Update()
+    private void OnMenuKeyPressed(InputAction.CallbackContext ctx)
     {
-        if (!IsInGameScene() || SongManager.Instance == null || !SongManager.Instance.IsGameRunning())
+        OnMenuKeybindPressed?.Invoke();
+    }
+
+    private void OnSuperScorePressed(InputAction.CallbackContext ctx)
+    {
+        OnSuperScoreKeybindPressed?.Invoke();
+    }
+
+    private void OnSpecialNotePressed(InputAction.CallbackContext ctx)
+    {
+        HandleSpecialNote();
+    }
+
+    private void OnLane1Pressed(InputAction.CallbackContext ctx) => HandleLaneKeyPress(0);
+    private void OnLane2Pressed(InputAction.CallbackContext ctx) => HandleLaneKeyPress(1);
+    private void OnLane3Pressed(InputAction.CallbackContext ctx) => HandleLaneKeyPress(2);
+    private void OnLane4Pressed(InputAction.CallbackContext ctx) => HandleLaneKeyPress(3);
+
+    private void HandleLaneKeyPress(int laneIndex)
+    {
+        if (SongManager.Instance == null || !SongManager.Instance.IsGameRunning())
             return;
 
+        if (laneIndex < 0 || laneIndex > laneList.Count)
+            return;
+
+        Lane lane = laneList[laneIndex];
         double currentTime = SongManager.Instance.GetAudioSourceTime();
         double hitWindow = 0.15f;
 
-        // Lógica de lanes
-        foreach (var kvp in KeybindMap)
+        Queue<Note> queue = lane.GetNoteQueue();
+
+        if (queue.Count == 0)
         {
-            if (Input.GetKeyDown(kvp.Key))
-            {
-                Lane lane = kvp.Value;
-                Queue<Note> queue = lane.GetNoteQueue();
-
-                if (queue.Count == 0)
-                {
-                    lane.WrongPressMiss();
-                    return;
-                }
-
-                Note note = queue.Peek();
-
-                if (note.hasBeenProcessed)
-                    return;
-
-                double noteTime = note.assignedTime;
-                double timeDiff = currentTime - noteTime;
-
-                if (timeDiff >= -hitWindow && timeDiff <= hitWindow && !note.isSpecialNote)
-                {
-                    bool superActive = ScoreManager.Instance.IsSuperActive();
-                    ScoreManager.Instance.RegisterHit(isSpecial: false, isSuperScoreActive: superActive);
-                    lane.HandleHit(note);
-                }
-                else if (timeDiff > hitWindow)
-                {
-                    lane.Miss();
-                    lane.HandleMiss(note);
-                }
-                else if (timeDiff < -hitWindow)
-                {
-                    lane.WrongPressMiss();
-                }
-                else if (timeDiff >= -hitWindow && timeDiff <= hitWindow && note.isSpecialNote)
-                {
-                    lane.SuperMiss();
-                }
-            }
-        }
-
-        // Special Note
-        if (Input.GetKeyDown(specialNoteKeybind))
-        {
-            bool foundValidSpecialNote = false;
-
-            foreach (var lane in laneList)
-            {
-                Queue<Note> queue = lane.GetNoteQueue();
-
-                if (queue.Count == 0)
-                    continue;
-
-                Note note = queue.Peek();
-
-                if (note.hasBeenProcessed || !note.isSpecialNote)
-                    continue;
-
-                double noteTime = note.assignedTime;
-                double timeDiff = currentTime - noteTime;
-
-                if (timeDiff >= -hitWindow && timeDiff <= hitWindow)
-                {
-                    lane.SuperHit();
-                    lane.HandleHit(note);
-                    foundValidSpecialNote = true;
-                    return;
-                }
-                else if (timeDiff > hitWindow)
-                {
-                    lane.SuperMiss();
-                    lane.HandleMiss(note);
-                    foundValidSpecialNote = true;
-                    break;
-                }
-            }
-
-            if (!foundValidSpecialNote)
-            {
-                ScoreManager.WrongPressMiss();
-            }
-        }
-
-        // Abrir Menu
-        if (Input.GetKeyDown(inGameMenuKeybind))
-            OnMenuKeybindPressed?.Invoke();
-
-        // Super Score
-        if (Input.GetKeyDown(superScoreKeybind))
-            OnSuperScoreKeybindPressed?.Invoke();
-    }
-
-    /// <summary>
-    /// Atualiza o mapeamento de teclas usando o KeybindManager.
-    /// </summary>
-    public void UpdateKeybindMap()
-    {
-        KeybindMap.Clear();
-
-        string[] actions = { "Lane1", "Lane2", "Lane3", "Lane4" };
-
-        if (laneList.Count != actions.Length)
-        {
-            Debug.LogError("Erro: O número de lanes precisa ser igual ao número de ações definidas!");
+            lane.WrongPressMiss();
             return;
         }
 
-        for (int i = 0; i < laneList.Count; i++)
-        {
-            KeyCode key = KeybindManager.Instance.GetKey(actions[i]);
+        Note note = queue.Peek();
 
-            if (!KeybindMap.ContainsKey(key))
-                KeybindMap.Add(key, laneList[i]);
-            else
-                Debug.LogWarning($"Tecla {key} já está sendo usada por outra lane.");
-        }
-
-        // Pega também as teclas de funções especiais
-        specialNoteKeybind = KeybindManager.Instance.GetKey("Special");
-        inGameMenuKeybind = KeybindManager.Instance.GetKey("Menu");
-        superScoreKeybind = KeybindManager.Instance.GetKey("SuperScore");
-
-        // Fallback se não encontrar
-        if (specialNoteKeybind == KeyCode.None) specialNoteKeybind = KeyCode.R;
-        if (inGameMenuKeybind == KeyCode.None) inGameMenuKeybind = KeyCode.Escape;
-        if (superScoreKeybind == KeyCode.None) superScoreKeybind = KeyCode.T;
-    }
-
-    /// <summary>
-    /// Valida se a quantidade de lanes e keybinds estão corretas.
-    /// </summary>
-    [ContextMenu("Validar Keybinds e Lanes")]
-    private void ValidateKeybinds()
-    {
-        if (laneList.Count == 0)
-        {
-            Debug.LogWarning("Aviso: Lista de lanes está vazia.");
+        if (note.hasBeenProcessed)
             return;
-        }
 
-        if (laneList.Count != 4)
+        double timeDiff = currentTime - note.assignedTime;
+
+        if (timeDiff >= -hitWindow && timeDiff <= hitWindow && !note.isSpecialNote)
         {
-            Debug.LogWarning($"Aviso: Quantidade incorreta de lanes. Esperado: 4, Atual: {laneList.Count}");
+            bool superActive = ScoreManager.Instance.IsSuperActive();
+            ScoreManager.Instance.RegisterHit(false, superActive);
+            lane.HandleHit(note);
         }
-        else
+        else if (timeDiff > hitWindow)
         {
-            Debug.Log($"Validação OK - {laneList.Count} lanes.");
+            lane.Miss();
+            lane.HandleMiss(note);
+        }
+        else if (timeDiff < -hitWindow)
+        {
+            lane.WrongPressMiss();
+        }
+        else if (timeDiff >= -hitWindow && timeDiff <= hitWindow && note.isSpecialNote)
+        {
+            lane.SuperMiss();
         }
     }
 
-    /// <summary>
-    /// Verifica se está em uma cena de gameplay.
-    /// </summary>
-    /// <returns>True se estiver em gameplay, False se estiver no menu.</returns>
-    private bool IsInGameScene()
+    private void HandleSpecialNote()
     {
-        return FindObjectOfType<GameSessionMarker>() != null;
+        double currentTime = SongManager.Instance.GetAudioSourceTime();
+        double hitWindow = 0.15f;
+
+        bool foundValidSpecialNote = false;
+
+        foreach (var lane in laneList)
+        {
+            Queue<Note> queue = lane.GetNoteQueue();
+
+            if (queue.Count == 0)
+                continue;
+
+            Note note = queue.Peek();
+
+            if (note.hasBeenProcessed || !note.isSpecialNote)
+                continue;
+
+            double timeDiff = currentTime - note.assignedTime;
+
+            if (timeDiff >= -hitWindow && timeDiff <= hitWindow)
+            {
+                lane.SuperHit();
+                lane.HandleHit(note);
+                foundValidSpecialNote = true;
+                return;
+            }
+            else if (timeDiff > hitWindow)
+            {
+                lane.SuperMiss();
+                lane.HandleMiss(note);
+                foundValidSpecialNote = true;
+                break;
+            }
+        }
+
+        if (!foundValidSpecialNote)
+        {
+            ScoreManager.WrongPressMiss();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_menuOpenCloseAction != null)
+            _menuOpenCloseAction.performed -= OnMenuKeyPressed;
+
+        if (_superModeAction != null)
+            _superModeAction.performed -= OnSuperScorePressed;
+
+        if (_specialNoteAction != null)
+            _specialNoteAction.performed -= OnSpecialNotePressed;
+
+        var actions = _playerInput.actions;
+
+        if (actions != null)
+        {
+            actions["Lane1"].performed -= OnLane1Pressed;
+            actions["Lane2"].performed -= OnLane2Pressed;
+            actions["Lane3"].performed -= OnLane3Pressed;
+            actions["Lane4"].performed -= OnLane4Pressed;
+        }
     }
 }

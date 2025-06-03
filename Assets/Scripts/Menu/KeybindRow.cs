@@ -3,6 +3,7 @@ using TMPro;
 
 public class KeybindRow : MonoBehaviour
 {
+    /*
     public TMP_Text actionText;
     public TMP_Text keyText;
 
@@ -39,4 +40,5 @@ public class KeybindRow : MonoBehaviour
     {
         keyText.text = KeybindManager.Instance.GetKey(actionName).ToString();
     }
+    */
 }

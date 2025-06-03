@@ -428,50 +428,6 @@ Transform:
   - {fileID: 207377089}
   m_Father: {fileID: 1451840420}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &74348962
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 74348964}
-  - component: {fileID: 74348963}
-  m_Layer: 0
-  m_Name: ProInputFuncionarCuidado
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &74348963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74348962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7536e7b93c49c542b66606a6bf0a46a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &74348964
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 74348962}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -180.62433, y: -260.48026, z: 611.6857}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &76428439
 GameObject:
   m_ObjectHideFlags: 0
@@ -2939,6 +2895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 776547958}
   - component: {fileID: 776547959}
+  - component: {fileID: 776547960}
   m_Layer: 0
   m_Name: Input Manager
   m_TagString: Untagged
@@ -2973,14 +2930,110 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5501b5229d4332340bfe31dacf77e925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  specialNoteKeybind: 114
-  inGameMenuKeybind: 27
-  superScoreKeybind: 116
   laneList:
   - {fileID: 1510237870}
   - {fileID: 605393493}
   - {fileID: 649047147}
   - {fileID: 312165723}
+  _playerInput: {fileID: 776547960}
+--- !u!114 &776547960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 776547957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7607c7b6-cd76-4816-beef-bd0341cfe950
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15cef263-9014-4fd5-94d9-4e4a6234a6ef
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
+    m_ActionName: 'UI/Point[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
+    m_ActionName: 'UI/Click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 44b200b1-1557-4083-816c-b22cbdf77ddf
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dad70c86-b58c-4b17-88ad-f5e53adf419e
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0489e84a-4833-4c40-bfae-cea84b696689
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 24908448-c609-4bc3-a128-ea258674378a
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ee22ef6-1710-4d11-8e68-c97e1f967463
+    m_ActionName: 'Gameplay/MenuOpenClose[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 139a8c0c-08e7-439d-9438-2e1bd16489d3
+    m_ActionName: 'Gameplay/SpecialNote[/Keyboard/y]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8120f9cf-f310-45d6-abdf-55714508e566
+    m_ActionName: 'Gameplay/SuperMode[/Keyboard/t]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 10314f5a-d546-4126-a749-6e8cb8d2c924
+    m_ActionName: 'Gameplay/Lane1[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7ccbc7cf-0202-4aaa-ba73-9d4b186f0cd9
+    m_ActionName: 'Gameplay/Lane2[/Keyboard/w]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 040a01f8-4762-4f40-bcc0-de35ebe381ae
+    m_ActionName: 'Gameplay/Lane3[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aa24b814-00fb-4fa9-bc22-3db844b6977a
+    m_ActionName: 'Gameplay/Lane4[/Keyboard/r]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &789351245
 GameObject:
   m_ObjectHideFlags: 0
@@ -13202,4 +13255,3 @@ SceneRoots:
   - {fileID: 1561297543}
   - {fileID: 1341378500644285339}
   - {fileID: 817257991}
-  - {fileID: 74348964}

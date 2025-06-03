@@ -4,7 +4,7 @@ using System;
 
 public class KeybindUIManager : MonoBehaviour
 {
-    public static KeybindUIManager Instance;
+    /*public static KeybindUIManager Instance;
 
     [Header("Popup")]
     public GameObject rebindPopup;
@@ -86,5 +86,5 @@ public class KeybindUIManager : MonoBehaviour
 
         // Gera as linhas atualizadas
         GenerateRows();
-    }
+    }*/
 }
