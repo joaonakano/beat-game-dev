@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bottom-Middle Lane
   m_EditorClassIdentifier: 
   noteRestriction: 9
-  darkNoteChance: 0.15
+  darkNoteChance: 0
   lightNotePrefab: {fileID: 329461441686660313, guid: 7b190e5a0c984b541932ba0fade5b317, type: 3}
   darkNotePrefab: {fileID: 329461441686660313, guid: 9f9d884d1f7d3544bab53410538fb643, type: 3}
   smallTextPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
