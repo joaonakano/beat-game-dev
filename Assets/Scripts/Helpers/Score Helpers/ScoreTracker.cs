@@ -19,6 +19,7 @@ public class ScoreTracker : MonoBehaviour
     public double Special { get; private set; } = 0.0;
     public int Misses { get; private set; } = 0;
     public int LastMilestone { get; private set; } = 0;
+    public int HighestScore { get; private set; } = 0;
 
     public event Action<int> OnMilestoneReached;
 
@@ -33,6 +34,7 @@ public class ScoreTracker : MonoBehaviour
         Misses = 0;
         Special = 0.0;
         LastMilestone = 0;
+        HighestScore = 0;
 
         specialComboRatio = 1 / (noteCount * 0.3) * 100.0;
     }
@@ -41,18 +43,23 @@ public class ScoreTracker : MonoBehaviour
     {
         Combo += isSpecial ? comboIncrement * 3 : comboIncrement;
 
+        if (Combo >= HighestScore)
+        {
+            HighestScore = Combo;
+        }
+
         double boost = isSpecial ? specialComboRatio * 1.5 : specialComboRatio;
 
         Special += boost;
         Special = Math.Clamp(Special, 0.0, 100.0);
-
         CheckMilestone();
     }
 
     public void RegisterMiss(bool isSpecial = false)
     {
         Combo = 0;
-        Misses += isSpecial ? 2 : 1;
+        //Misses += isSpecial ? 2 : 1;
+        Misses += 1;
 
         Special = 0.0;
     }
@@ -81,6 +88,7 @@ public class ScoreTracker : MonoBehaviour
             LastMilestone += milestoneStep;
             OnMilestoneReached?.Invoke(LastMilestone);
         }
+        Debug.Log("Milestone: " + LastMilestone + " - Highest Score: " + HighestScore);
     }
 
 
