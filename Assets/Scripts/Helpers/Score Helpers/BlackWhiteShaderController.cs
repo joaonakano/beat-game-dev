@@ -39,7 +39,5 @@ public class BlackWhiteShaderController : MonoBehaviour
         grayscaleLevel = CalculateLevelFromHealth(currentHealth, maxHealth);
 
         ChangeGrayscaleLevelTo(grayscaleLevel);
-
-        Debug.Log("Grayscale Level is: " + grayscaleLevel);
     }
 }

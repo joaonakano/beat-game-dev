@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,6 +6,10 @@ public class GameMatchEndManager : MonoBehaviour
 {
     [Header("Painel de Match End")]
     public GameObject endMatchPanel;
+
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text missText;
+    [SerializeField] private TMP_Text lastMilestoneText;
 
     private void Start()
     {
@@ -24,6 +29,9 @@ public class GameMatchEndManager : MonoBehaviour
 
     void ShowEndGameOverlay()
     {
+        scoreText.text = ScoreTracker.Instance.HighestScore.ToString();
+        missText.text = ScoreTracker.Instance.Misses.ToString();
+        lastMilestoneText.text = ScoreTracker.Instance.LastMilestone.ToString();
         endMatchPanel.SetActive(true);
     }
 
