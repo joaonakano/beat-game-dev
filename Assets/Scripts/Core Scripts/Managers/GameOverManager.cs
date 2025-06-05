@@ -32,7 +32,8 @@ public class GameOverManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         ingameCameraHolder.SetActive(false);
         gameOverCameraHolder.SetActive(true);
-}
+        InputManager.Instance.SetGameOverPanelState(true);
+    }
 
     // Botão de Retry
     public void Retry()
