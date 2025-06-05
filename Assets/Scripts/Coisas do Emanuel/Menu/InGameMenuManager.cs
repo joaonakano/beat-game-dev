@@ -115,18 +115,21 @@ public class InGameMenuManager : MonoBehaviour
     // Submenus dentro do Settings
     public void OpenGraphics()
     {
+        settingsMenuInGame.SetActive(false);  // <-- Desativa o MenuOptions
         HideSubSettings();
         graphicsPanel.SetActive(true);
     }
 
     public void OpenAudio()
     {
+        settingsMenuInGame.SetActive(false);  // <-- Desativa o MenuOptions
         HideSubSettings();
         audioPanel.SetActive(true);
     }
 
     public void OpenControls()
     {
+        settingsMenuInGame.SetActive(false);  // <-- Desativa o MenuOptions
         HideSubSettings();
         controlsPanel.SetActive(true);
     }
@@ -134,6 +137,7 @@ public class InGameMenuManager : MonoBehaviour
     public void BackToSettingsMenu()
     {
         HideSubSettings();
+        settingsMenuInGame.SetActive(true);   // <-- Volta pro MenuOptions
     }
 
     // Esconde todos os submenus de configuração

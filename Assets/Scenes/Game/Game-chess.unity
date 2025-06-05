@@ -2015,8 +2015,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 231771293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.33333316}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.33333424}
+  m_AnchorMax: {x: 1, y: 0.99999356}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4710,7 +4710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0.0043898947}
   m_SizeDelta: {x: -183, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &391630807
@@ -5202,7 +5202,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 429253462}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -6307,7 +6307,7 @@ GameObject:
   - component: {fileID: 529976188}
   - component: {fileID: 529976187}
   m_Layer: 5
-  m_Name: MenuOptions-D
+  m_Name: MenuOptions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6322,7 +6322,7 @@ RectTransform:
   m_GameObject: {fileID: 529976185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.09, y: 2.09, z: 2.09}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 480877504}
@@ -6330,7 +6330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 264, y: 60}
+  m_AnchoredPosition: {x: 775, y: 136}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &529976187
@@ -7948,8 +7948,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 194526801}
   m_HandleRect: {fileID: 194526800}
   m_Direction: 2
-  m_Value: 0.9999994
-  m_Size: 0.6666666
+  m_Value: 0.99998075
+  m_Size: 0.66665936
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10387,7 +10387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Voltar
+  m_text: Return
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9767e10474052f458f689b0e565cedc, type: 2}
   m_sharedMaterial: {fileID: 5958986086964753279, guid: c9767e10474052f458f689b0e565cedc, type: 2}
@@ -11189,7 +11189,7 @@ GameObject:
   - component: {fileID: 834077779}
   - component: {fileID: 834077778}
   m_Layer: 5
-  m_Name: MenuGraphics-D
+  m_Name: MenuGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11204,7 +11204,7 @@ RectTransform:
   m_GameObject: {fileID: 834077776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.26, y: 2.26, z: 2.26}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 587422362}
@@ -11212,7 +11212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 146, y: -21}
+  m_AnchoredPosition: {x: 569, y: -21}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &834077778
@@ -11297,7 +11297,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 529976186}
   - {fileID: 834077777}
@@ -14443,7 +14443,7 @@ GameObject:
   - component: {fileID: 1032578706}
   - component: {fileID: 1032578705}
   m_Layer: 5
-  m_Name: MenuControls-D
+  m_Name: MenuControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14458,7 +14458,7 @@ RectTransform:
   m_GameObject: {fileID: 1032578703}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.71, y: 0.71, z: 0.71}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1600292452}
@@ -14469,8 +14469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -112, y: 4}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -54, y: 4}
+  m_SizeDelta: {x: -880.4, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1032578705
 MonoBehaviour:
@@ -17728,7 +17728,7 @@ GameObject:
   - component: {fileID: 1239691980}
   - component: {fileID: 1239691979}
   m_Layer: 5
-  m_Name: MenuMusicSFX-D
+  m_Name: MenuMusicSFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17781,7 +17781,7 @@ RectTransform:
   m_GameObject: {fileID: 1239691978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 2.25, y: 2.25, z: 2.25}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1703526282}
@@ -17789,8 +17789,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -112, y: -45}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -5, y: -54}
+  m_SizeDelta: {x: 0, y: 17.49002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1274037722
 GameObject:
@@ -20471,7 +20471,7 @@ GameObject:
   - component: {fileID: 1493331877}
   - component: {fileID: 1493331876}
   m_Layer: 5
-  m_Name: MenuControls-D
+  m_Name: MenuControls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
