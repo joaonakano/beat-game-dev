@@ -6,8 +6,9 @@ public class GameOverManager : MonoBehaviour
     [Header("Painel de Game Over")]
     public GameObject gameOverPanel;
 
-    public GameObject ingameCameraHolder;
-    public GameObject gameOverCameraHolder;
+    [SerializeField] private GameObject ingameCameraHolder;
+    [SerializeField] private GameObject gameOverCameraHolder;
+    [SerializeField] private GameObject gameOverMapObject;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class GameOverManager : MonoBehaviour
         gameOverPanel.SetActive(false);
         ingameCameraHolder.SetActive(true);
         gameOverCameraHolder.SetActive(false);
+        gameOverMapObject.SetActive(false);
 
         // Se inscreve no evento de vida zerada
         HealthManager.Instance.OnHealthDepleted += ShowGameOver;
@@ -29,6 +31,7 @@ public class GameOverManager : MonoBehaviour
 
     void ShowGameOver()
     {
+        gameOverMapObject.SetActive(true);
         gameOverPanel.SetActive(true);
         ingameCameraHolder.SetActive(false);
         gameOverCameraHolder.SetActive(true);

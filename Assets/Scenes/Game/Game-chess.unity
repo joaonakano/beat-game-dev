@@ -2137,6 +2137,7 @@ MonoBehaviour:
   gameOverPanel: {fileID: 262561967}
   ingameCameraHolder: {fileID: 96167172}
   gameOverCameraHolder: {fileID: 1921602495}
+  gameOverMapObject: {fileID: 1092326318}
 --- !u!1 &212873354
 GameObject:
   m_ObjectHideFlags: 0
@@ -15111,6 +15112,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082679258}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1092326318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4390956214499640202, guid: 7ee954d9f479a354b90456961aba5fa7, type: 3}
+  m_PrefabInstance: {fileID: 2034132888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1095866325 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4e4072e62b016e348a2702d2edd5883f, type: 3}
@@ -18948,6 +18954,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 3addb31a461e8c9459032d0edb498f19, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3addb31a461e8c9459032d0edb498f19, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1039935220706738864, guid: 3addb31a461e8c9459032d0edb498f19, type: 3}
       propertyPath: m_Layer
@@ -28421,6 +28431,10 @@ PrefabInstance:
     - target: {fileID: 4390956214499640202, guid: 7ee954d9f479a354b90456961aba5fa7, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390956214499640202, guid: 7ee954d9f479a354b90456961aba5fa7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4485180428045681372, guid: 7ee954d9f479a354b90456961aba5fa7, type: 3}
       propertyPath: m_Layer
