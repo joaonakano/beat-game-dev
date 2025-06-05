@@ -33,6 +33,7 @@ public class GameMatchEndManager : MonoBehaviour
         missText.text = ScoreTracker.Instance.Misses.ToString();
         lastMilestoneText.text = ScoreTracker.Instance.LastMilestone.ToString();
         endMatchPanel.SetActive(true);
+        InputManager.Instance.SetEndMatchPanelState(true);
     }
 
     // Botão de Retry

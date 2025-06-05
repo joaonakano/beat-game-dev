@@ -26,6 +26,9 @@ public class InputManager : MonoBehaviour
     private InputAction _specialNoteAction;
     private InputAction _superModeAction;
 
+    private bool isGameOverPanelActive = false;
+    private bool isEndMatchPanelActive = false;
+
     private void Awake()
     {
         if (Instance != null)
@@ -35,6 +38,15 @@ public class InputManager : MonoBehaviour
         SetupInputActions();
     }
 
+    public void SetGameOverPanelState(bool active)
+    {
+        isGameOverPanelActive = active;
+    }
+
+    public void SetEndMatchPanelState(bool active)
+    {
+        isEndMatchPanelActive = active;
+    }
 
     private void SetupInputActions()
     {
@@ -56,6 +68,9 @@ public class InputManager : MonoBehaviour
 
     private void OnMenuKeyPressed(InputAction.CallbackContext ctx)
     {
+        if (isGameOverPanelActive || isEndMatchPanelActive)
+            return;
+
         OnMenuKeybindPressed?.Invoke();
     }
 
@@ -124,6 +139,9 @@ public class InputManager : MonoBehaviour
 
     private void HandleSpecialNote()
     {
+        if (SongManager.Instance == null || !SongManager.Instance.IsGameRunning())
+            return;
+
         double currentTime = SongManager.Instance.GetAudioSourceTime();
         double hitWindow = 0.15f;
 

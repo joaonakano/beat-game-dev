@@ -5229,7 +5229,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: 5005eb24-5e18-4d37-b99a-d111b9f95472
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &781352234
@@ -6545,13 +6545,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f192b9ca63b344aa74a3d5678a96a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  midiFileName: notes-chess
-  songFileName: chess-src
+  midiFileName: just-one-of-those-days
+  songFileName: just-one-of-those-days
   songAudioSourceTag: song
   song: {fileID: 0}
   songAudioSource: {fileID: 0}
-  roundStartSFX: {fileID: 8300000, guid: cf4eae70393ab284b92b76080bd42d89, type: 3}
-  roundStartSFXDurationSeconds: 9
+  roundStartSFX: {fileID: 8300000, guid: 7629a2331e5972943b3357380cc19f3e, type: 3}
+  roundStartSFXDurationSeconds: 5
   marginOfError: 0.07
   inputDelayInMilliseconds: 0
   noteTime: 1
@@ -13734,7 +13734,7 @@ MonoBehaviour:
   healthText: {fileID: 1142830966}
   milestoneSFX: {fileID: 8300000, guid: 8519133778a61344290d581672ff0d02, type: 3}
   superReadySFX: {fileID: 8300000, guid: 4e6b9351d580ac547b61b9ccef7b7555, type: 3}
-  endSFX: {fileID: 8300000, guid: 0e405f455b8f27249a5691fc8bfdc617, type: 3}
+  endSFX: {fileID: 8300000, guid: ed9cbe980aca856498ca4ef49f3e26c9, type: 3}
   superActiveSFX: {fileID: 8300000, guid: 44c7e04d38f13e145811528ea3128070, type: 3}
   loseSFX:
   - {fileID: 8300000, guid: 6658b9567a98d2e469d20940ad61327c, type: 3}
