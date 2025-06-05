@@ -3,11 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class InGameMenuManager : MonoBehaviour
 {
-    [Header("Canva com o Menu In-Game")] 
-    public GameObject backgroundScreen;
+    [Header("Elementos de UI")] 
+    [SerializeField] private GameObject menuCanvas;
 
-    [SerializeField]
-    private bool isMenuBeingShown = false;
+    [Header("Config")]
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
+    [SerializeField] private int rollbackSamples = 100000;
+
+    private bool isMenuOpen = false;
 
     void Start()
     {
@@ -18,95 +21,69 @@ public class InGameMenuManager : MonoBehaviour
         }
 
         // Armazena no Evento do InputManager a função que exibe ou esconde o Menu
-        InputManager.Instance.OnMenuKeybindPressed += SetMenuState;
+        InputManager.Instance.OnMenuKeybindPressed += ToggleMenu;
+        HideMenu();
     }
 
-    /// <summary>
-    /// Função que altera o estado do MENU: exibir ou esconder? Eis a questão.
-    /// </summary>
-    public void SetMenuState()
+    void OnDisable()
     {
-        if (isMenuBeingShown)
-        {
-            HideMenu();
-            Debug.Log("HIDING THE MENU");
-        }
+        if (InputManager.Instance != null)
+            InputManager.Instance.OnMenuKeybindPressed -= ToggleMenu;
+    }
+
+    public void ToggleMenu()
+    {
+        if (isMenuOpen)
+            ResumeGame();
         else
+            PauseGame();
+    }
+
+    public void PauseGame()
+    {
+        isMenuOpen = true;
+        menuCanvas.SetActive(true);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.Pause("song");
+
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        isMenuOpen = false;
+        menuCanvas.SetActive(false);
+
+        if (SongManager.Instance?.songAudioSource != null)
         {
-            ShowMenu();
-            Debug.Log("SHOWING THE MENU");
+            int newSample = Mathf.Max(SongManager.Instance.songAudioSource.timeSamples - rollbackSamples, 0);
+            SongManager.Instance.songAudioSource.timeSamples = newSample;
         }
 
-        isMenuBeingShown = !isMenuBeingShown;
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.Unpause("song");
+
+        Time.timeScale = 1f;
     }
 
-    /// <summary>
-    /// Método que esconde o Menu para o jogador e retoma a partida.
-    /// </summary>
-    public void HideMenu()
+    public void RestartGame()
     {
-        backgroundScreen.SetActive(false);
-        ResumeMatch();
-    }
-
-    /// <summary>
-    /// Método que exibe o Menu para o jogador e pausa a partida.
-    /// </summary>
-    public void ShowMenu()
-    {
-        backgroundScreen.SetActive(true);
-        AudioManager.Instance.Pause("song");
-    }
-
-    /// <summary>
-    /// Método responsável por REINICIAR a partida.
-    /// Carrega a cena definida para o jogo.
-    /// </summary>
-    public void RestartMatch()
-    {
+        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
-    /// <summary>
-    /// Método responsável por CONTINUAR a partida.
-    /// Define a música alguns TIMESAMPLES antes, assim a música volta alguns segundos e inicia novamente.
-    /// </summary>
-    public void ResumeMatch()
+    public void ReturnToMainMenu()
     {
-        int playbackRollbackInSeconds = SongManager.Instance.songAudioSource.timeSamples - 100000;
-        SongManager.Instance.songAudioSource.timeSamples = playbackRollbackInSeconds;
-        AudioManager.Instance.Unpause("song");
+        Time.timeScale = 1f;
+        SceneManager.LoadSceneAsync(mainMenuSceneName);
     }
 
-    /// <summary>
-    /// Método responsável por voltar ao MENU PRINCIPAL a partir do MENU DO JOGO.
-    /// Carrega a Cena definida "MainMenu".
-    /// </summary>
-    public void SwitchToMainMenu()
-    {
-        SceneManager.LoadSceneAsync("MainMenu");
-    }
+    public void GoToOptions() { Debug.Log("Configurações não foram configuradas ainda"); }
 
-    /// <summary>
-    /// Método responsável por entrar na aba CONFIGURAÇÕES dentro do Menu.
-    /// </summary>
-    public void GoToOptions()
+    private void HideMenu()
     {
-    }
-
-    /// <summary>
-    /// Método responsável por.
-    /// </summary>
-    public void GoToAudio()
-    {
-    }
-
-    /// <summary>
-    /// Se esse InGameManager for desativado por algum motivo,
-    /// o Evento definido no InputManager é desvinculado deste Manager e fica vago para caso alguma outra função queira utilizá-lo.
-    /// </summary>
-    void OnDisable()
-    {
-        InputManager.Instance.OnMenuKeybindPressed -= SetMenuState;
+        menuCanvas.SetActive(false);
+        isMenuOpen = false;
     }
 }

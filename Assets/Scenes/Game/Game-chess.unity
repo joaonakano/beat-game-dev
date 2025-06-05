@@ -1699,7 +1699,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277081}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
         m_MethodName: SwitchToMainMenu
         m_Mode: 1
@@ -3394,8 +3394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf2888645e689b044a1039f7cbcf70fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundScreen: {fileID: 2068277080}
-  isMenuBeingShown: 0
+  menuCanvas: {fileID: 2068277080}
+  mainMenuSceneName: MainMenu
+  rollbackSamples: 100000
 --- !u!1 &657281244
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,7 +3650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &688243999
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4723,7 +4724,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277081}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
         m_MethodName: SwitchToMainMenu
         m_Mode: 1
@@ -5012,7 +5013,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277081}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
         m_MethodName: RestartMatch
         m_Mode: 1
@@ -5828,9 +5829,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277081}
-        m_TargetAssemblyTypeName: GameMenuManager, Assembly-CSharp
-        m_MethodName: RestartMatch
+      - m_Target: {fileID: 653166614}
+        m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6357,7 +6358,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1052655112
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7980,9 +7981,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277081}
-        m_TargetAssemblyTypeName: GameMenuManager, Assembly-CSharp
-        m_MethodName: SwitchToMainMenu
+      - m_Target: {fileID: 653166614}
+        m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
+        m_MethodName: ReturnToMainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9319,13 +9320,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277080}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 653166614}
+        m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
+        m_MethodName: GoToOptions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9522,7 +9523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1526946775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10707,7 +10708,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277081}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
         m_MethodName: RestartMatch
         m_Mode: 1
@@ -12233,9 +12234,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2068277081}
-        m_TargetAssemblyTypeName: GameMenuManager, Assembly-CSharp
-        m_MethodName: ResumeMatch
+      - m_Target: {fileID: 653166614}
+        m_TargetAssemblyTypeName: InGameMenuManager, Assembly-CSharp
+        m_MethodName: ResumeGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12686,9 +12687,7 @@ GameObject:
   - component: {fileID: 2068277084}
   - component: {fileID: 2068277083}
   - component: {fileID: 2068277082}
-  - component: {fileID: 2068277081}
   - component: {fileID: 2068277086}
-  - component: {fileID: 2068277087}
   - component: {fileID: 2068277089}
   - component: {fileID: 2068277088}
   m_Layer: 5
@@ -12698,20 +12697,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &2068277081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068277080}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf2888645e689b044a1039f7cbcf70fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgroundScreen: {fileID: 0}
-  isMenuBeingShown: 0
 --- !u!114 &2068277082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12835,20 +12820,6 @@ VideoPlayer:
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
---- !u!114 &2068277087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2068277080}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf2888645e689b044a1039f7cbcf70fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  backgroundScreen: {fileID: 0}
-  isMenuBeingShown: 0
 --- !u!328 &2068277088
 VideoPlayer:
   m_ObjectHideFlags: 0
