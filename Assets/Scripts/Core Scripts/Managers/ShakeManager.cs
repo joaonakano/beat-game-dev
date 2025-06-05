@@ -45,7 +45,6 @@ public class ShakeManager : MonoBehaviour
 
             SetStrengthAndRoughnessScale(shakeInstance, shakeStrength);
         }
-
     }
 
     private void SetStrengthAndRoughnessScale(ShakeInstance instance, float strength)

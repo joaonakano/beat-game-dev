@@ -6,10 +6,15 @@ public class GameOverManager : MonoBehaviour
     [Header("Painel de Game Over")]
     public GameObject gameOverPanel;
 
+    public GameObject ingameCameraHolder;
+    public GameObject gameOverCameraHolder;
+
     private void Start()
     {
         // Começa com o painel desativado
         gameOverPanel.SetActive(false);
+        ingameCameraHolder.SetActive(true);
+        gameOverCameraHolder.SetActive(false);
 
         // Se inscreve no evento de vida zerada
         HealthManager.Instance.OnHealthDepleted += ShowGameOver;
@@ -25,7 +30,9 @@ public class GameOverManager : MonoBehaviour
     void ShowGameOver()
     {
         gameOverPanel.SetActive(true);
-    }
+        ingameCameraHolder.SetActive(false);
+        gameOverCameraHolder.SetActive(true);
+}
 
     // Botão de Retry
     public void Retry()
