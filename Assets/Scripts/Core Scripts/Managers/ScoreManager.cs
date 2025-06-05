@@ -33,8 +33,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private AudioClip milestoneSFX;
     [SerializeField] private AudioClip superReadySFX;
     [SerializeField] private AudioClip endSFX;
-    [SerializeField] private AudioClip loseSFX;
     [SerializeField] private AudioClip superActiveSFX;
+    [SerializeField] private List<AudioClip> loseSFX;
     [SerializeField] private List<AudioClip> hitSFX;
     [SerializeField] private List<AudioClip> missSFX;
     [SerializeField] private List<AudioClip> wrongPressSFX;
@@ -71,6 +71,11 @@ public class ScoreManager : MonoBehaviour
         if (SongManager.Instance.HasSongEnded() && !hasPlayedEndSFX)
             EndGameSequence();
 
+        if (HealthManager.Instance.CurrentHealth == 0 && !hasPlayedEndSFX)
+        {
+            EndGameSequence(playerHasLost: true);
+        }
+
         if (!isSuperActive && scoreTracker.Special >= 100.0 && !hasPlayedSuperReadySFX)
         {
             Debug.Log("[SYSTEM ALERT] - Especial Saindo!");
@@ -90,15 +95,18 @@ public class ScoreManager : MonoBehaviour
         healthText.text = $"{healthManager.CurrentHealth:F2}%";
     }
 
-    private void EndGameSequence()
+    private void EndGameSequence(bool playerHasLost = false)
     {
-        PlaySFX(endSFX, "interaction");
+        if (playerHasLost)
+        {
+            PlayLoseSFX();
+        } 
+        else
+        {
+            PlaySFX(endSFX, "interaction");
+        }
 
         hasPlayedEndSFX = true;
-
-        if (healthManager.CurrentHealth <= 0)
-            Invoke(nameof(PlayLoseSFX), 1.5f);
-
     }
 
     private void UpdateSuperState()
@@ -197,5 +205,5 @@ public class ScoreManager : MonoBehaviour
         AudioManager.Instance.PlayOneShot(audioSource, clips[i]);
     }
 
-    private void PlayLoseSFX() => PlaySFX(loseSFX, interactionsAudioSource);
+    private void PlayLoseSFX() => PlayRandomSFX(loseSFX, interactionsAudioSource);
 }
