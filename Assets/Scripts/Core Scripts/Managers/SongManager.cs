@@ -161,7 +161,7 @@ public class SongManager : MonoBehaviour
 
     private void LoadSongAudioClip(string filename)
     {
-        string path = $"Audio/Songs/{filename}";
+        string path = $"Audio/Songs/Main/{filename}";
 
         song = Resources.Load<AudioClip>(path);
 
