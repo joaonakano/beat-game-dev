@@ -3,8 +3,14 @@ using UnityEngine.SceneManagement;
 
 public class InGameMenuManager : MonoBehaviour
 {
-    [Header("Elementos de UI")] 
+    [Header("Menus Principais")]
     [SerializeField] private GameObject menuCanvas;
+    [SerializeField] private GameObject settingsMenuInGame;
+
+    [Header("Submenus de Settings")]
+    [SerializeField] private GameObject graphicsPanel;
+    [SerializeField] private GameObject audioPanel;
+    [SerializeField] private GameObject controlsPanel;
 
     [Header("Config")]
     [SerializeField] private string mainMenuSceneName = "MainMenu";
@@ -20,9 +26,8 @@ public class InGameMenuManager : MonoBehaviour
             return;
         }
 
-        // Armazena no Evento do InputManager a função que exibe ou esconde o Menu
         InputManager.Instance.OnMenuKeybindPressed += ToggleMenu;
-        HideMenu();
+        HideAll();
     }
 
     void OnDisable()
@@ -43,6 +48,8 @@ public class InGameMenuManager : MonoBehaviour
     {
         isMenuOpen = true;
         menuCanvas.SetActive(true);
+        settingsMenuInGame.SetActive(false);
+        HideSubSettings();
 
         if (AudioManager.Instance != null)
         {
@@ -57,7 +64,10 @@ public class InGameMenuManager : MonoBehaviour
     public void ResumeGame()
     {
         isMenuOpen = false;
+
         menuCanvas.SetActive(false);
+        settingsMenuInGame.SetActive(false);
+        HideSubSettings();
 
         if (SongManager.Instance?.songAudioSource != null)
         {
@@ -87,11 +97,59 @@ public class InGameMenuManager : MonoBehaviour
         SceneManager.LoadSceneAsync(mainMenuSceneName);
     }
 
-    public void GoToOptions() { Debug.Log("Configurações não foram configuradas ainda"); }
+    // Menu Settings principal
+    public void OpenSettings()
+    {
+        settingsMenuInGame.SetActive(true);
+        menuCanvas.SetActive(false);
+        HideSubSettings();
+    }
 
-    private void HideMenu()
+    public void CloseSettings()
+    {
+        settingsMenuInGame.SetActive(false);
+        menuCanvas.SetActive(true);
+        HideSubSettings();
+    }
+
+    // Submenus dentro do Settings
+    public void OpenGraphics()
+    {
+        HideSubSettings();
+        graphicsPanel.SetActive(true);
+    }
+
+    public void OpenAudio()
+    {
+        HideSubSettings();
+        audioPanel.SetActive(true);
+    }
+
+    public void OpenControls()
+    {
+        HideSubSettings();
+        controlsPanel.SetActive(true);
+    }
+
+    public void BackToSettingsMenu()
+    {
+        HideSubSettings();
+    }
+
+    // Esconde todos os submenus de configuração
+    private void HideSubSettings()
+    {
+        graphicsPanel.SetActive(false);
+        audioPanel.SetActive(false);
+        controlsPanel.SetActive(false);
+    }
+
+    // Esconde tudo (chamado no Start)
+    private void HideAll()
     {
         menuCanvas.SetActive(false);
+        settingsMenuInGame.SetActive(false);
+        HideSubSettings();
         isMenuOpen = false;
     }
 }
