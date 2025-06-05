@@ -45,7 +45,11 @@ public class InGameMenuManager : MonoBehaviour
         menuCanvas.SetActive(true);
 
         if (AudioManager.Instance != null)
+        {
             AudioManager.Instance.Pause("song");
+            AudioManager.Instance.Pause("interaction");
+            AudioManager.Instance.Pause("voiceline");
+        }
 
         Time.timeScale = 0f;
     }
@@ -62,7 +66,11 @@ public class InGameMenuManager : MonoBehaviour
         }
 
         if (AudioManager.Instance != null)
+        {
             AudioManager.Instance.Unpause("song");
+            AudioManager.Instance.Unpause("interaction");
+            AudioManager.Instance.Unpause("voiceline");
+        }
 
         Time.timeScale = 1f;
     }
