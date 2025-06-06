@@ -592,7 +592,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Gamepad;Joystick;XR",
                     "action": "MenuOpenClose",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -603,7 +603,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Gamepad;XR;Joystick",
                     "action": "SpecialNote",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -614,7 +614,7 @@
                     "path": "<Keyboard>/t",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Joystick;Gamepad;XR",
                     "action": "SuperMode",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -625,7 +625,7 @@
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Gamepad;Joystick;XR",
                     "action": "Lane1",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -636,7 +636,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Gamepad;Joystick;XR",
                     "action": "Lane2",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -647,7 +647,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Gamepad;Joystick;XR",
                     "action": "Lane3",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -658,7 +658,7 @@
                     "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": ";Keyboard&Mouse;Gamepad;Joystick;XR",
                     "action": "Lane4",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -10725,7 +10725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   creditsText: {fileID: 2050875581}
-  scrollSpeed: 50
+  scrollSpeed: 200
   endYPosition: 2460
   creditsMenu: {fileID: 505181376}
   mainMenuGame: {fileID: 202363023}
@@ -13927,7 +13927,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a369d5e05cdb02944ae26ac0127a168e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50ecbdb9891c443438c5caca1caff8b1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -26313,7 +26313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLACEHOLDER
+  m_text: BODIES
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9767e10474052f458f689b0e565cedc, type: 2}
   m_sharedMaterial: {fileID: 5958986086964753279, guid: c9767e10474052f458f689b0e565cedc, type: 2}
@@ -33067,7 +33067,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLACEHOLDER
+  m_text: TUTORIAL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c9767e10474052f458f689b0e565cedc, type: 2}
   m_sharedMaterial: {fileID: 5958986086964753279, guid: c9767e10474052f458f689b0e565cedc, type: 2}
@@ -33961,7 +33961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a369d5e05cdb02944ae26ac0127a168e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 747a35ddd39a7e14bad944b734d985e7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -51097,10 +51097,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: "CR\xC9DITOS\r\n\r\nDIRE\xC7\xC3O GERAL\r\nBoris Philipp, Emanuel Cristo
     e Jo\xE3o Nakano\r\n\r\nDESENVOLVIMENTO\r\nJo\xE3o Nakano e Emanuel\n\nM\xDASICAS\nChess
-    Type Beat\nBrainStew - Green Day\nFaint - Linkin Park\naaa\naaa\r\n\r\nPROJETO
-    E PLANEJAMENTO\r\n\rBoris Philipp, Emanuel Cristo, Gustavo Fran\xE7a,\nGustavo
-    RIbeiro e Jo\xE3o Nakano\n\r\nCODIFICA\xC7\xC3O E TESTES\r\nBoris Philipp, Emanuel
-    Cristo e Jo\xE3o Nakano\r\n\r\nSUPORTE T\xC9CNICO\r\nChatGPT\r\n\r\nREVIS\xC3O
+    Type Beat\nBrainStew - Green Day\nFaint - Linkin Park\nBodies - Drowning Pool\nBreak
+    Stuff - Limp Bizkit\nThe Clash - Should I Stay Should I Go\r\n\r\nPROJETO E PLANEJAMENTO\r\n\rBoris
+    Philipp, Emanuel Cristo, Gustavo Fran\xE7a,\nGustavo RIbeiro e Jo\xE3o Nakano\n\r\nCODIFICA\xC7\xC3O
+    E TESTES\r\nBoris Philipp, Emanuel Cristo e Jo\xE3o Nakano\r\n\r\nSUPORTE T\xC9CNICO\r\nChatGPT\r\n\r\nREVIS\xC3O
     E APERFEI\xC7OAMENTO\r\nJo\xE3o Nakano\r\n\r\nAGRADECIMENTOS\r\nChatGPT, Gabriel
     Dalpozzo, M\xE3e do Gabriel Dalpozzo.\r\n\r\nn\xE3o tem cenas p\xF3s-cr\xE9ditos."
   m_isRightToLeft: 0
@@ -55927,9 +55927,9 @@ AudioSource:
   m_GameObject: {fileID: 6349393084750896894}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 69713028e1a8fef42bfe7706ada25309, type: 3}
-  m_Resource: {fileID: 8300000, guid: 69713028e1a8fef42bfe7706ada25309, type: 3}
+  OutputAudioMixerGroup: {fileID: 3260399628064491481, guid: d700520344305f84eb101c68dcbf89e1, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 3c51f904bf9686542b43d295bc45aebc, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3c51f904bf9686542b43d295bc45aebc, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.021
   m_Pitch: 1

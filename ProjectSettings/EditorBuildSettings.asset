@@ -14,6 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game/Game-brainstew.unity
     guid: ac84008a46dd4d147bee9f10a8e93ad7
+  - enabled: 1
+    path: Assets/Scenes/Game/Game-faint.unity
+    guid: 7420c6af1db048c418192c3b6d477e85
+  - enabled: 1
+    path: Assets/Scenes/Game/Game-tutorial.unity
+    guid: dd0949830afdbe04fb287c9708829ff6
+  - enabled: 1
+    path: Assets/Scenes/Game/Game-bodies.unity
+    guid: 62eba01927795eb43a933cd9d1c17640
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f17e134de7108498e2bf90fa17aa29, type: 3}
+  m_Name: Bottom Lane
+  m_EditorClassIdentifier: 
+  noteRestriction: 5
+  darkNoteChance: 0.2
+  lightNotePrefab: {fileID: 2057679718592447682, guid: 1be26089271a4df43b238823c82bef38, type: 3}
+  darkNotePrefab: {fileID: 2057679718592447682, guid: b552ecda8d5a70c46adc753129733eb6, type: 3}
+  smallTextPrefab: {fileID: 7837121174436097186, guid: 2d90a35b6b7465f4b9f1764ba88621ff, type: 3}
+  hitParticleEffects: {fileID: 5862650055698334116, guid: 6153fbfac3762474e85f643a8e3b98c2, type: 3}
+  hitSpecialParticleEffects: {fileID: 744024589366315954, guid: 48a2cb8f01c704f4d85669c0e40d6873, type: 3}
